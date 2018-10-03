@@ -1087,4 +1087,42 @@ describe('GatherRunner', function() {
         });
     });
   });
+
+  describe('#overrideCpuSlowdownMultiplierIfNecessary', () => {
+    it('should not touch the multiplier when device class is not set', () => {
+      const throttling = {cpuSlowdownMultiplier: 1};
+      GatherRunner.overrideCpuSlowdownMultiplierIfNecessary({throttling}, {BenchmarkIndex: 20});
+      expect(throttling).toEqual({cpuSlowdownMultiplier: 1});
+    });
+
+    it('should not touch the multiplier when device class is "none"', () => {
+      const throttling = {cpuSlowdownMultiplier: 1, cpuTargetDeviceClass: 'none'};
+      GatherRunner.overrideCpuSlowdownMultiplierIfNecessary({throttling}, {BenchmarkIndex: 20});
+      expect(throttling).toEqual({cpuSlowdownMultiplier: 1, cpuTargetDeviceClass: 'none'});
+    });
+
+    it('should adjust multiplier for fast -> medium', () => {
+      const throttling = {cpuSlowdownMultiplier: 1, cpuTargetDeviceClass: 'medium'};
+      GatherRunner.overrideCpuSlowdownMultiplierIfNecessary({throttling}, {BenchmarkIndex: 1000});
+      expect(throttling).toEqual({cpuSlowdownMultiplier: 2, cpuTargetDeviceClass: 'medium'});
+    });
+
+    it('should adjust multiplier for fast -> slow', () => {
+      const throttling = {cpuSlowdownMultiplier: 1, cpuTargetDeviceClass: 'slow'};
+      GatherRunner.overrideCpuSlowdownMultiplierIfNecessary({throttling}, {BenchmarkIndex: 1000});
+      expect(throttling).toEqual({cpuSlowdownMultiplier: 4, cpuTargetDeviceClass: 'slow'});
+    });
+
+    it('should adjust multiplier for medium -> slow', () => {
+      const throttling = {cpuSlowdownMultiplier: 1, cpuTargetDeviceClass: 'slow'};
+      GatherRunner.overrideCpuSlowdownMultiplierIfNecessary({throttling}, {BenchmarkIndex: 500});
+      expect(throttling).toEqual({cpuSlowdownMultiplier: 2, cpuTargetDeviceClass: 'slow'});
+    });
+
+    it('should adjust multiplier for slow -> fast', () => {
+      const throttling = {cpuSlowdownMultiplier: 1, cpuTargetDeviceClass: 'fast'};
+      GatherRunner.overrideCpuSlowdownMultiplierIfNecessary({throttling}, {BenchmarkIndex: 100});
+      expect(throttling).toEqual({cpuSlowdownMultiplier: 1, cpuTargetDeviceClass: 'fast'});
+    });
+  });
 });

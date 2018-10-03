@@ -2764,7 +2764,8 @@
       "requestLatencyMs": 562.5,
       "downloadThroughputKbps": 1474.5600000000002,
       "uploadThroughputKbps": 675,
-      "cpuSlowdownMultiplier": 4
+      "cpuSlowdownMultiplier": 4,
+      "cpuTargetDeviceClass": "none"
     },
     "gatherMode": false,
     "disableStorageReset": false,

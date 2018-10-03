@@ -98,6 +98,40 @@ class GatherRunner {
   }
 
   /**
+   * Overrides the cpuSlowdownMultiplier if cpuTargetBenchmarkClass is set
+   * @see https://docs.google.com/spreadsheets/d/1E0gZwKsxegudkjJl8Fki_sOwHKpqgXwt8aBAfuUaB8A/edit
+   * @param {LH.Config.Settings} settings
+   * @param {LH.BaseArtifacts} baseArtifacts
+   */
+  static overrideCpuSlowdownMultiplierIfNecessary(settings, baseArtifacts) {
+    const {cpuTargetDeviceClass = 'none'} = settings.throttling || {};
+    // If the user didn't set a desired target CPU index, don't override the multiplier, just continue
+    if (!cpuTargetDeviceClass || cpuTargetDeviceClass === 'none') return;
+
+    const multipliersByClass = {
+      'very-slow': 8, // Alcatel Ideal, ultra-budget Android phone (~$10)
+      'slow': 4, // Nexus 5X, old Android hardware (~$100)
+      'medium': 2, // Samsung S8, newish Android hardware (~$300-500)
+      'fast': 1, // iPhone X, Mac Pro, premium hardware (~$1000+)
+      'none': 0, // should never be needed, but keep tsc happy
+    };
+
+    /** @type {LH.CPUTargetDeviceClass} */
+    let observedDeviceClass = 'fast';
+    if (baseArtifacts.BenchmarkIndex < 750) observedDeviceClass = 'medium';
+    if (baseArtifacts.BenchmarkIndex < 375) observedDeviceClass = 'slow';
+    if (baseArtifacts.BenchmarkIndex < 75) observedDeviceClass = 'very-slow';
+
+    // We'll compute the new multiplier using the ratio of the target to observed device classes.
+    // multiplier * observed = target
+    // multiplier = target / observed
+    const targetSpeed = multipliersByClass[cpuTargetDeviceClass];
+    const observedSpeed = multipliersByClass[observedDeviceClass];
+    // Multipliers <1 are not supported in DevTools, so clamp it here
+    settings.throttling.cpuSlowdownMultiplier = Math.max(1, targetSpeed / observedSpeed);
+  }
+
+  /**
    * @param {Driver} driver
    * @param {{requestedUrl: string, settings: LH.Config.Settings}} options
    * @return {Promise<void>}
@@ -392,6 +426,7 @@ class GatherRunner {
       const baseArtifacts = await GatherRunner.getBaseArtifacts(options);
       await GatherRunner.loadBlank(driver);
       baseArtifacts.BenchmarkIndex = await options.driver.getBenchmarkIndex();
+      GatherRunner.overrideCpuSlowdownMultiplierIfNecessary(options.settings, baseArtifacts);
       await GatherRunner.setupDriver(driver, options);
 
       // Run each pass

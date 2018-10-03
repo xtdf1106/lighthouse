@@ -67,7 +67,11 @@ declare global {
       uploadThroughputKbps?: number;
       // used by both
       cpuSlowdownMultiplier?: number
+      /** If cpuTargetDeviceClass is set and not 'none', cpuSlowdownMultiplier will be ignored and calculated automatically based on the BenchmarkIndex. */
+      cpuTargetDeviceClass?: CPUTargetDeviceClass
     }
+
+    export type CPUTargetDeviceClass = 'fast'|'medium'|'slow'|'very-slow'|'none'
 
     export type Locale = 'en-US'|'en'|'en-AU'|'en-GB'|'en-IE'|'en-SG'|'en-ZA'|'en-IN'|'ar-XB'|'ar'|'bg'|'bs'|'ca'|'cs'|'da'|'de'|'el'|'en-XA'|'es'|'fi'|'fil'|'fr'|'he'|'hi'|'hr'|'hu'|'gsw'|'id'|'in'|'it'|'iw'|'ja'|'ko'|'ln'|'lt'|'lv'|'mo'|'nl'|'nb'|'no'|'pl'|'pt'|'pt-PT'|'ro'|'ru'|'sk'|'sl'|'sr'|'sr-Latn'|'sv'|'ta'|'te'|'th'|'tl'|'tr'|'uk'|'vi'|'zh'|'zh-HK'|'zh-TW';
 
