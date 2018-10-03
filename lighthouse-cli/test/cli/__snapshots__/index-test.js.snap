@@ -1185,6 +1185,7 @@ Object {
     "skipAudits": null,
     "throttling": Object {
       "cpuSlowdownMultiplier": 4,
+      "cpuTargetDeviceClass": "none",
       "downloadThroughputKbps": 1474.5600000000002,
       "requestLatencyMs": 562.5,
       "rttMs": 150,
@@ -1306,6 +1307,7 @@ Object {
     "skipAudits": null,
     "throttling": Object {
       "cpuSlowdownMultiplier": 4,
+      "cpuTargetDeviceClass": "none",
       "downloadThroughputKbps": 1474.5600000000002,
       "requestLatencyMs": 562.5,
       "rttMs": 150,
