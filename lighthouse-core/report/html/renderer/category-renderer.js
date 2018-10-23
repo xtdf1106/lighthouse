@@ -268,7 +268,7 @@ class CategoryRenderer {
    * @return {boolean}
    */
   _auditsHaveWarnings(audits) {
-    return audits.some(group => Boolean(group.result.warnings && group.result.warnings.length));
+    return audits.some(audit => Boolean(audit.result.warnings && audit.result.warnings.length));
   }
 
   /**
@@ -328,7 +328,7 @@ class CategoryRenderer {
     const nonManualAudits = auditRefs.filter(audit => !manualAudits.includes(audit));
 
     /** @type {Object<string, AuditsByState>} */
-    const auditsKeyedByState = {};
+    const passStatesByGroupId = {};
 
     /** @type {AuditsByState} */
     const auditsUngrouped = {passed: [], failed: [], notApplicable: []};
@@ -339,11 +339,11 @@ class CategoryRenderer {
       if (auditRef.group) {
         const groupId = auditRef.group;
 
-        if (auditsKeyedByState[groupId]) {
-          group = auditsKeyedByState[groupId];
+        if (passStatesByGroupId[groupId]) {
+          group = passStatesByGroupId[groupId];
         } else {
           group = {passed: [], failed: [], notApplicable: []};
-          auditsKeyedByState[groupId] = group;
+          passStatesByGroupId[groupId] = group;
         }
       } else {
         group = auditsUngrouped;
@@ -369,11 +369,11 @@ class CategoryRenderer {
     auditsUngrouped.notApplicable.forEach((audit, i) => notApplicableElements.push(
         this.renderAudit(audit, i)));
 
-    Object.keys(auditsKeyedByState).forEach(groupId => {
+    Object.keys(passStatesByGroupId).forEach(groupId => {
       if (!groupDefinitions) return; // We never reach here if there aren't groups, but TSC needs convincing
 
       const group = groupDefinitions[groupId];
-      const groups = auditsKeyedByState[groupId];
+      const groups = passStatesByGroupId[groupId];
 
       if (groups.failed.length) {
         const auditGroupElem = this.renderAuditGroup(group, {expandable: false});
