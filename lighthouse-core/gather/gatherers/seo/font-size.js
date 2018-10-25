@@ -259,19 +259,36 @@ class FontSize extends Gatherer {
       passContext.driver.sendCommand('CSS.enable'),
     ]);
 
+    // We need to find all TextNodes that do not have legible text. DOMSnapshot.captureSnapshot is the
+    // fastest way to get the computed styles of every Node. Bonus, it allows for whitelisting properties.
+    // Once a bad TextNode is identified, its parent Node is needed. DOMSnapshot.captureSnapshot doesn't
+    // give the entire Node object, so DOM.getFlattenedDocument is used. The only connection between a snapshot
+    // Node and an actual Protocol Node is backendId, so that is used to join the two data structures.
     const snapshot = await passContext.driver.sendCommand('DOMSnapshot.captureSnapshot', {
       computedStyles: ['font-size'],
     });
+    
+    // Makes the strings access code easier to read.
     /** @param {number} index */
     const lookup = (index) => snapshot.strings[index];
+    
+    // Locate the document under analysis.
     // TODO: this needs to use frameId
     const doc = snapshot.documents.find(doc => lookup(doc.documentURL) === passContext.url);
+
+    // doc is a flattened property list describing all the Nodes in a document, with all string values
+    // deduped in a strings array.
+    // Implementation:
+    // https://cs.chromium.org/chromium/src/third_party/blink/renderer/core/inspector/inspector_dom_snapshot_agent.cc?sq=package:chromium&g=0&l=534
 
     if (!doc || !doc.nodes.nodeType || !doc.nodes.nodeName || !doc.nodes.backendNodeId
       || !doc.nodes.nodeValue || !doc.nodes.parentIndex) {
       throw new Error('Unexpected response from DOMSnapshot.captureSnapshot.');
     }
 
+    // Not all nodes have computed styles (ex: TextNodes), so doc.layout.* is smaller than doc.nodes.*
+    // doc.layout.nodeIndex maps the index into doc.nodes.* to an index into doc.layout.styles.
+    // nodeIndexToStyleIndex inverses that mapping.
     /** @type {Map<number, number>} */
     const nodeIndexToStyleIndex = new Map();
     for (let i = 0; i < doc.layout.nodeIndex.length; i++) {
