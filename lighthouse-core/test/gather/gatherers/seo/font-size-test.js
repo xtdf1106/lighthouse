@@ -13,34 +13,38 @@ let fontSizeGather;
 const smallText = ' body small text ';
 const bigText = 'body big text';
 const failingText = 'failing text';
-const bodyNode = {nodeId: 3, nodeName: 'BODY', parentId: 1};
-const failingNode = {nodeId: 10, nodeName: 'P', parentId: 3};
+const bodyNode = {nodeId: 3, backendNodeId: 102, nodeName: 'BODY', parentId: 1, fontSize: '10px'};
+const failingNode = {nodeId: 10, backendNodeId: 109, nodeName: 'P', parentId: 3};
 const nodes = [
-  {nodeId: 1, nodeName: 'HTML'},
-  {nodeId: 2, nodeName: 'HEAD', parentId: 1},
+  {nodeId: 1, backendNodeId: 100, nodeName: 'HTML'},
+  {nodeId: 2, backendNodeId: 101, nodeName: 'HEAD', parentId: 1},
   bodyNode,
   {
     nodeId: 4,
+    backendNodeId: 103,
     nodeValue: 'head text',
     nodeType: FontSizeGather.TEXT_NODE_TYPE,
     parentId: 2,
   },
   {
     nodeId: 5,
+    backendNodeId: 104,
     nodeValue: smallText,
     nodeType: FontSizeGather.TEXT_NODE_TYPE,
     parentId: 3,
   },
-  {nodeId: 6, nodeName: 'H1', parentId: 3},
+  {nodeId: 6, backendNodeId: 105, nodeName: 'H1', parentId: 3},
   {
     nodeId: 7,
+    backendNodeId: 106,
     nodeValue: bigText,
     nodeType: FontSizeGather.TEXT_NODE_TYPE,
     parentId: 6,
   },
-  {nodeId: 8, nodeName: 'SCRIPT', parentId: 3},
+  {nodeId: 8, backendNodeId: 107, nodeName: 'SCRIPT', parentId: 3},
   {
     nodeId: 9,
+    backendNodeId: 108,
     nodeValue: 'script text',
     nodeType: FontSizeGather.TEXT_NODE_TYPE,
     parentId: 8,
@@ -48,11 +52,43 @@ const nodes = [
   failingNode,
   {
     nodeId: 11,
+    backendNodeId: 110,
     nodeValue: failingText,
     nodeType: FontSizeGather.TEXT_NODE_TYPE,
     parentId: 10,
   },
 ];
+
+const stringsMap = {};
+const strings = [];
+const dedupe = (value) => {
+  if (stringsMap[value]) {
+    return stringsMap[value];
+  }
+
+  const index = strings.length;
+  stringsMap[value] = index;
+  strings.push(value);
+  return index;
+};
+const snapshot = {
+  documents: [
+    {
+      nodes: {
+        nodeType: nodes.map(node => node.nodeType),
+        nodeName: nodes.map(node => dedupe(node.nodeName)),
+        nodeValue: nodes.map(node => dedupe(node.nodeValue)),
+        backendNodeId: nodes.map(node => node.backendNodeId),
+        parentIndex: nodes.map(node => nodes.findIndex(pNode => node.parentId === pNode.nodeId)),
+      },
+      layout: {
+        nodeIndex: nodes.map((_, i) => i), // this isn't very accurate
+        styles: nodes.map(node => [dedupe(`${node.nodeId === bodyNode.nodeId ? 10 : 20}px`)]),
+      },
+    },
+  ],
+  strings,
+};
 
 describe('Font size gatherer', () => {
   // Reset the Gatherer before each test.
@@ -64,27 +100,16 @@ describe('Font size gatherer', () => {
     const driver = {
       on() {},
       off() {},
-      async sendCommand(command, params) {
-        if (command === 'CSS.getComputedStyleForNode') {
-          if (params.nodeId === failingNode.nodeId) {
-            throw new Error('This is the failing node');
-          }
-
-          return {
-            computedStyle: [
-              {
-                name: 'font-size',
-                value: params.nodeId === bodyNode.nodeId ? 10 : 20,
-              },
-            ],
-          };
-        } else if (command === 'CSS.getMatchedStylesForNode') {
+      async sendCommand(command) {
+        if (command === 'CSS.getMatchedStylesForNode') {
           return {
             inlineStyle: null,
             attributesStyle: null,
             matchedCSSRules: [],
             inherited: [],
           };
+        } else if (command === 'DOMSnapshot.captureSnapshot') {
+          return snapshot;
         }
       },
       async getNodesInDocument() {
@@ -94,14 +119,13 @@ describe('Font size gatherer', () => {
 
     const artifact = await fontSizeGather.afterPass({driver});
     const expectedFailingTextLength = smallText.trim().length;
-    const expectedVisitedTextLength = bigText.trim().length + expectedFailingTextLength;
-    const expectedTotalTextLength = failingText.trim().length + expectedVisitedTextLength;
+    const expectedTotalTextLength = bigText.trim().length +
+      failingText.trim().length + expectedFailingTextLength;
     const expectedAnalyzedFailingTextLength = expectedFailingTextLength;
 
     expect(artifact).toEqual({
       analyzedFailingTextLength: expectedAnalyzedFailingTextLength,
       failingTextLength: expectedFailingTextLength,
-      visitedTextLength: expectedVisitedTextLength,
       totalTextLength: expectedTotalTextLength,
       analyzedFailingNodesData: [
         {

@@ -17,12 +17,10 @@
  */
 
 const Gatherer = require('../gatherer');
-const Sentry = require('../../../lib/sentry.js');
 const FONT_SIZE_PROPERTY_NAME = 'font-size';
 const TEXT_NODE_BLOCK_LIST = new Set(['SCRIPT', 'STYLE', 'NOSCRIPT']);
 const MINIMAL_LEGIBLE_FONT_SIZE_PX = 12;
 // limit number of protocol calls to make sure that gatherer doesn't take more than 1-2s
-const MAX_NODES_VISITED = 500; // number of nodes to get the text length and compute font-size
 const MAX_NODES_SOURCE_RULE_FETCHED = 50; // number of nodes to fetch the source font-size rule
 
 /** DevTools uses a numeric enum for nodeType */
@@ -178,7 +176,7 @@ function getEffectiveFontRule({inlineStyle, matchedCSSRules, inherited}) {
 }
 
 /**
- * @param {LH.Crdp.DOM.Node} node
+ * @param {{nodeValue: string}} node
  * @returns {number}
  */
 function getNodeTextLength(node) {
@@ -209,32 +207,7 @@ async function fetchSourceRule(driver, node) {
 }
 
 /**
- * @param {Driver} driver
- * @param {LH.Artifacts.FontSize.DomNodeWithParent} textNode text node
- * @returns {Promise<?NodeFontData>}
- */
-async function fetchComputedFontSize(driver, textNode) {
-  try {
-    const {computedStyle} = await driver.sendCommand('CSS.getComputedStyleForNode', {
-      nodeId: textNode.parentId,
-    });
-
-    const fontSizeProperty = computedStyle.find(({name}) => name === FONT_SIZE_PROPERTY_NAME);
-
-    return {
-      // @ts-ignore - font size property guaranteed to be returned in getComputedStyle
-      fontSize: parseInt(fontSizeProperty.value, 10),
-      textLength: getNodeTextLength(textNode),
-      node: textNode.parentNode,
-    };
-  } catch (err) {
-    Sentry.captureException(err, {tags: {gatherer: 'FontSize'}});
-    return null;
-  }
-}
-
-/**
- * @param {LH.Artifacts.FontSize.DomNodeWithParent} node
+ * @param {{nodeType: number, nodeValue: string, parentNode: {nodeName: string}}} node
  * @returns {boolean}
  */
 function isNonEmptyTextNode(node) {
@@ -246,41 +219,6 @@ function isNonEmptyTextNode(node) {
 }
 
 class FontSize extends Gatherer {
-  /**
-   * @param {LH.Gatherer.PassContext['driver']} driver
-   */
-  static async fetchNodesToAnalyze(driver) {
-    let failingTextLength = 0;
-    let visitedTextLength = 0;
-    let totalTextLength = 0;
-
-    const nodes = await getAllNodesFromBody(driver);
-
-    const textNodes = nodes.filter(isNonEmptyTextNode);
-    totalTextLength = textNodes.reduce((sum, node) => (sum += getNodeTextLength(node)), 0);
-
-    const nodesToVisit = textNodes
-      .sort((a, b) => getNodeTextLength(b) - getNodeTextLength(a))
-      .slice(0, MAX_NODES_VISITED);
-
-    const nodePromises = nodesToVisit.map(node => fetchComputedFontSize(driver, node));
-    const visitedNodes = await Promise.all(nodePromises);
-
-    /** @type {Array<NodeFontData>} */
-    const failingNodes = [];
-    for (const visitedNode of visitedNodes) {
-      if (!visitedNode) continue;
-      visitedTextLength += visitedNode.textLength;
-
-      if (visitedNode.fontSize < MINIMAL_LEGIBLE_FONT_SIZE_PX) {
-        failingNodes.push(visitedNode);
-        failingTextLength += visitedNode.textLength;
-      }
-    }
-
-    return {totalTextLength, visitedTextLength, failingTextLength, failingNodes};
-  }
-
   /**
    * @param {LH.Gatherer.PassContext['driver']} driver
    * @param {Array<NodeFontData>} failingNodes
@@ -316,16 +254,73 @@ class FontSize extends Gatherer {
     passContext.driver.on('CSS.styleSheetAdded', onStylesheetAdd);
 
     await Promise.all([
+      passContext.driver.sendCommand('DOMSnapshot.enable'),
       passContext.driver.sendCommand('DOM.enable'),
       passContext.driver.sendCommand('CSS.enable'),
     ]);
 
-    const {
-      totalTextLength,
-      visitedTextLength,
-      failingTextLength,
-      failingNodes,
-    } = await FontSize.fetchNodesToAnalyze(passContext.driver);
+    const snapshot = await passContext.driver.sendCommand('DOMSnapshot.captureSnapshot', {
+      computedStyles: ['font-size'],
+    });
+    /** @param {number} index */
+    const lookup = (index) => snapshot.strings[index];
+    // TODO: this needs to use frameId
+    const doc = snapshot.documents.find(doc => lookup(doc.documentURL) === passContext.url);
+
+    if (!doc || !doc.nodes.nodeType || !doc.nodes.nodeName || !doc.nodes.backendNodeId
+      || !doc.nodes.nodeValue || !doc.nodes.parentIndex) {
+      throw new Error('Unexpected response from DOMSnapshot.captureSnapshot.');
+    }
+
+    /** @type {Map<number, number>} */
+    const nodeIndexToStyleIndex = new Map();
+    for (let i = 0; i < doc.layout.nodeIndex.length; i++) {
+      nodeIndexToStyleIndex.set(doc.layout.nodeIndex[i], i);
+    }
+
+    /** @type {Map<number, number>} */
+    const failingBackendIdsToFontSize = new Map();
+    for (let i = 0; i < doc.nodes.nodeType.length; i++) {
+      const nodeType = doc.nodes.nodeType[i];
+      const nodeValue = lookup(doc.nodes.nodeValue[i]);
+      if (!isNonEmptyTextNode({
+        nodeType,
+        nodeValue,
+        parentNode: {
+          nodeName: lookup(doc.nodes.nodeName[doc.nodes.parentIndex[i]]),
+        },
+      })) continue;
+
+      const styleIndex = nodeIndexToStyleIndex.get(doc.nodes.parentIndex[i]);
+      if (!styleIndex) continue;
+      const parentStyles = doc.layout.styles[styleIndex];
+      const [fontSizeStringId] = parentStyles;
+      const fontSize = parseInt(lookup(fontSizeStringId), 10);
+      if (fontSize < MINIMAL_LEGIBLE_FONT_SIZE_PX) {
+        failingBackendIdsToFontSize.set(doc.nodes.backendNodeId[i], fontSize);
+      }
+    }
+
+    const nodes = (await getAllNodesFromBody(passContext.driver))
+      .filter(node => isNonEmptyTextNode(node));
+
+    /** @type {NodeFontData[]} */
+    const failingNodes = [];
+    let totalTextLength = 0;
+    let failingTextLength = 0;
+    for (const node of nodes) {
+      const textLength = getNodeTextLength(node);
+      totalTextLength += textLength;
+      const badFontSize = failingBackendIdsToFontSize.get(node.backendNodeId);
+      if (badFontSize) {
+        failingTextLength += textLength;
+        failingNodes.push({
+          node: node.parentNode,
+          textLength,
+          fontSize: badFontSize,
+        });
+      }
+    }
 
     const {
       analyzedFailingNodesData,
@@ -340,6 +335,7 @@ class FontSize extends Gatherer {
       .forEach(data => (data.cssRule.stylesheet = stylesheets.get(data.cssRule.styleSheetId)));
 
     await Promise.all([
+      passContext.driver.sendCommand('DOMSnapshot.disable'),
       passContext.driver.sendCommand('DOM.disable'),
       passContext.driver.sendCommand('CSS.disable'),
     ]);
@@ -348,7 +344,6 @@ class FontSize extends Gatherer {
       analyzedFailingNodesData,
       analyzedFailingTextLength,
       failingTextLength,
-      visitedTextLength,
       totalTextLength,
     };
   }

@@ -208,7 +208,6 @@ class FontSize extends Audit {
       analyzedFailingNodesData,
       analyzedFailingTextLength,
       failingTextLength,
-      visitedTextLength,
       totalTextLength,
     } = artifacts.FontSize;
 
@@ -220,7 +219,7 @@ class FontSize extends Audit {
 
     const failingRules = getUniqueFailingRules(analyzedFailingNodesData);
     const percentageOfPassingText =
-      (visitedTextLength - failingTextLength) / visitedTextLength * 100;
+      (totalTextLength - failingTextLength) / totalTextLength * 100;
     const pageUrl = artifacts.URL.finalUrl;
 
     const headings = [
@@ -232,7 +231,7 @@ class FontSize extends Audit {
 
     const tableData = failingRules.sort((a, b) => b.textLength - a.textLength)
       .map(({cssRule, textLength, fontSize, node}) => {
-        const percentageOfAffectedText = textLength / visitedTextLength * 100;
+        const percentageOfAffectedText = textLength / totalTextLength * 100;
         const origin = findStyleRuleSource(pageUrl, cssRule, node);
 
         return {
@@ -246,7 +245,7 @@ class FontSize extends Audit {
     // all failing nodes that were not fully analyzed will be displayed in a single row
     if (analyzedFailingTextLength < failingTextLength) {
       const percentageOfUnanalyzedFailingText =
-        (failingTextLength - analyzedFailingTextLength) / visitedTextLength * 100;
+        (failingTextLength - analyzedFailingTextLength) / totalTextLength * 100;
 
       tableData.push({
         source: 'Add\'l illegible text',
@@ -273,14 +272,7 @@ class FontSize extends Audit {
     let explanation;
     if (!passed) {
       const percentageOfFailingText = parseFloat((100 - percentageOfPassingText).toFixed(2));
-      let disclaimer = '';
-
-      // if we were unable to visit all text nodes we should disclose that information
-      if (visitedTextLength < totalTextLength) {
-        const percentageOfVisitedText = visitedTextLength / totalTextLength * 100;
-        disclaimer = ` (based on ${percentageOfVisitedText.toFixed()}% sample)`;
-      }
-
+      const disclaimer = '';
       explanation = `${percentageOfFailingText}% of text is too small${disclaimer}.`;
     }
 
