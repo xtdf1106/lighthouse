@@ -176,11 +176,11 @@ function getEffectiveFontRule({inlineStyle, matchedCSSRules, inherited}) {
 }
 
 /**
- * @param {{nodeValue: string}} node
+ * @param {string} nodeValue
  * @returns {number}
  */
-function getNodeTextLength(node) {
-  return !node.nodeValue ? 0 : node.nodeValue.trim().length;
+function getNodeTextLength(nodeValue) {
+  return !nodeValue ? 0 : nodeValue.trim().length;
 }
 
 /**
@@ -207,14 +207,14 @@ async function fetchSourceRule(driver, node) {
 }
 
 /**
- * @param {{nodeType: number, nodeValue: string, parentNode: {nodeName: string}}} node
+ * @param {{nodeType: number, nodeValue: string, parentNodeName: string}} node
  * @returns {boolean}
  */
 function isNonEmptyTextNode(node) {
   return (
     node.nodeType === TEXT_NODE_TYPE &&
-    !TEXT_NODE_BLOCK_LIST.has(node.parentNode.nodeName) &&
-    getNodeTextLength(node) > 0
+    !TEXT_NODE_BLOCK_LIST.has(node.parentNodeName) &&
+    getNodeTextLength(node.nodeValue) > 0
   );
 }
 
@@ -267,11 +267,11 @@ class FontSize extends Gatherer {
     const snapshot = await passContext.driver.sendCommand('DOMSnapshot.captureSnapshot', {
       computedStyles: ['font-size'],
     });
-    
+
     // Makes the strings access code easier to read.
     /** @param {number} index */
     const lookup = (index) => snapshot.strings[index];
-    
+
     // Locate the document under analysis.
     // TODO: this needs to use frameId
     const doc = snapshot.documents.find(doc => lookup(doc.documentURL) === passContext.url);
@@ -295,17 +295,15 @@ class FontSize extends Gatherer {
       nodeIndexToStyleIndex.set(doc.layout.nodeIndex[i], i);
     }
 
-    /** @type {Map<number, number>} */
-    const failingBackendIdsToFontSize = new Map();
+    /** @type {Map<number, {fontSize: number, textLength: number}>} */
+    const backendIdsToPartialFontData = new Map();
     for (let i = 0; i < doc.nodes.nodeType.length; i++) {
       const nodeType = doc.nodes.nodeType[i];
       const nodeValue = lookup(doc.nodes.nodeValue[i]);
       if (!isNonEmptyTextNode({
         nodeType,
         nodeValue,
-        parentNode: {
-          nodeName: lookup(doc.nodes.nodeName[doc.nodes.parentIndex[i]]),
-        },
+        parentNodeName: lookup(doc.nodes.nodeName[doc.nodes.parentIndex[i]]),
       })) continue;
 
       const styleIndex = nodeIndexToStyleIndex.get(doc.nodes.parentIndex[i]);
@@ -313,28 +311,33 @@ class FontSize extends Gatherer {
       const parentStyles = doc.layout.styles[styleIndex];
       const [fontSizeStringId] = parentStyles;
       const fontSize = parseInt(lookup(fontSizeStringId), 10);
-      if (fontSize < MINIMAL_LEGIBLE_FONT_SIZE_PX) {
-        failingBackendIdsToFontSize.set(doc.nodes.backendNodeId[i], fontSize);
-      }
+      backendIdsToPartialFontData.set(doc.nodes.backendNodeId[i], {
+        fontSize,
+        // TODO: trimming this for a second time. maybe don't?
+        textLength: getNodeTextLength(nodeValue),
+      });
     }
 
-    const nodes = (await getAllNodesFromBody(passContext.driver))
-      .filter(node => isNonEmptyTextNode(node));
+    const nodes = await getAllNodesFromBody(passContext.driver);
+
+    // backendIdsToPartialFontData will include all Nodes,
+    // but nodes will only contain the Body node and its descendants.
 
     /** @type {NodeFontData[]} */
     const failingNodes = [];
     let totalTextLength = 0;
     let failingTextLength = 0;
     for (const node of nodes) {
-      const textLength = getNodeTextLength(node);
+      const partialFontData = backendIdsToPartialFontData.get(node.backendNodeId);
+      if (!partialFontData) continue; // wasn't a non-empty TextNode
+      const {fontSize, textLength} = partialFontData;
       totalTextLength += textLength;
-      const badFontSize = failingBackendIdsToFontSize.get(node.backendNodeId);
-      if (badFontSize) {
+      if (fontSize < MINIMAL_LEGIBLE_FONT_SIZE_PX) {
         failingTextLength += textLength;
         failingNodes.push({
           node: node.parentNode,
           textLength,
-          fontSize: badFontSize,
+          fontSize,
         });
       }
     }
