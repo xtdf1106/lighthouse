@@ -61,7 +61,7 @@ const nodes = [
 
 const stringsMap = {};
 const strings = [];
-const dedupe = (value) => {
+const getOrCreateStringIndex = (value) => {
   if (stringsMap[value]) {
     return stringsMap[value];
   }
@@ -76,14 +76,14 @@ const snapshot = {
     {
       nodes: {
         nodeType: nodes.map(node => node.nodeType),
-        nodeName: nodes.map(node => dedupe(node.nodeName)),
-        nodeValue: nodes.map(node => dedupe(node.nodeValue)),
+        nodeName: nodes.map(node => getOrCreateStringIndex(node.nodeName)),
+        nodeValue: nodes.map(node => getOrCreateStringIndex(node.nodeValue)),
         backendNodeId: nodes.map(node => node.backendNodeId),
         parentIndex: nodes.map(node => nodes.findIndex(pNode => node.parentId === pNode.nodeId)),
       },
       layout: {
         nodeIndex: nodes.map((_, i) => i), // this isn't very accurate
-        styles: nodes.map(node => [dedupe(`${node.nodeId === bodyNode.nodeId ? 10 : 20}px`)]),
+        styles: nodes.map(node => [getOrCreateStringIndex(`${node.nodeId === bodyNode.nodeId ? 10 : 20}px`)]),
       },
     },
   ],
