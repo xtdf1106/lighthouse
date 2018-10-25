@@ -272,8 +272,7 @@ class FontSize extends Audit {
     let explanation;
     if (!passed) {
       const percentageOfFailingText = parseFloat((100 - percentageOfPassingText).toFixed(2));
-      const disclaimer = '';
-      explanation = `${percentageOfFailingText}% of text is too small${disclaimer}.`;
+      explanation = `${percentageOfFailingText}% of text is too small.`;
     }
 
     return {
