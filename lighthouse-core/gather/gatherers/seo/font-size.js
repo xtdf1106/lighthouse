@@ -207,15 +207,11 @@ async function fetchSourceRule(driver, node) {
 }
 
 /**
- * @param {{nodeType: number, nodeValue: string, parentNodeName: string}} node
+ * @param {{nodeType: number, parentNodeName: string}} node
  * @returns {boolean}
  */
-function isNonEmptyTextNode(node) {
-  return (
-    node.nodeType === TEXT_NODE_TYPE &&
-    !TEXT_NODE_BLOCK_LIST.has(node.parentNodeName) &&
-    getNodeTextLength(node.nodeValue) > 0
-  );
+function isTextNode(node) {
+  return node.nodeType === TEXT_NODE_TYPE && !TEXT_NODE_BLOCK_LIST.has(node.parentNodeName);
 }
 
 class FontSize extends Gatherer {
@@ -300,21 +296,21 @@ class FontSize extends Gatherer {
     for (let i = 0; i < doc.nodes.nodeType.length; i++) {
       const nodeType = doc.nodes.nodeType[i];
       const nodeValue = lookup(doc.nodes.nodeValue[i]);
-      if (!isNonEmptyTextNode({
+      if (!isTextNode({
         nodeType,
-        nodeValue,
         parentNodeName: lookup(doc.nodes.nodeName[doc.nodes.parentIndex[i]]),
       })) continue;
 
       const styleIndex = nodeIndexToStyleIndex.get(doc.nodes.parentIndex[i]);
       if (!styleIndex) continue;
+      const textLength = getNodeTextLength(nodeValue);
+      if (!textLength) continue; // ignore empty TextNodes
       const parentStyles = doc.layout.styles[styleIndex];
       const [fontSizeStringId] = parentStyles;
       const fontSize = parseInt(lookup(fontSizeStringId), 10);
       backendIdsToPartialFontData.set(doc.nodes.backendNodeId[i], {
         fontSize,
-        // TODO: trimming this for a second time. maybe don't?
-        textLength: getNodeTextLength(nodeValue),
+        textLength,
       });
     }
 
