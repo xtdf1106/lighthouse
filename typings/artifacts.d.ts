@@ -37,6 +37,8 @@ declare global {
       settings: Config.Settings;
       /** The URL initially requested and the post-redirects URL that was actually loaded. */
       URL: {requestedUrl: string, finalUrl: string};
+      /** The timing instrumentation of the gather portion of a run. */
+      Timing: Artifacts.MeasureEntry[];
     }
 
     /**
@@ -303,6 +305,11 @@ declare global {
         }[];
       }
 
+      export interface MeasureEntry extends PerformanceEntry {
+        /** Whether timing entry was collected during artifact gathering. */
+        gather?: boolean;
+      }
+
       export interface MetricComputationDataInput {
         devtoolsLog: DevtoolsLog;
         trace: Trace;
@@ -358,8 +365,8 @@ declare global {
         processEvents: Array<TraceEvent>;
         /** The subset of trace events from the page's main thread, sorted by timestamp. */
         mainThreadEvents: Array<TraceEvent>;
-        /** The event marking the start of tracing in the target browser. */
-        startedInPageEvt: TraceEvent;
+        /** IDs for the trace's main frame, process, and thread. */
+        mainFrameIds: {pid: number, tid: number, frameId: string};
         /** The trace event marking navigationStart. */
         navigationStartEvt: TraceEvent;
         /** The trace event marking firstPaint, if it was found. */
