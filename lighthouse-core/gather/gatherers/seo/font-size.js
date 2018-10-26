@@ -268,9 +268,8 @@ class FontSize extends Gatherer {
     /** @param {number} index */
     const lookup = (index) => snapshot.strings[index];
 
-    // Locate the document under analysis.
-    // TODO: this needs to use frameId
-    const doc = snapshot.documents.find(doc => lookup(doc.documentURL) === passContext.url);
+    // The document under analysis is the root document.
+    const doc = snapshot.documents[0];
 
     // doc is a flattened property list describing all the Nodes in a document, with all string values
     // deduped in a strings array.
