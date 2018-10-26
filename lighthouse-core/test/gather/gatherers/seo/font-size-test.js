@@ -82,8 +82,12 @@ const snapshot = {
         parentIndex: nodes.map(node => nodes.findIndex(pNode => node.parentId === pNode.nodeId)),
       },
       layout: {
-        nodeIndex: nodes.map((_, i) => i), // this isn't very accurate
-        styles: nodes.map(node => [getOrCreateStringIndex(`${node.nodeId === bodyNode.nodeId ? 10 : 20}px`)]),
+        nodeIndex: nodes.map((_, i) => i),
+        // this isn't very accurate.
+        // see https://github.com/GoogleChrome/lighthouse/pull/6391#discussion_r228267483
+        styles: nodes.map(node => [
+          getOrCreateStringIndex(`${node.nodeId === bodyNode.nodeId ? 10 : 20}px`),
+        ]),
       },
     },
   ],
