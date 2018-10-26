@@ -29,6 +29,7 @@ const TEXT_NODE_TYPE = 3;
 /** @typedef {import('../../driver.js')} Driver */
 /** @typedef {LH.Artifacts.FontSize['analyzedFailingNodesData'][0]} NodeFontData */
 /** @typedef {LH.Artifacts.FontSize.DomNodeMaybeWithParent} DomNodeMaybeWithParent*/
+/** @typedef {Map<number, {fontSize: number, textLength: number}>} BackendIdsToPartialFontData */
 
 /**
  * @param {LH.Artifacts.FontSize.DomNodeMaybeWithParent=} node
@@ -239,31 +240,10 @@ class FontSize extends Gatherer {
   }
 
   /**
-   * @param {LH.Gatherer.PassContext} passContext
-   * @return {Promise<LH.Artifacts.FontSize>} font-size analysis
+   * @param {LH.Crdp.DOMSnapshot.CaptureSnapshotResponse} snapshot
+   * @return {BackendIdsToPartialFontData}
    */
-  async afterPass(passContext) {
-    /** @type {Map<string, LH.Crdp.CSS.CSSStyleSheetHeader>} */
-    const stylesheets = new Map();
-    /** @param {LH.Crdp.CSS.StyleSheetAddedEvent} sheet */
-    const onStylesheetAdd = sheet => stylesheets.set(sheet.header.styleSheetId, sheet.header);
-    passContext.driver.on('CSS.styleSheetAdded', onStylesheetAdd);
-
-    await Promise.all([
-      passContext.driver.sendCommand('DOMSnapshot.enable'),
-      passContext.driver.sendCommand('DOM.enable'),
-      passContext.driver.sendCommand('CSS.enable'),
-    ]);
-
-    // We need to find all TextNodes that do not have legible text. DOMSnapshot.captureSnapshot is the
-    // fastest way to get the computed styles of every Node. Bonus, it allows for whitelisting properties.
-    // Once a bad TextNode is identified, its parent Node is needed. DOMSnapshot.captureSnapshot doesn't
-    // give the entire Node object, so DOM.getFlattenedDocument is used. The only connection between a snapshot
-    // Node and an actual Protocol Node is backendId, so that is used to join the two data structures.
-    const snapshot = await passContext.driver.sendCommand('DOMSnapshot.captureSnapshot', {
-      computedStyles: ['font-size'],
-    });
-
+  calculateBackendIdsToPartialFontData(snapshot) {
     // Makes the strings access code easier to read.
     /** @param {number} index */
     const lookup = (index) => snapshot.strings[index];
@@ -290,7 +270,7 @@ class FontSize extends Gatherer {
       nodeIndexToStyleIndex.set(doc.layout.nodeIndex[i], i);
     }
 
-    /** @type {Map<number, {fontSize: number, textLength: number}>} */
+    /** @type {BackendIdsToPartialFontData} */
     const backendIdsToPartialFontData = new Map();
     for (let i = 0; i < doc.nodes.nodeType.length; i++) {
       const nodeType = doc.nodes.nodeType[i];
@@ -313,11 +293,14 @@ class FontSize extends Gatherer {
       });
     }
 
-    const nodes = await getAllNodesFromBody(passContext.driver);
+    return backendIdsToPartialFontData;
+  }
 
-    // backendIdsToPartialFontData will include all Nodes,
-    // but nodes will only contain the Body node and its descendants.
-
+  /**
+   * @param {BackendIdsToPartialFontData} backendIdsToPartialFontData
+   * @param {LH.Artifacts.FontSize.DomNodeWithParent[]} nodes
+   */
+  findFailingNodes(backendIdsToPartialFontData, nodes) {
     /** @type {NodeFontData[]} */
     const failingNodes = [];
     let totalTextLength = 0;
@@ -337,6 +320,43 @@ class FontSize extends Gatherer {
       }
     }
 
+    return {totalTextLength, failingTextLength, failingNodes};
+  }
+
+  /**
+   * @param {LH.Gatherer.PassContext} passContext
+   * @return {Promise<LH.Artifacts.FontSize>} font-size analysis
+   */
+  async afterPass(passContext) {
+    /** @type {Map<string, LH.Crdp.CSS.CSSStyleSheetHeader>} */
+    const stylesheets = new Map();
+    /** @param {LH.Crdp.CSS.StyleSheetAddedEvent} sheet */
+    const onStylesheetAdd = sheet => stylesheets.set(sheet.header.styleSheetId, sheet.header);
+    passContext.driver.on('CSS.styleSheetAdded', onStylesheetAdd);
+
+    await Promise.all([
+      passContext.driver.sendCommand('DOMSnapshot.enable'),
+      passContext.driver.sendCommand('DOM.enable'),
+      passContext.driver.sendCommand('CSS.enable'),
+    ]);
+
+    // We need to find all TextNodes that do not have legible text. DOMSnapshot.captureSnapshot is the
+    // fastest way to get the computed styles of every Node. Bonus, it allows for whitelisting properties.
+    // Once a bad TextNode is identified, its parent Node is needed. DOMSnapshot.captureSnapshot doesn't
+    // give the entire Node object, so DOM.getFlattenedDocument is used. The only connection between a snapshot
+    // Node and an actual Protocol Node is backendId, so that is used to join the two data structures.
+    const snapshot = await passContext.driver.sendCommand('DOMSnapshot.captureSnapshot', {
+      computedStyles: ['font-size'],
+    });
+    // backendIdsToPartialFontData will include all Nodes,
+    const backendIdsToPartialFontData = this.calculateBackendIdsToPartialFontData(snapshot);
+    // but nodes will only contain the Body node and its descendants.
+    const nodes = await getAllNodesFromBody(passContext.driver);
+    const {
+      totalTextLength,
+      failingTextLength,
+      failingNodes,
+    } = this.findFailingNodes(backendIdsToPartialFontData, nodes);
     const {
       analyzedFailingNodesData,
       analyzedFailingTextLength,
