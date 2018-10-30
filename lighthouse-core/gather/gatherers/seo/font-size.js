@@ -29,7 +29,7 @@ const TEXT_NODE_TYPE = 3;
 /** @typedef {import('../../driver.js')} Driver */
 /** @typedef {LH.Artifacts.FontSize['analyzedFailingNodesData'][0]} NodeFontData */
 /** @typedef {LH.Artifacts.FontSize.DomNodeMaybeWithParent} DomNodeMaybeWithParent*/
-/** @typedef {Map<number, {fontSize: number, textLength: number}>} BackendIdsToPartialFontData */
+/** @typedef {Map<number, {fontSize: number, textLength: number}>} BackendIdsToFontData */
 
 /**
  * @param {LH.Artifacts.FontSize.DomNodeMaybeWithParent=} node
@@ -181,7 +181,7 @@ function getEffectiveFontRule({inlineStyle, matchedCSSRules, inherited}) {
  * @returns {number}
  */
 function getNodeTextLength(nodeValue) {
-  return !nodeValue ? 0 : nodeValue.trim().length;
+  return nodeValue.trim().length;
 }
 
 /**
@@ -241,12 +241,10 @@ class FontSize extends Gatherer {
 
   /**
    * @param {LH.Crdp.DOMSnapshot.CaptureSnapshotResponse} snapshot
-   * @return {BackendIdsToPartialFontData}
+   * @return {BackendIdsToFontData}
    */
-  calculateBackendIdsToPartialFontData(snapshot) {
-    // Makes the strings access code easier to read.
-    /** @param {number} index */
-    const lookup = (index) => snapshot.strings[index];
+  calculateBackendIdsToFontData(snapshot) {
+    const strings = snapshot.strings;
 
     // The document under analysis is the root document.
     const doc = snapshot.documents[0];
@@ -256,13 +254,14 @@ class FontSize extends Gatherer {
     // Implementation:
     // https://cs.chromium.org/chromium/src/third_party/blink/renderer/core/inspector/inspector_dom_snapshot_agent.cc?sq=package:chromium&g=0&l=534
 
+    // satisfy the type checker that all expected values exist
     if (!doc || !doc.nodes.nodeType || !doc.nodes.nodeName || !doc.nodes.backendNodeId
       || !doc.nodes.nodeValue || !doc.nodes.parentIndex) {
       throw new Error('Unexpected response from DOMSnapshot.captureSnapshot.');
     }
 
     // Not all nodes have computed styles (ex: TextNodes), so doc.layout.* is smaller than doc.nodes.*
-    // doc.layout.nodeIndex maps the index into doc.nodes.* to an index into doc.layout.styles.
+    // doc.layout.nodeIndex maps the index into doc.layout.styles to an index into doc.nodes.*
     // nodeIndexToStyleIndex inverses that mapping.
     /** @type {Map<number, number>} */
     const nodeIndexToStyleIndex = new Map();
@@ -270,14 +269,14 @@ class FontSize extends Gatherer {
       nodeIndexToStyleIndex.set(doc.layout.nodeIndex[i], i);
     }
 
-    /** @type {BackendIdsToPartialFontData} */
-    const backendIdsToPartialFontData = new Map();
+    /** @type {BackendIdsToFontData} */
+    const backendIdsToFontData = new Map();
     for (let i = 0; i < doc.nodes.nodeType.length; i++) {
       const nodeType = doc.nodes.nodeType[i];
-      const nodeValue = lookup(doc.nodes.nodeValue[i]);
+      const nodeValue = strings[doc.nodes.nodeValue[i]];
       if (!isTextNode({
         nodeType,
-        parentNodeName: lookup(doc.nodes.nodeName[doc.nodes.parentIndex[i]]),
+        parentNodeName: strings[doc.nodes.nodeName[doc.nodes.parentIndex[i]]],
       })) continue;
 
       const styleIndex = nodeIndexToStyleIndex.get(doc.nodes.parentIndex[i]);
@@ -286,34 +285,39 @@ class FontSize extends Gatherer {
       if (!textLength) continue; // ignore empty TextNodes
       const parentStyles = doc.layout.styles[styleIndex];
       const [fontSizeStringId] = parentStyles;
-      const fontSize = parseInt(lookup(fontSizeStringId), 10);
-      backendIdsToPartialFontData.set(doc.nodes.backendNodeId[i], {
+      // expects values like '11.5px' here
+      const fontSize = parseFloat(strings[fontSizeStringId]);
+      backendIdsToFontData.set(doc.nodes.backendNodeId[i], {
         fontSize,
         textLength,
       });
     }
 
-    return backendIdsToPartialFontData;
+    return backendIdsToFontData;
   }
 
   /**
-   * @param {BackendIdsToPartialFontData} backendIdsToPartialFontData
-   * @param {LH.Artifacts.FontSize.DomNodeWithParent[]} nodes
+   * The only connection between a snapshot Node and an actual Protocol Node is backendId,
+   * so that is used to join the two data structures. DOMSnapshot.captureSnapshot doesn't
+   * give the entire Node object, so DOM.getFlattenedDocument is used.
+   * @param {BackendIdsToFontData} backendIdsToFontData
+   * @param {LH.Artifacts.FontSize.DomNodeWithParent[]} crdpNodes
    */
-  findFailingNodes(backendIdsToPartialFontData, nodes) {
+  findFailingNodes(backendIdsToFontData, crdpNodes) {
     /** @type {NodeFontData[]} */
     const failingNodes = [];
     let totalTextLength = 0;
     let failingTextLength = 0;
-    for (const node of nodes) {
-      const partialFontData = backendIdsToPartialFontData.get(node.backendNodeId);
+    for (const crdpNode of crdpNodes) {
+      const partialFontData = backendIdsToFontData.get(crdpNode.backendNodeId);
       if (!partialFontData) continue; // wasn't a non-empty TextNode
       const {fontSize, textLength} = partialFontData;
       totalTextLength += textLength;
       if (fontSize < MINIMAL_LEGIBLE_FONT_SIZE_PX) {
+        // Once a bad TextNode is identified, its parent Node is needed.
         failingTextLength += textLength;
         failingNodes.push({
-          node: node.parentNode,
+          node: crdpNode.parentNode,
           textLength,
           fontSize,
         });
@@ -340,23 +344,19 @@ class FontSize extends Gatherer {
       passContext.driver.sendCommand('CSS.enable'),
     ]);
 
-    // We need to find all TextNodes that do not have legible text. DOMSnapshot.captureSnapshot is the
-    // fastest way to get the computed styles of every Node. Bonus, it allows for whitelisting properties.
-    // Once a bad TextNode is identified, its parent Node is needed. DOMSnapshot.captureSnapshot doesn't
-    // give the entire Node object, so DOM.getFlattenedDocument is used. The only connection between a snapshot
-    // Node and an actual Protocol Node is backendId, so that is used to join the two data structures.
+    // Use DOMSnapshot.captureSnapshot to get the computed font-size style of every node.
     const snapshot = await passContext.driver.sendCommand('DOMSnapshot.captureSnapshot', {
       computedStyles: ['font-size'],
     });
-    // backendIdsToPartialFontData will include all Nodes,
-    const backendIdsToPartialFontData = this.calculateBackendIdsToPartialFontData(snapshot);
+    // backendIdsToFontData will include all non-empty TextNodes,
+    const backendIdsToFontData = this.calculateBackendIdsToFontData(snapshot);
     // but nodes will only contain the Body node and its descendants.
-    const nodes = await getAllNodesFromBody(passContext.driver);
+    const crdpNodes = await getAllNodesFromBody(passContext.driver);
     const {
       totalTextLength,
       failingTextLength,
       failingNodes,
-    } = this.findFailingNodes(backendIdsToPartialFontData, nodes);
+    } = this.findFailingNodes(backendIdsToFontData, crdpNodes);
     const {
       analyzedFailingNodesData,
       analyzedFailingTextLength,
