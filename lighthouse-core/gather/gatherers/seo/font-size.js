@@ -274,12 +274,14 @@ class FontSize extends Gatherer {
     for (let i = 0; i < doc.nodes.nodeType.length; i++) {
       const nodeType = doc.nodes.nodeType[i];
       const nodeValue = strings[doc.nodes.nodeValue[i]];
+      const parentIndex = doc.nodes.parentIndex[i];
+      const parentNodeName = strings[doc.nodes.nodeName[parentIndex]];
       if (!isTextNode({
         nodeType,
-        parentNodeName: strings[doc.nodes.nodeName[doc.nodes.parentIndex[i]]],
+        parentNodeName,
       })) continue;
 
-      const styleIndex = nodeIndexToStyleIndex.get(doc.nodes.parentIndex[i]);
+      const styleIndex = nodeIndexToStyleIndex.get(parentIndex);
       if (!styleIndex) continue;
       const textLength = getNodeTextLength(nodeValue);
       if (!textLength) continue; // ignore empty TextNodes
