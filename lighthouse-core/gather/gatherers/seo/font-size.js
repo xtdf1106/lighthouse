@@ -265,9 +265,9 @@ class FontSize extends Gatherer {
     // nodeIndexToStyleIndex inverses that mapping.
     /** @type {Map<number, number>} */
     const nodeIndexToStyleIndex = new Map();
-    for (let i = 0; i < doc.layout.nodeIndex.length; i++) {
-      nodeIndexToStyleIndex.set(doc.layout.nodeIndex[i], i);
-    }
+    doc.layout.nodeIndex.forEach((nodeIndex, styleIndex) => {
+      nodeIndexToStyleIndex.set(nodeIndex, styleIndex);
+    });
 
     /** @type {BackendIdsToFontData} */
     const backendIdsToFontData = new Map();
