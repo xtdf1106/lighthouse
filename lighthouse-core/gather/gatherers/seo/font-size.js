@@ -284,6 +284,9 @@ class FontSize extends Gatherer {
       const textLength = getNodeTextLength(nodeValue);
       if (!textLength) continue; // ignore empty TextNodes
       const parentStyles = doc.layout.styles[styleIndex];
+      // each styles is an array of string indices, one for each property given
+      // to DOMSnapshot.captureSnapshot. We only requested font-size, so there's just
+      // the one string index here.
       const [fontSizeStringId] = parentStyles;
       // expects values like '11.5px' here
       const fontSize = parseFloat(strings[fontSizeStringId]);
