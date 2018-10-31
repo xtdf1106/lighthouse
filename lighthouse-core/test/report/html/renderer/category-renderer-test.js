@@ -31,7 +31,7 @@ describe('CategoryRenderer', () => {
     global.Util = Util;
     global.CriticalRequestChainRenderer = CriticalRequestChainRenderer;
 
-    const document = jsdom.jsdom(TEMPLATE_FILE);
+    const {document} = new jsdom.JSDOM(TEMPLATE_FILE).window;
     const dom = new DOM(document);
     const detailsRenderer = new DetailsRenderer(dom);
     renderer = new CategoryRenderer(dom, detailsRenderer);
@@ -229,7 +229,7 @@ describe('CategoryRenderer', () => {
       const manualAudits = elem.querySelectorAll('.lh-audit-group--manual .lh-audit');
 
       assert.equal(passedAudits.length, 4);
-      assert.equal(failedAudits.length, 7);
+      assert.equal(failedAudits.length, 8);
       assert.equal(manualAudits.length, 3);
     });
 
@@ -238,11 +238,11 @@ describe('CategoryRenderer', () => {
       const category = JSON.parse(JSON.stringify(origCategory));
       category.auditRefs.forEach(audit => audit.result.score = 0);
       const elem = renderer.render(category, sampleResults.categoryGroups);
-      const passedAudits = elem.querySelectorAll('.lh-passed-audits > .lh-audit');
-      const failedAudits = elem.querySelectorAll('.lh-failed-audits > .lh-audit');
+      const passedAudits = elem.querySelectorAll('.lh-passed-audits .lh-audit');
+      const failedAudits = elem.querySelectorAll('.lh-failed-audits .lh-audit');
 
       assert.equal(passedAudits.length, 0);
-      assert.equal(failedAudits.length, 11);
+      assert.equal(failedAudits.length, 12);
 
       assert.equal(elem.querySelector('.lh-passed-audits-summary'), null);
     });
@@ -251,7 +251,8 @@ describe('CategoryRenderer', () => {
   it('can set a custom templateContext', () => {
     assert.equal(renderer.templateContext, renderer.dom.document());
 
-    const otherDocument = jsdom.jsdom(TEMPLATE_FILE);
+    const dom = new jsdom.JSDOM(TEMPLATE_FILE);
+    const otherDocument = dom.window.document;
     renderer.setTemplateContext(otherDocument);
     assert.equal(renderer.templateContext, otherDocument);
   });
