@@ -350,13 +350,14 @@ class FontSize extends Gatherer {
     ]);
 
     // Use DOMSnapshot.captureSnapshot to get the computed font-size style of every node.
-    const snapshot = await passContext.driver.sendCommand('DOMSnapshot.captureSnapshot', {
+    const snapshotPromise = await passContext.driver.sendCommand('DOMSnapshot.captureSnapshot', {
       computedStyles: ['font-size'],
     });
-    // backendIdsToFontData will include all non-empty TextNodes,
+    const allNodesPromise = await getAllNodesFromBody(passContext.driver);
+    const [snapshot, crdpNodes] = await Promise.all([snapshotPromise, allNodesPromise]);
     const backendIdsToFontData = this.calculateBackendIdsToFontData(snapshot);
-    // but nodes will only contain the Body node and its descendants.
-    const crdpNodes = await getAllNodesFromBody(passContext.driver);
+    // backendIdsToFontData will include all non-empty TextNodes,
+    // but crdpNodes will only contain the Body node and its descendants.
     const {
       totalTextLength,
       failingTextLength,
