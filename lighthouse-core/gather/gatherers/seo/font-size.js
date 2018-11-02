@@ -246,56 +246,69 @@ class FontSize extends Gatherer {
   calculateBackendIdsToFontData(snapshot) {
     const strings = snapshot.strings;
 
-    // The document under analysis is the root document.
-    const doc = snapshot.documents[0];
-
-    // doc is a flattened property list describing all the Nodes in a document, with all string values
-    // deduped in a strings array.
-    // Implementation:
-    // https://cs.chromium.org/chromium/src/third_party/blink/renderer/core/inspector/inspector_dom_snapshot_agent.cc?sq=package:chromium&g=0&l=534
-
-    // satisfy the type checker that all expected values exist
-    if (!doc || !doc.nodes.nodeType || !doc.nodes.nodeName || !doc.nodes.backendNodeId
-      || !doc.nodes.nodeValue || !doc.nodes.parentIndex) {
-      throw new Error('Unexpected response from DOMSnapshot.captureSnapshot.');
-    }
-
-    // Not all nodes have computed styles (ex: TextNodes), so doc.layout.* is smaller than doc.nodes.*
-    // doc.layout.nodeIndex maps the index into doc.layout.styles to an index into doc.nodes.*
-    // nodeIndexToStyleIndex inverses that mapping.
-    /** @type {Map<number, number>} */
-    const nodeIndexToStyleIndex = new Map();
-    doc.layout.nodeIndex.forEach((nodeIndex, styleIndex) => {
-      nodeIndexToStyleIndex.set(nodeIndex, styleIndex);
-    });
-
     /** @type {BackendIdsToFontData} */
     const backendIdsToFontData = new Map();
-    for (let i = 0; i < doc.nodes.nodeType.length; i++) {
-      const nodeType = doc.nodes.nodeType[i];
-      const nodeValue = strings[doc.nodes.nodeValue[i]];
-      const parentIndex = doc.nodes.parentIndex[i];
-      const parentNodeName = strings[doc.nodes.nodeName[parentIndex]];
-      if (!isTextNode({
-        nodeType,
-        parentNodeName,
-      })) continue;
 
-      const styleIndex = nodeIndexToStyleIndex.get(parentIndex);
-      if (!styleIndex) continue;
-      const textLength = getNodeTextLength(nodeValue);
-      if (!textLength) continue; // ignore empty TextNodes
-      const parentStyles = doc.layout.styles[styleIndex];
-      // each styles is an array of string indices, one for each property given
-      // to DOMSnapshot.captureSnapshot. We only requested font-size, so there's just
-      // the one string index here.
-      const [fontSizeStringId] = parentStyles;
-      // expects values like '11.5px' here
-      const fontSize = parseFloat(strings[fontSizeStringId]);
-      backendIdsToFontData.set(doc.nodes.backendNodeId[i], {
-        fontSize,
-        textLength,
+    for (let j = 0; j < snapshot.documents.length; j++) {
+      const doc = snapshot.documents[j];
+      // doc is a flattened property list describing all the Nodes in a document, with all string values
+      // deduped in a strings array.
+      // Implementation:
+      // https://cs.chromium.org/chromium/src/third_party/blink/renderer/core/inspector/inspector_dom_snapshot_agent.cc?sq=package:chromium&g=0&l=534
+
+      // satisfy the type checker that all expected values exist
+      if (!doc || !doc.nodes.nodeType || !doc.nodes.nodeName || !doc.nodes.backendNodeId
+        || !doc.nodes.nodeValue || !doc.nodes.parentIndex) {
+        throw new Error('Unexpected response from DOMSnapshot.captureSnapshot.');
+      }
+
+      // Not all nodes have computed styles (ex: TextNodes), so doc.layout.* is smaller than doc.nodes.*
+      // doc.layout.nodeIndex maps the index into doc.layout.styles to an index into doc.nodes.*
+      // nodeIndexToStyleIndex inverses that mapping.
+      /** @type {Map<number, number>} */
+      const nodeIndexToStyleIndex = new Map();
+      doc.layout.nodeIndex.forEach((nodeIndex, styleIndex) => {
+        nodeIndexToStyleIndex.set(nodeIndex, styleIndex);
       });
+
+      for (let i = 0; i < doc.nodes.nodeType.length; i++) {
+        const nodeType = doc.nodes.nodeType[i];
+        const nodeValue = strings[doc.nodes.nodeValue[i]];
+        const parentIndex = doc.nodes.parentIndex[i];
+        const parentNodeName = strings[doc.nodes.nodeName[parentIndex]];
+        if (!isTextNode({
+          nodeType,
+          parentNodeName,
+        })) continue;
+
+        const textLength = getNodeTextLength(nodeValue);
+        if (!textLength) continue; // ignore empty TextNodes
+
+        // walk up the hierarchy until a Node with a style is found
+        let ancestorIndex = parentIndex;
+        while (!nodeIndexToStyleIndex.has(ancestorIndex)) {
+          ancestorIndex = doc.nodes.parentIndex[ancestorIndex];
+          if (ancestorIndex === -1) {
+            // this shouldn't happen - at the very least, the root Node should have a style
+            throw new Error('Could not find style for a TextNode.');
+          }
+        }
+        /** @type {number} */
+        // @ts-ignore: if styleIndex would be undefined, the above error would have thrown
+        const styleIndex = nodeIndexToStyleIndex.get(ancestorIndex);
+        const styles = doc.layout.styles[styleIndex];
+
+        // each styles is an array of string indices, one for each property given
+        // to DOMSnapshot.captureSnapshot. We only requested font-size, so there's just
+        // the one string index here.
+        const [fontSizeStringId] = styles;
+        // expects values like '11.5px' here
+        const fontSize = parseFloat(strings[fontSizeStringId]);
+        backendIdsToFontData.set(doc.nodes.backendNodeId[i], {
+          fontSize,
+          textLength,
+        });
+      }
     }
 
     return backendIdsToFontData;
