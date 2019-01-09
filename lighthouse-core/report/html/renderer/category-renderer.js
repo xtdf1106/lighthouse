@@ -22,7 +22,7 @@
 /** @typedef {import('./report-renderer.js')} ReportRenderer */
 /** @typedef {import('./details-renderer.js')} DetailsRenderer */
 /** @typedef {import('./util.js')} Util */
-/** @typedef {'failed'|'manual'|'passed'|'notApplicable'} TopLevelClumpId */
+/** @typedef {'failed'|'manual'|'warning'|'passed'|'notApplicable'} TopLevelClumpId */
 
 class CategoryRenderer {
   /**
@@ -46,19 +46,34 @@ class CategoryRenderer {
   get _clumpDisplayInfo() {
     return {
       failed: {
+        title: '',
         className: 'lh-clump--failed',
+        expandable: false,
+        expandByDefault: false,
+      },
+      warning: {
+        title: Util.UIStrings.warningAuditsGroupTitle,
+        className: 'lh-clump--warning',
+        expandable: true,
+        expandByDefault: true,
       },
       manual: {
         title: Util.UIStrings.manualAuditsGroupTitle,
         className: 'lh-clump--manual',
+        expandable: true,
+        expandByDefault: false,
       },
       passed: {
         title: Util.UIStrings.passedAuditsGroupTitle,
         className: 'lh-clump--passed',
+        expandable: true,
+        expandByDefault: false,
       },
       notApplicable: {
         title: Util.UIStrings.notApplicableAuditsGroupTitle,
         className: 'lh-clump--notapplicable',
+        expandable: true,
+        expandByDefault: false,
       },
     };
   }
@@ -183,7 +198,7 @@ class CategoryRenderer {
    * Renders the group container for a group of audits. Individual audit elements can be added
    * directly to the returned element.
    * @param {LH.Result.ReportGroup} group
-   * @param {{expandable: boolean, itemCount?: number}} opts
+   * @param {{expandable: boolean, expandByDefault: boolean, itemCount?: number}} opts
    * @return {Element}
    */
   renderAuditGroup(group, opts) {
@@ -196,6 +211,9 @@ class CategoryRenderer {
     if (expandable) {
       const chevronEl = summaryInnerEl.appendChild(this._createChevron());
       chevronEl.title = Util.UIStrings.auditGroupExpandTooltip;
+      if (opts.expandByDefault) {
+        groupEl.setAttribute('open', '');
+      }
     }
 
     if (group.description) {
@@ -217,7 +235,7 @@ class CategoryRenderer {
    * array of audit and audit-group elements.
    * @param {Array<LH.ReportResult.AuditRef>} auditRefs
    * @param {Object<string, LH.Result.ReportGroup>} groupDefinitions
-   * @param {{expandable: boolean}} opts
+   * @param {{expandable: boolean, expandByDefault: boolean}} opts
    * @return {Array<Element>}
    */
   _renderGroupedAudits(auditRefs, groupDefinitions, opts) {
@@ -272,14 +290,17 @@ class CategoryRenderer {
    */
   renderUnexpandableClump(auditRefs, groupDefinitions) {
     const clumpElement = this.dom.createElement('div');
-    const elements = this._renderGroupedAudits(auditRefs, groupDefinitions, {expandable: false});
+    const elements = this._renderGroupedAudits(auditRefs, groupDefinitions, {
+      expandable: false,
+      expandByDefault: false,
+    });
     elements.forEach(elem => clumpElement.appendChild(elem));
     return clumpElement;
   }
 
   /**
    * Renders a clump (a grouping of groups), under a status of failed, manual,
-   * passed, or notApplicable. The result ends up something like:
+   * warning, passed, or notApplicable. The result ends up something like:
    *
    * clump (e.g. 'failed')
    *   ├── audit 1 (w/o group)
@@ -298,20 +319,25 @@ class CategoryRenderer {
    * @return {Element}
    */
   renderClump(clumpId, {auditRefs, groupDefinitions, description}) {
-    if (clumpId === 'failed') {
+    const clumpInfo = this._clumpDisplayInfo[clumpId];
+    const expandable = clumpInfo.expandable;
+    const expandByDefault = clumpInfo.expandByDefault;
+
+    if (!expandable) {
       // Failed audit clump is always expanded and not nested in an lh-audit-group.
       const failedElem = this.renderUnexpandableClump(auditRefs, groupDefinitions);
       failedElem.classList.add('lh-clump', this._clumpDisplayInfo.failed.className);
       return failedElem;
     }
 
-    const expandable = true;
-    const elements = this._renderGroupedAudits(auditRefs, groupDefinitions, {expandable});
+    const elements = this._renderGroupedAudits(auditRefs, groupDefinitions, {
+      expandable,
+      expandByDefault,
+    });
 
-    const clumpInfo = this._clumpDisplayInfo[clumpId];
     // TODO: renderAuditGroup shouldn't be used to render a clump (since it *contains* audit groups).
     const groupDef = {title: clumpInfo.title, description};
-    const opts = {expandable, itemCount: auditRefs.length};
+    const opts = {expandable, expandByDefault, itemCount: auditRefs.length};
     const clumpElem = this.renderAuditGroup(groupDef, opts);
     clumpElem.classList.add('lh-clump', clumpInfo.className);
 
@@ -364,6 +390,14 @@ class CategoryRenderer {
   }
 
   /**
+   * @param {LH.ReportResult.AuditRef} audit
+   * @return {boolean}
+   */
+  _auditHasWarning(audit) {
+    return Boolean(audit.result.warnings && audit.result.warnings.length);
+  }
+
+  /**
    * Returns the id of the top-level clump to put this audit in.
    * @param {LH.ReportResult.AuditRef} auditRef
    * @return {TopLevelClumpId}
@@ -374,7 +408,9 @@ class CategoryRenderer {
       return scoreDisplayMode;
     }
 
-    if (Util.showAsPassed(auditRef.result)) {
+    if (this._auditHasWarning(auditRef)) {
+      return 'warning';
+    } else if (Util.showAsPassed(auditRef.result)) {
       return 'passed';
     } else {
       return 'failed';
@@ -395,6 +431,7 @@ class CategoryRenderer {
     /** @type {Map<TopLevelClumpId, Array<LH.ReportResult.AuditRef>>} */
     const clumps = new Map();
     clumps.set('failed', []);
+    clumps.set('warning', []);
     clumps.set('manual', []);
     clumps.set('passed', []);
     clumps.set('notApplicable', []);

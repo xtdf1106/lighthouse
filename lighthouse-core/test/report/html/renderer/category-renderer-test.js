@@ -129,6 +129,24 @@ describe('CategoryRenderer', () => {
     assert.ok(warningEl.textContent.includes(auditResult.warnings[1]), '2nd warning provided');
   });
 
+  it('expands warning audit group', () => {
+    const category = sampleResults.reportCategories.find(c => c.id === 'pwa');
+    const prevAuditRefs = category.auditRefs;
+    const auditWithWarning = prevAuditRefs[0];
+    auditWithWarning.result = Object.assign({}, category.auditRefs[0].result,
+      {warnings: ['Some warning']});
+    category.auditRefs = [auditWithWarning];
+
+    const auditDOM = renderer.render(category, sampleResults.categoryGroups);
+    auditDOM.querySelectorAll('.lh-clump--warning, .lh-clump--warning .lh-audit-group')
+      .forEach(el => {
+        const isExpanded = el.hasAttribute('open');
+        assert.ok(isExpanded, 'Warning audit group should be expanded by default');
+      });
+
+    category.auditRefs = prevAuditRefs;
+  });
+
   it('renders a category', () => {
     const category = sampleResults.reportCategories.find(c => c.id === 'pwa');
     const categoryDOM = renderer.render(category, sampleResults.categoryGroups);
@@ -307,15 +325,17 @@ describe('CategoryRenderer', () => {
     });
   });
 
-  describe('clumping passed/failed/manual', () => {
+  describe('clumping passed/warning/failed/manual', () => {
     it('separates audits in the DOM', () => {
       const category = sampleResults.reportCategories.find(c => c.id === 'pwa');
       const elem = renderer.render(category, sampleResults.categoryGroups);
       const passedAudits = elem.querySelectorAll('.lh-clump--passed .lh-audit');
+      const warningAudits = elem.querySelectorAll('.lh-clump--warning .lh-audit');
       const failedAudits = elem.querySelectorAll('.lh-clump--failed .lh-audit');
       const manualAudits = elem.querySelectorAll('.lh-clump--manual .lh-audit');
 
-      assert.equal(passedAudits.length, 4);
+      assert.equal(passedAudits.length, 3);
+      assert.equal(warningAudits.length, 1);
       assert.equal(failedAudits.length, 8);
       assert.equal(manualAudits.length, 3);
     });
@@ -326,10 +346,12 @@ describe('CategoryRenderer', () => {
       category.auditRefs.forEach(audit => audit.result.score = 0);
       const elem = renderer.render(category, sampleResults.categoryGroups);
       const passedAudits = elem.querySelectorAll('.lh-clump--passed .lh-audit');
+      const warningAudits = elem.querySelectorAll('.lh-clump--warning .lh-audit');
       const failedAudits = elem.querySelectorAll('.lh-clump--failed .lh-audit');
 
       assert.equal(passedAudits.length, 0);
-      assert.equal(failedAudits.length, 12);
+      assert.equal(warningAudits.length, 1);
+      assert.equal(failedAudits.length, 11);
     });
   });
 
