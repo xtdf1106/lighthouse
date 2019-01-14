@@ -64,16 +64,13 @@ Object {
       "path": "redirects",
     },
     Object {
-      "path": "webapp-install-banner",
+      "path": "installable-manifest",
     },
     Object {
       "path": "splash-screen",
     },
     Object {
       "path": "themed-omnibox",
-    },
-    Object {
-      "path": "manifest-short-name-length",
     },
     Object {
       "path": "content-width",
@@ -104,6 +101,9 @@ Object {
     },
     Object {
       "path": "metrics",
+    },
+    Object {
+      "path": "offline-start-url",
     },
     Object {
       "path": "manual/pwa-cross-browser",
@@ -311,9 +311,6 @@ Object {
     },
     Object {
       "path": "dobetterweb/js-libraries",
-    },
-    Object {
-      "path": "dobetterweb/no-websql",
     },
     Object {
       "path": "dobetterweb/notification-on-start",
@@ -595,10 +592,6 @@ Object {
           "weight": 1,
         },
         Object {
-          "id": "no-websql",
-          "weight": 1,
-        },
-        Object {
           "id": "is-on-https",
           "weight": 1,
         },
@@ -821,52 +814,64 @@ Object {
     "pwa": Object {
       "auditRefs": Array [
         Object {
+          "group": "pwa-fast-reliable",
           "id": "load-fast-enough-for-pwa",
           "weight": 7,
         },
         Object {
+          "group": "pwa-fast-reliable",
           "id": "works-offline",
           "weight": 5,
         },
         Object {
-          "id": "webapp-install-banner",
-          "weight": 3,
+          "group": "pwa-fast-reliable",
+          "id": "offline-start-url",
+          "weight": 1,
         },
         Object {
+          "group": "pwa-installable",
           "id": "is-on-https",
           "weight": 2,
         },
         Object {
-          "id": "redirects-http",
-          "weight": 2,
-        },
-        Object {
-          "id": "viewport",
-          "weight": 2,
-        },
-        Object {
+          "group": "pwa-installable",
           "id": "service-worker",
           "weight": 1,
         },
         Object {
-          "id": "without-javascript",
-          "weight": 1,
+          "group": "pwa-installable",
+          "id": "installable-manifest",
+          "weight": 2,
         },
         Object {
+          "group": "pwa-optimized",
+          "id": "redirects-http",
+          "weight": 2,
+        },
+        Object {
+          "group": "pwa-optimized",
           "id": "splash-screen",
           "weight": 1,
         },
         Object {
+          "group": "pwa-optimized",
           "id": "themed-omnibox",
           "weight": 1,
         },
         Object {
+          "group": "pwa-optimized",
           "id": "content-width",
           "weight": 1,
         },
         Object {
-          "id": "manifest-short-name-length",
-          "weight": 0,
+          "group": "pwa-optimized",
+          "id": "viewport",
+          "weight": 2,
+        },
+        Object {
+          "group": "pwa-optimized",
+          "id": "without-javascript",
+          "weight": 1,
         },
         Object {
           "id": "pwa-cross-browser",
@@ -881,7 +886,7 @@ Object {
           "weight": 0,
         },
       ],
-      "description": "These checks validate the aspects of a Progressive Web App, as specified by the baseline [PWA Checklist](https://developers.google.com/web/progressive-web-apps/checklist).",
+      "description": "These checks validate the aspects of a Progressive Web App. [Learn more](https://developers.google.com/web/progressive-web-apps/checklist).",
       "manualDescription": "These checks are required by the baseline [PWA Checklist](https://developers.google.com/web/progressive-web-apps/checklist) but are not automatically checked by Lighthouse. They do not affect your score but it's important that you verify them manually.",
       "title": "Progressive Web App",
     },
@@ -1000,6 +1005,15 @@ Object {
     "metrics": Object {
       "title": "Metrics",
     },
+    "pwa-fast-reliable": Object {
+      "title": "Fast and reliable",
+    },
+    "pwa-installable": Object {
+      "title": "Installable",
+    },
+    "pwa-optimized": Object {
+      "title": "PWA Optimized",
+    },
     "seo-content": Object {
       "description": "Format your HTML in a way that enables crawlers to better understand your app’s content.",
       "title": "Content Best Practices",
@@ -1015,7 +1029,6 @@ Object {
   },
   "passes": Array [
     Object {
-      "blankDuration": 300,
       "blankPage": "about:blank",
       "blockedUrlPatterns": Array [],
       "cpuQuietThresholdMs": 1000,
@@ -1051,6 +1064,9 @@ Object {
           "path": "accessibility",
         },
         Object {
+          "path": "link-elements",
+        },
+        Object {
           "path": "dobetterweb/anchors-with-no-rel-noopener",
         },
         Object {
@@ -1078,9 +1094,6 @@ Object {
           "path": "dobetterweb/tags-blocking-first-paint",
         },
         Object {
-          "path": "dobetterweb/websql",
-        },
-        Object {
           "path": "seo/meta-description",
         },
         Object {
@@ -1104,9 +1117,6 @@ Object {
         Object {
           "path": "seo/robots-txt",
         },
-        Object {
-          "path": "fonts",
-        },
       ],
       "networkQuietThresholdMs": 1000,
       "passName": "defaultPass",
@@ -1115,7 +1125,6 @@ Object {
       "useThrottling": true,
     },
     Object {
-      "blankDuration": 300,
       "blankPage": "about:blank",
       "blockedUrlPatterns": Array [],
       "cpuQuietThresholdMs": 0,
@@ -1137,7 +1146,6 @@ Object {
       "useThrottling": false,
     },
     Object {
-      "blankDuration": 300,
       "blankPage": "about:blank",
       "blockedUrlPatterns": Array [
         "*.css",
@@ -1259,6 +1267,15 @@ Object {
     "metrics": Object {
       "title": "Metrics",
     },
+    "pwa-fast-reliable": Object {
+      "title": "Fast and reliable",
+    },
+    "pwa-installable": Object {
+      "title": "Installable",
+    },
+    "pwa-optimized": Object {
+      "title": "PWA Optimized",
+    },
     "seo-content": Object {
       "description": "Format your HTML in a way that enables crawlers to better understand your app’s content.",
       "title": "Content Best Practices",
@@ -1274,7 +1291,6 @@ Object {
   },
   "passes": Array [
     Object {
-      "blankDuration": 300,
       "blankPage": "about:blank",
       "blockedUrlPatterns": Array [],
       "cpuQuietThresholdMs": 1000,

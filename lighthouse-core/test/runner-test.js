@@ -290,7 +290,7 @@ describe('Runner', () => {
 
     // TODO: need to support save/load of artifact errors.
     // See https://github.com/GoogleChrome/lighthouse/issues/4984
-    it.skip('outputs an error audit result when required artifact was a non-fatal Error', () => {
+    it.skip('outputs an error audit result when required artifact was an Error', () => {
       const errorMessage = 'blurst of times';
       const artifactError = new Error(errorMessage);
 
@@ -326,7 +326,7 @@ describe('Runner', () => {
       requiredArtifacts: [],
     };
 
-    it('produces an error audit result when an audit throws a non-fatal Error', () => {
+    it('produces an error audit result when an audit throws an Error', () => {
       const errorMessage = 'Audit yourself';
       const config = new Config({
         settings: {
@@ -350,31 +350,6 @@ describe('Runner', () => {
         assert.strictEqual(auditResult.scoreDisplayMode, 'error');
         assert.ok(auditResult.errorMessage.includes(errorMessage));
       });
-    });
-
-    it('rejects if an audit throws a fatal error', () => {
-      const errorMessage = 'Uh oh';
-      const config = new Config({
-        settings: {
-          auditMode: __dirname + '/fixtures/artifacts/empty-artifacts/',
-        },
-        audits: [
-          class FatalThrowyAudit extends Audit {
-            static get meta() {
-              return testAuditMeta;
-            }
-            static audit() {
-              const fatalError = new Error(errorMessage);
-              fatalError.fatal = true;
-              throw fatalError;
-            }
-          },
-        ],
-      });
-
-      return Runner.run({}, {config}).then(
-        _ => assert.ok(false),
-        err => assert.strictEqual(err.message, errorMessage));
     });
   });
 
@@ -488,14 +463,6 @@ describe('Runner', () => {
       const auditExpectedName = path.basename(auditFilename, '.js');
       const AuditClass = require(auditPath);
       assert.strictEqual(AuditClass.meta.id, auditExpectedName);
-    });
-  });
-
-  it('can create computed artifacts', () => {
-    const computedArtifacts = Runner.instantiateComputedArtifacts();
-    assert.ok(Object.keys(computedArtifacts).length, 'there are a few computed artifacts');
-    Object.keys(computedArtifacts).forEach(artifactRequest => {
-      assert.equal(typeof computedArtifacts[artifactRequest], 'function');
     });
   });
 
@@ -639,7 +606,29 @@ describe('Runner', () => {
     assert.ok(lhr.audits['test-audit'].errorMessage.includes(NO_FCP.code));
     // And it bubbled up to the runtimeError.
     assert.strictEqual(lhr.runtimeError.code, NO_FCP.code);
-    assert.ok(lhr.runtimeError.message.includes(NO_FCP.message));
+    expect(lhr.runtimeError.message)
+      .toBeDisplayString(/Something .*\(NO_FCP\)/);
+  });
+
+  it('localized errors thrown from driver', async () => {
+    const erroringDriver = {...driverMock,
+      async connect() {
+        const err = new LHError(
+          LHError.errors.PROTOCOL_TIMEOUT,
+          {protocolMethod: 'Method.Failure'}
+        );
+        throw err;
+      },
+    };
+
+    try {
+      await Runner.run(null, {url: 'https://example.com/', driverMock: erroringDriver, config: new Config()});
+      assert.fail('should have thrown');
+    } catch (err) {
+      assert.equal(err.code, LHError.errors.PROTOCOL_TIMEOUT.code);
+      assert.ok(/^Waiting for DevTools protocol.*Method: Method.Failure/.test(err.friendlyMessage),
+        'did not localize error message');
+    }
   });
 
   it('can handle array of outputs', async () => {

@@ -218,17 +218,17 @@ class ReportUIFeatures {
   animateHeader() {
     const collapsedHeaderHeight = 50;
     const heightDiff = this.headerHeight - collapsedHeaderHeight + this.headerOverlap;
-    const scrollPct = Math.min(1,
-      this.latestKnownScrollY / (this.headerHeight - collapsedHeaderHeight));
+    const scrollPct = Math.max(0, Math.min(1,
+      this.latestKnownScrollY / (this.headerHeight - collapsedHeaderHeight)));
 
     const scoresContainer = /** @type {HTMLElement} */ (this.scoresWrapperBg.parentElement);
 
     this.headerSticky.style.transform = `translateY(${heightDiff * scrollPct * -1}px)`;
     this.headerBackground.style.transform = `translateY(${scrollPct * this.headerOverlap}px)`;
     this.lighthouseIcon.style.transform =
-      `translate3d(calc(var(--report-width) / 2),` +
+      `translate3d(var(--report-width-half),` +
       ` calc(-100% - ${scrollPct * this.headerOverlap * -1}px), 0) scale(${1 - scrollPct})`;
-    this.lighthouseIcon.style.opacity = Math.max(0, 1 - scrollPct).toString();
+    this.lighthouseIcon.style.opacity = (1 - scrollPct).toString();
 
     // Switch up the score background & shadows
     this.scoresWrapperBg.style.opacity = (1 - scrollPct).toString();
@@ -364,8 +364,7 @@ class ReportUIFeatures {
     // load event, however it is cross-domain and won't fire. Instead, listen
     // for a message from the target app saying "I'm open".
     const json = reportJson;
-    window.addEventListener('message', function msgHandler(/** @type {Event} */ e) {
-      const messageEvent = /** @type {MessageEvent} */ (e);
+    window.addEventListener('message', function msgHandler(messageEvent) {
       if (messageEvent.origin !== VIEWER_ORIGIN) {
         return;
       }
@@ -469,7 +468,7 @@ class ReportUIFeatures {
     const ext = blob.type.match('json') ? '.json' : '.html';
     const href = URL.createObjectURL(blob);
 
-    const a = /** @type {HTMLAnchorElement} */ (this._dom.createElement('a'));
+    const a = this._dom.createElement('a');
     a.download = `${filename}${ext}`;
     a.href = href;
     this._document.body.appendChild(a); // Firefox requires anchor to be in the DOM.

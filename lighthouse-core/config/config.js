@@ -64,13 +64,18 @@ function validateCategories(categories, audits, groups) {
     return;
   }
 
+  const auditsKeyedById = new Map((audits || []).map(audit =>
+    /** @type {[string, LH.Config.AuditDefn]} */
+    ([audit.implementation.meta.id, audit])
+  ));
+
   Object.keys(categories).forEach(categoryId => {
     categories[categoryId].auditRefs.forEach((auditRef, index) => {
       if (!auditRef.id) {
         throw new Error(`missing an audit id at ${categoryId}[${index}]`);
       }
 
-      const audit = audits && audits.find(a => a.implementation.meta.id === auditRef.id);
+      const audit = auditsKeyedById.get(auditRef.id);
       if (!audit) {
         throw new Error(`could not find ${auditRef.id} audit for category ${categoryId}`);
       }
@@ -312,6 +317,8 @@ class Config {
    * @param {LH.Flags=} flags
    */
   constructor(configJSON, flags) {
+    const status = {msg: 'Create config', id: 'lh:init:config'};
+    log.time(status, 'verbose');
     let configPath = flags && flags.configPath;
 
     if (!configJSON) {
@@ -364,6 +371,7 @@ class Config {
     // TODO(bckenny): until tsc adds @implements support, assert that Config is a ConfigJson.
     /** @type {LH.Config.Json} */
     const configJson = this; // eslint-disable-line no-unused-vars
+    log.timeEnd(status);
   }
 
   /**
@@ -748,6 +756,8 @@ class Config {
    * @return {Config['audits']}
    */
   static requireAudits(audits, configPath) {
+    const status = {msg: 'Requiring audits', id: 'lh:config:requireAudits'};
+    log.time(status, 'verbose');
     const expandedAudits = Config.expandAuditShorthand(audits);
     if (!expandedAudits) {
       return null;
@@ -779,6 +789,7 @@ class Config {
 
     const mergedAuditDefns = mergeOptionsOfItems(auditDefns);
     mergedAuditDefns.forEach(audit => assertValidAudit(audit.implementation, audit.path));
+    log.timeEnd(status);
     return mergedAuditDefns;
   }
 
@@ -820,6 +831,8 @@ class Config {
     if (!passes) {
       return null;
     }
+    const status = {msg: 'Requiring gatherers', id: 'lh:config:requireGatherers'};
+    log.time(status, 'verbose');
 
     const coreList = Runner.getGathererList();
     const fullPasses = passes.map(pass => {
@@ -853,7 +866,7 @@ class Config {
 
       return Object.assign(pass, {gatherers: mergedDefns});
     });
-
+    log.timeEnd(status);
     return fullPasses;
   }
 }

@@ -16,7 +16,7 @@ const DEVTOOLS_THROUGHPUT_ADJUSTMENT_FACTOR = 0.9;
 const throttling = {
   DEVTOOLS_RTT_ADJUSTMENT_FACTOR,
   DEVTOOLS_THROUGHPUT_ADJUSTMENT_FACTOR,
-  mobile3G: {
+  mobileSlow4G: {
     rttMs: 150,
     throughputKbps: 1.6 * 1024,
     requestLatencyMs: 150 * DEVTOOLS_RTT_ADJUSTMENT_FACTOR,
@@ -32,7 +32,7 @@ const defaultSettings = {
   output: 'json',
   maxWaitForLoad: 45 * 1000,
   throttlingMethod: 'simulate',
-  throttling: throttling.mobile3G,
+  throttling: throttling.mobileSlow4G,
   auditMode: false,
   gatherMode: false,
   disableStorageReset: false,
@@ -60,7 +60,6 @@ const defaultPassConfig = {
   cpuQuietThresholdMs: 0,
   blockedUrlPatterns: [],
   blankPage: 'about:blank',
-  blankDuration: 300,
   gatherers: [],
 };
 

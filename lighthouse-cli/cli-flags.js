@@ -90,7 +90,7 @@ function getFlags(manualArgv) {
         'config-path': 'The path to the config JSON.',
         'preset': 'Use a built-in configuration.',
         'chrome-flags':
-            `Custom flags to pass to Chrome (space-delimited). For a full list of flags, see http://bit.ly/chrome-flags
+            `Custom flags to pass to Chrome (space-delimited). For a full list of flags, see https://bit.ly/chrome-flags
             Additionally, use the CHROME_PATH environment variable to use a specific Chrome binary. Requires Chromium version 66.0 or later. If omitted, any detected Chrome Canary or Chrome stable will be used.`,
         'hostname': 'The hostname to use for the debugging protocol.',
         'port': 'The port to use for the debugging protocol. Use 0 for a random port',
@@ -111,7 +111,7 @@ function getFlags(manualArgv) {
         'output-path': `The file path to output the results. Use 'stdout' to write to stdout.
   If using JSON output, default is stdout.
   If using HTML output, default is a file in the working directory with a name based on the test URL and date.
-  If using multiple outputs, --output-path is ignored.
+  If using multiple outputs, --output-path is appended with the standard extension for each output type. "reports/my-run" -> "reports/my-run.report.html", "reports/my-run.report.json", etc.
   Example: --output-path=./lighthouse-results.html`,
         'view': 'Open HTML report in your browser',
       })

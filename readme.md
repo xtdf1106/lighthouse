@@ -1,4 +1,4 @@
-# Lighthouse  [![Linux Build Status](https://img.shields.io/travis/GoogleChrome/lighthouse/master.svg)](https://travis-ci.org/GoogleChrome/lighthouse) [![Windows Build Status](https://img.shields.io/appveyor/ci/paulirish/lighthouse/master.svg)](https://ci.appveyor.com/project/paulirish/lighthouse/branch/master) [![Coverage Status](https://img.shields.io/coveralls/GoogleChrome/lighthouse/master.svg)](https://coveralls.io/github/GoogleChrome/lighthouse?branch=master) [![NPM lighthouse package](https://img.shields.io/npm/v/lighthouse.svg)](https://npmjs.org/package/lighthouse)
+# Lighthouse  [![Linux Build Status](https://img.shields.io/travis/GoogleChrome/lighthouse/master.svg)](https://travis-ci.org/GoogleChrome/lighthouse) [![Windows Build Status](https://ci.appveyor.com/api/projects/status/46a5yoqc3hk59bl5/branch/master?svg=true)](https://ci.appveyor.com/project/paulirish/lighthouse/branch/master) [![Coverage Status](https://img.shields.io/coveralls/GoogleChrome/lighthouse/master.svg)](https://coveralls.io/github/GoogleChrome/lighthouse?branch=master) [![NPM lighthouse package](https://img.shields.io/npm/v/lighthouse.svg)](https://npmjs.org/package/lighthouse)
 
 > Lighthouse analyzes web apps and web pages, collecting modern performance metrics and insights on developer best practices.
 
@@ -14,11 +14,15 @@ Lighthouse is integrated directly into the Chrome Developer Tools, under the "Au
 
 ## Using the Chrome extension
 
+The Chrome extension was available prior to Lighthouse being available in Chrome Developer Tools, and offers similar functionality.
+
 **Installation**: [install the extension](https://chrome.google.com/webstore/detail/lighthouse/blipmdconlkpinefehnmjammfjpmpbjk) from the Chrome Web Store.
 
 **Run it**: follow the [extension quick-start guide](https://developers.google.com/web/tools/lighthouse/#extension).
 
 ## Using the Node CLI
+
+The Node CLI provides the most flexibility in how Lighthouse runs can be configured and reported. Users who want more advanced usage, or want to run Lighthouse in an automated fashion should use the Node CLI.
 
 _Lighthouse requires Node 8 LTS (8.9) or later._
 
@@ -36,7 +40,7 @@ By default, Lighthouse writes the report to an HTML file. You can control the ou
 
 ### CLI options
 
-```sh
+```
 $ lighthouse --help
 
 lighthouse <url>
@@ -76,7 +80,7 @@ Output:
   --output-path  The file path to output the results. Use 'stdout' to write to stdout.
                  If using JSON or CSV output, default is stdout.
                  If using HTML output, default is a file in the working directory with a name based on the test URL and date.
-                 If using multiple outputs, --output-path is ignored.
+                 If using multiple outputs, --output-path is appended with the standard extension for each output type. "reports/my-run" -> "reports/my-run.report.html", "reports/my-run.report.json", etc.
                  Example: --output-path=./lighthouse-results.html
   --view         Open HTML report in your browser                                                                                          [boolean]
 
@@ -224,7 +228,6 @@ git clone https://github.com/GoogleChrome/lighthouse
 
 cd lighthouse
 yarn
-yarn install-all
 yarn build-all
 ```
 
@@ -290,6 +293,7 @@ Other awesome open source projects that use Lighthouse.
 * **[Garie](https://github.com/boyney123/garie)** — An open source tool for monitoring performance using Lighthouse,  PageSpeed Insights, [Prometheus](https://prometheus.io/), [Grafana](https://grafana.com/) and [Docker](https://www.docker.com/).
 * **[lighthouse-ci](https://github.com/andreasonny83/lighthouse-ci)** - Run Lighthouse and assert scores satisfy your custom thresholds.
 * **[lighthouse4u](https://github.com/godaddy/lighthouse4u)** - LH4U provides Google Lighthouse as a service, surfaced by both a friendly UI+API, and backed by Elastic Search for easy querying and visualization.
+* **[lighthouse-gh-reporter](https://github.com/carlesnunez/lighthouse-gh-reporter)** - Run Lighthouse in CI and report back in a comment on your pull requests
 
 ## FAQ
 
@@ -304,7 +308,7 @@ Yes! Details in [Lighthouse configuration](./docs/configuration.md).
 ### How does Lighthouse use network throttling, and how can I make it better?
 
 Good question. Network and CPU throttling are applied by default in a Lighthouse run. The network
-attempts to emulate 3G and the CPU is slowed down 4x from your machine's default speed. If you
+attempts to emulate slow 4G and the CPU is slowed down 4x from your machine's default speed. If you
 prefer to run Lighthouse without throttling, you'll have to use the CLI and disable it with the
 `--throttling.*` flags mentioned above.
 
