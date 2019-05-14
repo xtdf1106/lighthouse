@@ -44,7 +44,7 @@ bash ./lighthouse-core/scripts/release/test.sh
 # Package everything for publishing
 bash ./lighthouse-core/scripts/release/prepare-package.sh
 
-# Upload the extension
+# Upload the extension (Only if the extension has changed)
 node build/build-extension.js package; cd dist/extension-package/
 open https://chrome.google.com/webstore/developer/edit/blipmdconlkpinefehnmjammfjpmpbjk
 echo "Upload the package zip to CWS dev dashboard"
