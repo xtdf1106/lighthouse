@@ -6,6 +6,6 @@
 'use strict';
 
 chrome.browserAction.onClicked.addListener(function(tab) {
-  // @ts-ignore - openDevTools doesn't exist ... yet.
-  chrome.tabs.openDevTools(tab.id, 'audits2');
+  // @ts-ignore - private API will never be in types.
+  chrome.devtools.private.open(tab.id, 'audits2');
 });
