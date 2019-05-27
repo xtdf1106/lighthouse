@@ -72,7 +72,7 @@ class ThirdPartySummary extends Audit {
       const entity = ThirdPartySummary.getEntitySafe(request.url);
       if (!entity) continue;
 
-      const entityStats = entities.get(entity) || {mainThreadTime: 0, transferSize: 0}
+      const entityStats = entities.get(entity) || {mainThreadTime: 0, transferSize: 0};
       entityStats.transferSize += request.transferSize;
       entities.set(entity, entityStats);
     }
@@ -84,13 +84,12 @@ class ThirdPartySummary extends Audit {
       const entity = ThirdPartySummary.getEntitySafe(attributeableURL);
       if (!entity) continue;
 
-      const entityStats = entities.get(entity) || {mainThreadTime: 0, transferSize: 0}
+      const entityStats = entities.get(entity) || {mainThreadTime: 0, transferSize: 0};
       entityStats.mainThreadTime += task.selfTime * cpuMultiplier;
       entities.set(entity, entityStats);
     }
 
     return entities;
-
   }
 
   /**
@@ -129,15 +128,17 @@ class ThirdPartySummary extends Audit {
           }),
           transferSize: stats.transferSize,
           mainThreadTime: stats.mainThreadTime,
-        }
+        };
       })
       .sort((a, b) => computeSortValue(b) - computeSortValue(a));
 
     /** @type {LH.Audit.Details.Table['headings']} */
     const headings = [
       {key: 'entity', itemType: 'link', text: str_(i18n.UIStrings.columnURL)},
-      {key: 'transferSize', granularity: 1, itemType: 'bytes', text: str_(i18n.UIStrings.columnSize)},
-      {key: 'mainThreadTime', granularity: 1, itemType: 'ms', text: str_(UIStrings.columnMainThreadTime)},
+      {key: 'transferSize', granularity: 1, itemType: 'bytes',
+        text: str_(i18n.UIStrings.columnSize)},
+      {key: 'mainThreadTime', granularity: 1, itemType: 'ms',
+        text: str_(UIStrings.columnMainThreadTime)},
     ];
 
     return {

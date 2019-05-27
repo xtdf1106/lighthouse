@@ -153,7 +153,7 @@ class DetailsRenderer {
       if (err.message.startsWith(`Failed to construct 'URL'`) ||
           err.message.includes('Invalid URL')) {
         // Fall back to text if URL was invalid.
-        console.warn(`Link details URL "${details.url}" was invalid.`);
+        console.warn(`Link details URL "${details.url}" was invalid.`); // eslint-disable-line no-console
         return this._renderText(details.text);
       }
 
