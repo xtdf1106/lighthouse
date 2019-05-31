@@ -14,10 +14,14 @@ const Audit = require('../audit.js');
 const i18n = require('../../lib/i18n/i18n.js');
 
 const UIStrings = {
+  /** Title of a Lighthouse audit that provides detail on the use of the Application Cache API. This descriptive title is shown to users when they do not use the Application Cache API. */
   title: 'Avoids Application Cache',
+  /** Title of a Lighthouse audit that provides detail on the use of the Application Cache API. This descriptive title is shown to users when they do use the Application Cache API, which is considered bad practice. */
   failureTitle: 'Uses Application Cache',
+  /** Description of a Lighthouse audit that tells the user why they should not use the Application Cache API. This is displayed after a user expands the section to see more. No character length limits. 'Learn More' becomes link text to additional documentation. */
   description: 'Application Cache is deprecated. ' +
     '[Learn more](https://developers.google.com/web/tools/lighthouse/audits/appcache).',
+  /** Label for the audit identifying uses of the Application Cache. */
   displayValue: 'Found "{AppCacheManifest}"',
 };
 

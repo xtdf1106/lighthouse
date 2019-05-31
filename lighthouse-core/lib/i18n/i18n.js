@@ -56,6 +56,7 @@ const UIStrings = {
   columnWastedMs: 'Potential Savings',
   /** Label for the time spent column in data tables, entries will be the number of milliseconds spent during a particular activity */
   columnTimeSpent: 'Time Spent',
+  /** Label for the location column in data tables, entries will be the location of a specific entity, the entity may be a file in a directory, or a place in the world, it is generic */
   columnLocation: 'Location',
   /** Label for a row in a data table; entries will be the total number and byte size of all resources loaded by a web page. */
   totalResourceType: 'Total',

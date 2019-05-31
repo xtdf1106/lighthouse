@@ -14,10 +14,14 @@ const Audit = require('./audit.js');
 const i18n = require('../lib/i18n/i18n.js');
 
 const UIStrings = {
+  /** Title of a Lighthouse audit that provides detail on browser errors. This descriptive title is shown to users when no browser errors were logged into the devtools console. */
   title: 'No browser errors logged to the console',
+  /** Title of a Lighthouse audit that provides detail on browser errors. This descriptive title is shown to users when browser errors were logged into the devtools console. */
+  failureTitle: 'Browser errors were logged to the console',
+  /** Description of a Lighthouse audit that tells the user why they should not log errors into the console. This is displayed after a user expands the section to see more. No character length limits. */
   description: 'Errors logged to the console indicate unresolved problems. ' +
     'They can come from network request failures and other browser concerns.',
-  failureTitle: 'Browser errors were logged to the console',
+  /** Table column header for the description of the browser error that was logged. */
   columnDesc: 'Description',
 };
 

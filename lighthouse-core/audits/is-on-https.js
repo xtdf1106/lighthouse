@@ -11,17 +11,22 @@ const NetworkRecords = require('../computed/network-records.js');
 const i18n = require('../lib/i18n/i18n.js');
 
 const UIStrings = {
+  /** Title of a Lighthouse audit that provides detail on the useage of HTTPS on a page. This descriptive title is shown to users when all requests on a page are fufilled using HTTPS. */
   title: 'Uses HTTPS',
+  /** Title of a Lighthouse audit that provides detail on the useage of HTTPS on a page. This descriptive title is shown to users when some, or all, requests on the page use HTTP instead of HTTPS. */
   failureTitle: 'Does not use HTTPS',
+  /** Description of a Lighthouse audit that tells the user *why* HTTPS use is important. This is displayed after a user expands the section to see more. No character length limits. 'Learn More' becomes link text to additional documentation. */
   description: 'All sites should be protected with HTTPS, even ones that don\'t handle ' +
       'sensitive data. HTTPS prevents intruders from tampering with or passively listening ' +
       'in on the communications between your app and your users, and is a prerequisite for ' +
       'HTTP/2 and many new web platform APIs. ' +
       '[Learn more](https://developers.google.com/web/tools/lighthouse/audits/https).',
+  /** [ICU Syntax] Label for the audit identifying the number of insecure requests found. */
   displayValue: `{itemCount, plural,
     =1 {1 insecure request found}
     other {# insecure requests found}
     }`,
+  /** Table column header for the URL's of non-HTTPS requests. */
   columnInsecureURL: 'Insecure URL',
 };
 

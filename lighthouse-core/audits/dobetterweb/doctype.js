@@ -9,14 +9,21 @@ const Audit = require('../audit.js');
 const i18n = require('../../lib/i18n/i18n.js');
 
 const UIStrings = {
+  /** Title of a Lighthouse audit that provides detail on the doctype of a site. This descriptive title is shown to users when the site's doctype is set to HTML. */
   title: 'Page has the HTML doctype',
+  /** Title of a Lighthouse audit that provides detail on the doctype of a site. This descriptive title is shown to users when the site's doctype is not set to HTML. */
   failureTitle: 'Page is missing the HTML doctype',
+  /** Description of a Lighthouse audit that tells the user why they should set the doctype as HTML. This is displayed after a user expands the section to see more. No character length limits. 'Learn More' becomes link text to additional documentation. */
   description: 'Specifying a doctype prevents the browser ' +
     'from switching to quirks-mode. Read more on the ' +
     '[MDN Web Docs page](https://developer.mozilla.org/en-US/docs/Glossary/Doctype)',
+  /** Explanatory message stating that the document has no doctype. */
   explanationNoDoctype: 'Document must contain a doctype',
+  /** Explanatory message stating that the publicId field is not empty. */
   explanationPublicId: 'Expected publicId to be an empty string',
+  /** Explanatory message stating that the systemId field is not empty. */
   explanationSystemId: 'Expected systemId to be an empty string',
+  /** Explanatory message stating that the doctype is set, but is not "html" and is therefore invalid. */
   explanationBadDoctype: 'Doctype name must be the lowercase string `html`',
 };
 
