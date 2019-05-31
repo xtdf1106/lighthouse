@@ -599,6 +599,14 @@
     "message": "Minimize Critical Requests Depth",
     "description": "Imperative title of a Lighthouse audit that tells the user to reduce the depth of critical network requests to enhance initial load of a page. Critical request chains are series of dependent network requests that are important for page rendering. For example, here's a 4-request-deep chain: The biglogo.jpg image is required, but is requested via the styles.css style code, which is requested by the initialize.js javascript, which is requested by the page's HTML. This is displayed in a list of audit titles that Lighthouse generates."
   },
+  "lighthouse-core/audits/deprecations.js | columnDeprecate": {
+    "message": "Deprecation / Warning",
+    "description": ""
+  },
+  "lighthouse-core/audits/deprecations.js | columnLine": {
+    "message": "Line",
+    "description": ""
+  },
   "lighthouse-core/audits/deprecations.js | description": {
     "message": "Deprecated APIs will eventually be removed from the browser. [Learn more](https://www.chromestatus.com/features#deprecated).",
     "description": ""
@@ -699,6 +707,14 @@
     "message": "Avoids an excessive DOM size",
     "description": "Title of a diagnostic audit that provides detail on the size of the web page's DOM. The size of a DOM is characterized by the total number of DOM elements and greatest DOM depth. This descriptive title is shown to users when the amount is acceptable and no user action is required."
   },
+  "lighthouse-core/audits/dobetterweb/external-anchors-use-rel-noopener.js | columnRel": {
+    "message": "Rel",
+    "description": ""
+  },
+  "lighthouse-core/audits/dobetterweb/external-anchors-use-rel-noopener.js | columnTarget": {
+    "message": "Target",
+    "description": ""
+  },
   "lighthouse-core/audits/dobetterweb/external-anchors-use-rel-noopener.js | description": {
     "message": "Add `rel=\"noopener\"` or `rel=\"noreferrer\"` to any external links to improve performance and prevent security vulnerabilities. [Learn more](https://developers.google.com/web/tools/lighthouse/audits/noopener).",
     "description": ""
@@ -727,6 +743,14 @@
     "message": "Avoids requesting the geolocation permission on page load",
     "description": ""
   },
+  "lighthouse-core/audits/dobetterweb/js-libraries.js | columnName": {
+    "message": "Name",
+    "description": ""
+  },
+  "lighthouse-core/audits/dobetterweb/js-libraries.js | columnVersion": {
+    "message": "Version",
+    "description": ""
+  },
   "lighthouse-core/audits/dobetterweb/js-libraries.js | description": {
     "message": "All front-end JavaScript libraries detected on the page.",
     "description": ""
@@ -745,6 +769,18 @@
   },
   "lighthouse-core/audits/dobetterweb/no-document-write.js | title": {
     "message": "Avoids `document.write()`",
+    "description": ""
+  },
+  "lighthouse-core/audits/dobetterweb/no-vulnerable-libraries.js | columnSeverity": {
+    "message": "Highest Severity",
+    "description": ""
+  },
+  "lighthouse-core/audits/dobetterweb/no-vulnerable-libraries.js | columnVersion": {
+    "message": "Library Version",
+    "description": ""
+  },
+  "lighthouse-core/audits/dobetterweb/no-vulnerable-libraries.js | columnVuln": {
+    "message": "Vulnerability Count",
     "description": ""
   },
   "lighthouse-core/audits/dobetterweb/no-vulnerable-libraries.js | description": {
@@ -775,6 +811,10 @@
     "message": "Avoids requesting the notification permission on page load",
     "description": ""
   },
+  "lighthouse-core/audits/dobetterweb/password-inputs-can-be-pasted-into.js | columnFailingElem": {
+    "message": "Failing Elements",
+    "description": ""
+  },
   "lighthouse-core/audits/dobetterweb/password-inputs-can-be-pasted-into.js | description": {
     "message": "Preventing password pasting undermines good security policy. [Learn more](https://developers.google.com/web/tools/lighthouse/audits/password-pasting).",
     "description": ""
@@ -785,6 +825,10 @@
   },
   "lighthouse-core/audits/dobetterweb/password-inputs-can-be-pasted-into.js | title": {
     "message": "Allows users to paste into password fields",
+    "description": ""
+  },
+  "lighthouse-core/audits/dobetterweb/uses-http2.js | columnProtocol": {
+    "message": "Protocol",
     "description": ""
   },
   "lighthouse-core/audits/dobetterweb/uses-http2.js | description": {
@@ -815,6 +859,10 @@
     "message": "Uses passive listeners to improve scrolling performance",
     "description": ""
   },
+  "lighthouse-core/audits/errors-in-console.js | columnDesc": {
+    "message": "Description",
+    "description": ""
+  },
   "lighthouse-core/audits/errors-in-console.js | description": {
     "message": "Errors logged to the console indicate unresolved problems. They can come from network request failures and other browser concerns.",
     "description": ""
@@ -839,6 +887,14 @@
     "message": "All text remains visible during webfont loads",
     "description": "Title of a diagnostic audit that provides detail on if all the text on a webpage was visible while the page was loading its webfonts. This descriptive title is shown to users when the amount is acceptable and no user action is required."
   },
+  "lighthouse-core/audits/image-aspect-ratio.js | columnActual": {
+    "message": "Aspect Ratio (Actual)",
+    "description": ""
+  },
+  "lighthouse-core/audits/image-aspect-ratio.js | columnDisplayed": {
+    "message": "Aspect Ratio (Displayed)",
+    "description": ""
+  },
   "lighthouse-core/audits/image-aspect-ratio.js | description": {
     "message": "Image display dimensions should match natural aspect ratio. [Learn more](https://developers.google.com/web/tools/lighthouse/audits/aspect-ratio).",
     "description": ""
@@ -853,6 +909,10 @@
   },
   "lighthouse-core/audits/image-aspect-ratio.js | warningCompute": {
     "message": "Invalid image sizing information {url}",
+    "description": ""
+  },
+  "lighthouse-core/audits/is-on-https.js | columnInsecureURL": {
+    "message": "Insecure URL",
     "description": ""
   },
   "lighthouse-core/audits/is-on-https.js | description": {
@@ -1466,6 +1526,10 @@
   "lighthouse-core/lib/i18n/i18n.js | columnCacheTTL": {
     "message": "Cache TTL",
     "description": "Label for the TTL column in data tables, entries will be the time to live value of the cache header on a web resource"
+  },
+  "lighthouse-core/lib/i18n/i18n.js | columnLocation": {
+    "message": "Location",
+    "description": ""
   },
   "lighthouse-core/lib/i18n/i18n.js | columnSize": {
     "message": "Size",

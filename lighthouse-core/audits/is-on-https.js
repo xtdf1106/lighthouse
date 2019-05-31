@@ -22,6 +22,7 @@ const UIStrings = {
     =1 {1 insecure request found}
     other {# insecure requests found}
     }`,
+  columnInsecureURL: 'Insecure URL',
 };
 
 const str_ = i18n.createMessageInstanceIdFn(__filename, UIStrings);
@@ -74,7 +75,7 @@ class HTTPS extends Audit {
 
       /** @type {LH.Audit.Details.Table['headings']} */
       const headings = [
-        {key: 'url', itemType: 'url', text: 'Insecure URL'},
+        {key: 'url', itemType: 'url', text: str_(UIStrings.columnInsecureURL)},
       ];
 
       return {

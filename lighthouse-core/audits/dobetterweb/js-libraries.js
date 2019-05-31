@@ -16,6 +16,8 @@ const i18n = require('../../lib/i18n/i18n.js');
 const UIStrings = {
   title: 'Detected JavaScript libraries',
   description: 'All front-end JavaScript libraries detected on the page.',
+  columnName: 'Name',
+  columnVersion: 'Version',
 };
 
 const str_ = i18n.createMessageInstanceIdFn(__filename, UIStrings);
@@ -48,8 +50,8 @@ class JsLibrariesAudit extends Audit {
 
     /** @type {LH.Audit.Details.Table['headings']} */
     const headings = [
-      {key: 'name', itemType: 'text', text: 'Name'},
-      {key: 'version', itemType: 'text', text: 'Version'},
+      {key: 'name', itemType: 'text', text: str_(UIStrings.columnName)},
+      {key: 'version', itemType: 'text', text: str_(UIStrings.columnVersion)},
     ];
     const details = Audit.makeTableDetails(headings, libDetails, {});
 

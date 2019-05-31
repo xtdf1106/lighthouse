@@ -23,6 +23,8 @@ const UIStrings = {
     =1 {1 warning found}
     other {# warnings found}
     }`,
+  columnDeprecate: 'Deprecation / Warning',
+  columnLine: 'Line',
 };
 
 const str_ = i18n.createMessageInstanceIdFn(__filename, UIStrings);
@@ -59,9 +61,9 @@ class Deprecations extends Audit {
 
     /** @type {LH.Audit.Details.Table['headings']} */
     const headings = [
-      {key: 'value', itemType: 'code', text: 'Deprecation / Warning'},
-      {key: 'url', itemType: 'url', text: 'URL'},
-      {key: 'lineNumber', itemType: 'text', text: 'Line'},
+      {key: 'value', itemType: 'code', text: str_(UIStrings.columnDeprecate)},
+      {key: 'url', itemType: 'url', text: str_(i18n.UIStrings.columnURL)},
+      {key: 'lineNumber', itemType: 'text', text: str_(UIStrings.columnLine)},
     ];
     const details = Audit.makeTableDetails(headings, deprecations);
 

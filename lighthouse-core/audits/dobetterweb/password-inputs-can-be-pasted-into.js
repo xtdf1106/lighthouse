@@ -13,6 +13,7 @@ const UIStrings = {
   failureTitle: 'Prevents users to paste into password fields',
   description: 'Preventing password pasting undermines good security policy. ' +
       '[Learn more](https://developers.google.com/web/tools/lighthouse/audits/password-pasting).',
+  columnFailingElem: 'Failing Elements',
 };
 
 const str_ = i18n.createMessageInstanceIdFn(__filename, UIStrings);
@@ -48,7 +49,7 @@ class PasswordInputsCanBePastedIntoAudit extends Audit {
 
     /** @type {LH.Audit.Details.Table['headings']} */
     const headings = [
-      {key: 'node', itemType: 'node', text: 'Failing Elements'},
+      {key: 'node', itemType: 'node', text: str_(UIStrings.columnFailingElem)},
     ];
 
     return {

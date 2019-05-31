@@ -18,6 +18,7 @@ const UIStrings = {
   description: 'Errors logged to the console indicate unresolved problems. ' +
     'They can come from network request failures and other browser concerns.',
   failureTitle: 'Browser errors were logged to the console',
+  columnDesc: 'Description',
 };
 
 const str_ = i18n.createMessageInstanceIdFn(__filename, UIStrings);
@@ -71,8 +72,8 @@ class ErrorLogs extends Audit {
 
     /** @type {LH.Audit.Details.Table['headings']} */
     const headings = [
-      {key: 'url', itemType: 'url', text: 'URL'},
-      {key: 'description', itemType: 'code', text: 'Description'},
+      {key: 'url', itemType: 'url', text: str_(i18n.UIStrings.columnURL)},
+      {key: 'description', itemType: 'code', text: str_(UIStrings.columnDesc)},
     ];
 
     const details = Audit.makeTableDetails(headings, tableRows);

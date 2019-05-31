@@ -25,6 +25,7 @@ const UIStrings = {
     =1 {1 request not served via HTTP/2}
     other {# requests not served via HTTP/2}
     }`,
+  columnProtocol: 'Protocol',
 };
 
 const str_ = i18n.createMessageInstanceIdFn(__filename, UIStrings);
@@ -82,8 +83,8 @@ class UsesHTTP2Audit extends Audit {
 
       /** @type {LH.Audit.Details.Table['headings']} */
       const headings = [
-        {key: 'url', itemType: 'url', text: 'URL'},
-        {key: 'protocol', itemType: 'text', text: 'Protocol'},
+        {key: 'url', itemType: 'url', text: str_(i18n.UIStrings.columnURL)},
+        {key: 'protocol', itemType: 'text', text: str_(UIStrings.columnProtocol)},
       ];
       const details = Audit.makeTableDetails(headings, resources);
 

@@ -30,6 +30,9 @@ const UIStrings = {
     =1 {1 vulnerability detected}
     other {# vulnerabilities detected}
     }`,
+  columnVersion: 'Library Version',
+  columnVuln: 'Vulnerability Count',
+  columnSeverity: 'Highest Severity',
 };
 
 const str_ = i18n.createMessageInstanceIdFn(__filename, UIStrings);
@@ -198,9 +201,9 @@ class NoVulnerableLibrariesAudit extends Audit {
 
     /** @type {LH.Audit.Details.Table['headings']} */
     const headings = [
-      {key: 'detectedLib', itemType: 'link', text: 'Library Version'},
-      {key: 'vulnCount', itemType: 'text', text: 'Vulnerability Count'},
-      {key: 'highestSeverity', itemType: 'text', text: 'Highest Severity'},
+      {key: 'detectedLib', itemType: 'link', text: str_(UIStrings.columnVersion)},
+      {key: 'vulnCount', itemType: 'text', text: str_(UIStrings.columnVuln)},
+      {key: 'highestSeverity', itemType: 'text', text: str_(UIStrings.columnSeverity)},
     ];
     const details = Audit.makeTableDetails(headings, vulnerabilityResults, {});
 

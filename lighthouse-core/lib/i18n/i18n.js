@@ -56,6 +56,7 @@ const UIStrings = {
   columnWastedMs: 'Potential Savings',
   /** Label for the time spent column in data tables, entries will be the number of milliseconds spent during a particular activity */
   columnTimeSpent: 'Time Spent',
+  columnLocation: 'Location',
   /** Label for a row in a data table; entries will be the total number and byte size of all resources loaded by a web page. */
   totalResourceType: 'Total',
   /** Label for a row in a data table; entries will be the total number and byte size of all 'Document' resources loaded by a web page. */

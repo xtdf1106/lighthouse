@@ -17,6 +17,8 @@ const UIStrings = {
     '[Learn more](https://developers.google.com/web/tools/lighthouse/audits/noopener).',
   warning: 'Unable to determine the destination for anchor ({anchorHTML}). ' +
     'If not used as a hyperlink, consider removing target=_blank.',
+  columnTarget: 'Target',
+  columnRel: 'Rel',
 };
 
 const str_ = i18n.createMessageInstanceIdFn(__filename, UIStrings);
@@ -69,9 +71,9 @@ class ExternalAnchorsUseRelNoopenerAudit extends Audit {
 
     /** @type {LH.Audit.Details.Table['headings']} */
     const headings = [
-      {key: 'href', itemType: 'url', text: 'URL'},
-      {key: 'target', itemType: 'text', text: 'Target'},
-      {key: 'rel', itemType: 'text', text: 'Rel'},
+      {key: 'href', itemType: 'url', text: str_(i18n.UIStrings.columnURL)},
+      {key: 'target', itemType: 'text', text: str_(UIStrings.columnTarget)},
+      {key: 'rel', itemType: 'text', text: str_(UIStrings.columnRel)},
     ];
 
     const details = Audit.makeTableDetails(headings, failingAnchors);

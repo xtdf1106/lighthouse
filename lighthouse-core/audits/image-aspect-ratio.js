@@ -21,6 +21,8 @@ const UIStrings = {
   description: 'Image display dimensions should match natural aspect ratio. ' +
     '[Learn more](https://developers.google.com/web/tools/lighthouse/audits/aspect-ratio).',
   warningCompute: 'Invalid image sizing information {url}',
+  columnDisplayed: 'Aspect Ratio (Displayed)',
+  columnActual: 'Aspect Ratio (Actual)',
 };
 
 const str_ = i18n.createMessageInstanceIdFn(__filename, UIStrings);
@@ -109,9 +111,9 @@ class ImageAspectRatio extends Audit {
     /** @type {LH.Audit.Details.Table['headings']} */
     const headings = [
       {key: 'url', itemType: 'thumbnail', text: ''},
-      {key: 'url', itemType: 'url', text: 'URL'},
-      {key: 'displayedAspectRatio', itemType: 'text', text: 'Aspect Ratio (Displayed)'},
-      {key: 'actualAspectRatio', itemType: 'text', text: 'Aspect Ratio (Actual)'},
+      {key: 'url', itemType: 'url', text: str_(i18n.UIStrings.columnURL)},
+      {key: 'displayedAspectRatio', itemType: 'text', text: str_(UIStrings.columnDisplayed)},
+      {key: 'actualAspectRatio', itemType: 'text', text: str_(UIStrings.columnActual)},
     ];
 
     return {

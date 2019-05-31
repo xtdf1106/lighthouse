@@ -5042,6 +5042,9 @@
           "path": "audits[is-on-https].displayValue"
         }
       ],
+      "lighthouse-core/audits/is-on-https.js | columnInsecureURL": [
+        "audits[is-on-https].details.headings[0].text"
+      ],
       "lighthouse-core/audits/metrics/first-contentful-paint.js | title": [
         "audits[first-contentful-paint].title"
       ],
@@ -5154,6 +5157,29 @@
       "lighthouse-core/audits/errors-in-console.js | description": [
         "audits[errors-in-console].description"
       ],
+      "lighthouse-core/lib/i18n/i18n.js | columnURL": [
+        "audits[errors-in-console].details.headings[0].text",
+        "audits[image-aspect-ratio].details.headings[1].text",
+        "audits.deprecations.details.headings[1].text",
+        "audits[bootup-time].details.headings[0].text",
+        "audits[network-rtt].details.headings[0].text",
+        "audits[network-server-latency].details.headings[0].text",
+        "audits[uses-long-cache-ttl].details.headings[0].text",
+        "audits[total-byte-weight].details.headings[0].text",
+        "audits[render-blocking-resources].details.headings[0].label",
+        "audits[unminified-javascript].details.headings[0].label",
+        "audits[uses-webp-images].details.headings[1].label",
+        "audits[uses-text-compression].details.headings[0].label",
+        "audits[external-anchors-use-rel-noopener].details.headings[0].text",
+        "audits[geolocation-on-start].details.headings[0].text",
+        "audits[no-document-write].details.headings[0].text",
+        "audits[notification-on-start].details.headings[0].text",
+        "audits[uses-http2].details.headings[0].text",
+        "audits[uses-passive-event-listeners].details.headings[0].text"
+      ],
+      "lighthouse-core/audits/errors-in-console.js | columnDesc": [
+        "audits[errors-in-console].details.headings[1].text"
+      ],
       "lighthouse-core/audits/time-to-first-byte.js | title": [
         "audits[time-to-first-byte].title"
       ],
@@ -5218,6 +5244,12 @@
       "lighthouse-core/audits/image-aspect-ratio.js | description": [
         "audits[image-aspect-ratio].description"
       ],
+      "lighthouse-core/audits/image-aspect-ratio.js | columnDisplayed": [
+        "audits[image-aspect-ratio].details.headings[2].text"
+      ],
+      "lighthouse-core/audits/image-aspect-ratio.js | columnActual": [
+        "audits[image-aspect-ratio].details.headings[3].text"
+      ],
       "lighthouse-core/audits/deprecations.js | failureTitle": [
         "audits.deprecations.title"
       ],
@@ -5231,6 +5263,12 @@
           },
           "path": "audits.deprecations.displayValue"
         }
+      ],
+      "lighthouse-core/audits/deprecations.js | columnDeprecate": [
+        "audits.deprecations.details.headings[0].text"
+      ],
+      "lighthouse-core/audits/deprecations.js | columnLine": [
+        "audits.deprecations.details.headings[2].text"
       ],
       "lighthouse-core/audits/mainthread-work-breakdown.js | title": [
         "audits[mainthread-work-breakdown].title"
@@ -5251,17 +5289,6 @@
       ],
       "lighthouse-core/audits/bootup-time.js | description": [
         "audits[bootup-time].description"
-      ],
-      "lighthouse-core/lib/i18n/i18n.js | columnURL": [
-        "audits[bootup-time].details.headings[0].text",
-        "audits[network-rtt].details.headings[0].text",
-        "audits[network-server-latency].details.headings[0].text",
-        "audits[uses-long-cache-ttl].details.headings[0].text",
-        "audits[total-byte-weight].details.headings[0].text",
-        "audits[render-blocking-resources].details.headings[0].label",
-        "audits[unminified-javascript].details.headings[0].label",
-        "audits[uses-webp-images].details.headings[1].label",
-        "audits[uses-text-compression].details.headings[0].label"
       ],
       "lighthouse-core/audits/bootup-time.js | columnTotal": [
         "audits[bootup-time].details.headings[1].text"
@@ -5809,11 +5836,23 @@
           "path": "audits[external-anchors-use-rel-noopener].warnings[0]"
         }
       ],
+      "lighthouse-core/audits/dobetterweb/external-anchors-use-rel-noopener.js | columnTarget": [
+        "audits[external-anchors-use-rel-noopener].details.headings[1].text"
+      ],
+      "lighthouse-core/audits/dobetterweb/external-anchors-use-rel-noopener.js | columnRel": [
+        "audits[external-anchors-use-rel-noopener].details.headings[2].text"
+      ],
       "lighthouse-core/audits/dobetterweb/geolocation-on-start.js | failureTitle": [
         "audits[geolocation-on-start].title"
       ],
       "lighthouse-core/audits/dobetterweb/geolocation-on-start.js | description": [
         "audits[geolocation-on-start].description"
+      ],
+      "lighthouse-core/lib/i18n/i18n.js | columnLocation": [
+        "audits[geolocation-on-start].details.headings[1].text",
+        "audits[no-document-write].details.headings[1].text",
+        "audits[notification-on-start].details.headings[1].text",
+        "audits[uses-passive-event-listeners].details.headings[1].text"
       ],
       "lighthouse-core/audits/dobetterweb/no-document-write.js | failureTitle": [
         "audits[no-document-write].title"
@@ -5835,11 +5874,26 @@
           "path": "audits[no-vulnerable-libraries].displayValue"
         }
       ],
+      "lighthouse-core/audits/dobetterweb/no-vulnerable-libraries.js | columnVersion": [
+        "audits[no-vulnerable-libraries].details.headings[0].text"
+      ],
+      "lighthouse-core/audits/dobetterweb/no-vulnerable-libraries.js | columnVuln": [
+        "audits[no-vulnerable-libraries].details.headings[1].text"
+      ],
+      "lighthouse-core/audits/dobetterweb/no-vulnerable-libraries.js | columnSeverity": [
+        "audits[no-vulnerable-libraries].details.headings[2].text"
+      ],
       "lighthouse-core/audits/dobetterweb/js-libraries.js | title": [
         "audits[js-libraries].title"
       ],
       "lighthouse-core/audits/dobetterweb/js-libraries.js | description": [
         "audits[js-libraries].description"
+      ],
+      "lighthouse-core/audits/dobetterweb/js-libraries.js | columnName": [
+        "audits[js-libraries].details.headings[0].text"
+      ],
+      "lighthouse-core/audits/dobetterweb/js-libraries.js | columnVersion": [
+        "audits[js-libraries].details.headings[1].text"
       ],
       "lighthouse-core/audits/dobetterweb/notification-on-start.js | failureTitle": [
         "audits[notification-on-start].title"
@@ -5852,6 +5906,9 @@
       ],
       "lighthouse-core/audits/dobetterweb/password-inputs-can-be-pasted-into.js | description": [
         "audits[password-inputs-can-be-pasted-into].description"
+      ],
+      "lighthouse-core/audits/dobetterweb/password-inputs-can-be-pasted-into.js | columnFailingElem": [
+        "audits[password-inputs-can-be-pasted-into].details.headings[0].text"
       ],
       "lighthouse-core/audits/dobetterweb/uses-http2.js | failureTitle": [
         "audits[uses-http2].title"
@@ -5866,6 +5923,9 @@
           },
           "path": "audits[uses-http2].displayValue"
         }
+      ],
+      "lighthouse-core/audits/dobetterweb/uses-http2.js | columnProtocol": [
+        "audits[uses-http2].details.headings[1].text"
       ],
       "lighthouse-core/audits/dobetterweb/uses-passive-event-listeners.js | failureTitle": [
         "audits[uses-passive-event-listeners].title"
