@@ -36,8 +36,8 @@ describe('Resources are fetched over http/2', () => {
           'https://webtide.com/wp-content/plugins/wp-pagenavi/pagenavi-css.css?ver=2.70'
         );
         const headers = auditResult.details.headings;
-        assert.equal(headers[0].text, 'URL', 'table headings are correct and in order');
-        assert.equal(headers[1].text, 'Protocol', 'table headings are correct and in order');
+        expect(headers[0].text).toBeDisplayString('URL');
+        expect(headers[1].text).toBeDisplayString('Protocol');
       }
     );
   });
