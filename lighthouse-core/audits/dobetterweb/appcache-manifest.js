@@ -18,7 +18,7 @@ const UIStrings = {
   failureTitle: 'Uses Application Cache',
   description: 'Application Cache is deprecated. ' +
     '[Learn more](https://developers.google.com/web/tools/lighthouse/audits/appcache).',
-  displayValue: 'Found "{AppCacheManifest}"'
+  displayValue: 'Found "{AppCacheManifest}"',
 };
 
 const str_ = i18n.createMessageInstanceIdFn(__filename, UIStrings);
@@ -44,7 +44,7 @@ class AppCacheManifestAttr extends Audit {
   static audit(artifacts) {
     const usingAppcache = artifacts.AppCacheManifest !== null;
     const displayValue = usingAppcache ?
-      str_(UIStrings.displayValue, {AppCacheManifest: artifacts.AppCacheManifest}): '';
+      str_(UIStrings.displayValue, {AppCacheManifest: artifacts.AppCacheManifest}) : '';
 
     return {
       score: usingAppcache ? 0 : 1,

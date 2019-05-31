@@ -193,7 +193,7 @@ class NoVulnerableLibrariesAudit extends Audit {
 
     let displayValue = '';
     if (totalVulns > 0) {
-      displayValue = str_(UIStrings.displayValue,{itemCount: totalVulns})
+      displayValue = str_(UIStrings.displayValue, {itemCount: totalVulns});
     }
 
     /** @type {LH.Audit.Details.Table['headings']} */

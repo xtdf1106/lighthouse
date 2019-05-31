@@ -13,7 +13,6 @@
 
 const URL = require('../../lib/url-shim.js');
 const Audit = require('../audit.js');
-const Util = require('../../report/html/renderer/util.js');
 const NetworkRecords = require('../../computed/network-records.js');
 const i18n = require('../../lib/i18n/i18n.js');
 

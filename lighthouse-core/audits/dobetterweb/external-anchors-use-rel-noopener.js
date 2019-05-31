@@ -15,8 +15,8 @@ const UIStrings = {
   description: 'Add `rel="noopener"` or `rel="noreferrer"` to any external links to improve ' +
     'performance and prevent security vulnerabilities. ' +
     '[Learn more](https://developers.google.com/web/tools/lighthouse/audits/noopener).',
-  warning: 'Unable to determine the destination for anchor ({anchorHTML}). ' + 
-    'If not used as a hyperlink, consider removing target=_blank.'
+  warning: 'Unable to determine the destination for anchor ({anchorHTML}). ' +
+    'If not used as a hyperlink, consider removing target=_blank.',
 };
 
 const str_ = i18n.createMessageInstanceIdFn(__filename, UIStrings);
@@ -51,7 +51,7 @@ class ExternalAnchorsUseRelNoopenerAudit extends Audit {
         try {
           return new URL(anchor.href).host !== pageHost;
         } catch (err) {
-          warnings.push(str_(UIStrings.warning,{anchorHTML: anchor.outerHTML}));
+          warnings.push(str_(UIStrings.warning, {anchorHTML: anchor.outerHTML}));
           return true;
         }
       })

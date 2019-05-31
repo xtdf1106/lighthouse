@@ -57,7 +57,7 @@ class ImageAspectRatio extends Audit {
 
     if (!Number.isFinite(actualAspectRatio) ||
       !Number.isFinite(displayedAspectRatio)) {
-      return new Error(str_(UIStrings.warningCompute,{url}));
+      return new Error(str_(UIStrings.warningCompute, {url}));
     }
 
     return {

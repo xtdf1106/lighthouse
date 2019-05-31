@@ -94,9 +94,7 @@ const UIStrings = {
   seoCrawlingGroupTitle: 'Crawling and Indexing',
   /* Description of the navigation section within the Search Engine Optimization (SEO) category. Within this section are audits with descriptive titles that highlight ways to make a website accessible to search engine crawlers. */
   seoCrawlingGroupDescription: 'To appear in search results, crawlers need access to your app.',
-  
   bestPracticesCategoryTitle: 'Best Practices',
-  
   /** Title of the Fast and Reliable section of the web app category. Within this section are audits that check if the web site loaded quickly and can reliably load even if the internet connection is very slow or goes offline. */
   pwaFastReliableGroupTitle: 'Fast and reliable',
   /** Title of the Installable section of the web app category. Within this section are audits that check if Chrome supports installing the web site as an app on their device. */

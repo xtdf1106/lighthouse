@@ -11,7 +11,7 @@ const i18n = require('../../lib/i18n/i18n.js');
 const UIStrings = {
   title: 'Page has the HTML doctype',
   failureTitle: 'Page is missing the HTML doctype',
-  description: 'Specifying a doctype prevents the browser ' + 
+  description: 'Specifying a doctype prevents the browser ' +
     'from switching to quirks-mode. Read more on the ' +
     '[MDN Web Docs page](https://developer.mozilla.org/en-US/docs/Glossary/Doctype)',
   explanationNoDoctype: 'Document must contain a doctype',
