@@ -65,12 +65,12 @@ class HTTPS extends Audit {
           .filter(record => !HTTPS.isSecureRecord(record))
           .map(record => URL.elideDataURI(record.url));
 
-      let displayValue = '';
-      if (insecureURLs.length > 0) {
-        displayValue = str_(UIStrings.displayValue, {itemCount: insecureURLs.length});
-      }
-
       const items = Array.from(new Set(insecureURLs)).map(url => ({url}));
+
+      let displayValue = '';
+      if (items.length > 0) {
+        displayValue = str_(UIStrings.displayValue, {itemCount: items.length});
+      }
 
       /** @type {LH.Audit.Details.Table['headings']} */
       const headings = [
