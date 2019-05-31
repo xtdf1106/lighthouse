@@ -12,6 +12,17 @@
 'use strict';
 
 const ViolationAudit = require('../violation-audit.js');
+const i18n = require('../../lib/i18n/i18n.js');
+
+const UIStrings = {
+  title: 'Avoids requesting the notification permission on page load',
+  failureTitle: 'Requests the notification permission on page load',
+  description: 'Users are mistrustful of or confused by sites that request to send ' +
+      'notifications without context. Consider tying the request to user gestures ' +
+      'instead. [Learn more](https://developers.google.com/web/tools/lighthouse/audits/notifications-on-load).',
+};
+
+const str_ = i18n.createMessageInstanceIdFn(__filename, UIStrings);
 
 class NotificationOnStart extends ViolationAudit {
   /**
@@ -20,11 +31,9 @@ class NotificationOnStart extends ViolationAudit {
   static get meta() {
     return {
       id: 'notification-on-start',
-      title: 'Avoids requesting the notification permission on page load',
-      failureTitle: 'Requests the notification permission on page load',
-      description: 'Users are mistrustful of or confused by sites that request to send ' +
-          'notifications without context. Consider tying the request to user gestures ' +
-          'instead. [Learn more](https://developers.google.com/web/tools/lighthouse/audits/notifications-on-load).',
+      title: str_(UIStrings.title),
+      failureTitle: str_(UIStrings.failureTitle),
+      description: str_(UIStrings.description),
       requiredArtifacts: ['ConsoleMessages'],
     };
   }
@@ -55,3 +64,4 @@ class NotificationOnStart extends ViolationAudit {
 }
 
 module.exports = NotificationOnStart;
+module.exports.UIStrings = UIStrings;

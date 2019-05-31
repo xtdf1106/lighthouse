@@ -11,6 +11,16 @@
  */
 
 const Audit = require('./audit.js');
+const i18n = require('../lib/i18n/i18n.js');
+
+const UIStrings = {
+  title: 'No browser errors logged to the console',
+  description: 'Errors logged to the console indicate unresolved problems. ' +
+    'They can come from network request failures and other browser concerns.',
+  failureTitle: 'Browser errors were logged to the console',
+};
+
+const str_ = i18n.createMessageInstanceIdFn(__filename, UIStrings);
 
 class ErrorLogs extends Audit {
   /**
@@ -19,10 +29,9 @@ class ErrorLogs extends Audit {
   static get meta() {
     return {
       id: 'errors-in-console',
-      title: 'No browser errors logged to the console',
-      description: 'Errors logged to the console indicate unresolved problems. ' +
-        'They can come from network request failures and other browser concerns.',
-      failureTitle: 'Browser errors were logged to the console',
+      title: str_(UIStrings.title),
+      failureTitle: str_(UIStrings.failureTitle),
+      description: str_(UIStrings.description),
       requiredArtifacts: ['ConsoleMessages', 'RuntimeExceptions'],
     };
   }
@@ -78,3 +87,4 @@ class ErrorLogs extends Audit {
 }
 
 module.exports = ErrorLogs;
+module.exports.UIStrings = UIStrings;

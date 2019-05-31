@@ -12,6 +12,17 @@
 'use strict';
 
 const ViolationAudit = require('../violation-audit.js');
+const i18n = require('../../lib/i18n/i18n.js');
+
+const UIStrings = {
+  title: 'Avoids requesting the geolocation permission on page load',
+  failureTitle: 'Requests the geolocation permission on page load',
+  description: 'Users are mistrustful of or confused by sites that request their ' +
+    'location without context. Consider tying the request to user gestures instead. ' +
+    '[Learn more](https://developers.google.com/web/tools/lighthouse/audits/geolocation-on-load).',
+};
+
+const str_ = i18n.createMessageInstanceIdFn(__filename, UIStrings);
 
 class GeolocationOnStart extends ViolationAudit {
   /**
@@ -20,11 +31,9 @@ class GeolocationOnStart extends ViolationAudit {
   static get meta() {
     return {
       id: 'geolocation-on-start',
-      title: 'Avoids requesting the geolocation permission on page load',
-      failureTitle: 'Requests the geolocation permission on page load',
-      description: 'Users are mistrustful of or confused by sites that request their ' +
-          'location without context. Consider tying the request to user gestures instead. ' +
-          '[Learn more](https://developers.google.com/web/tools/lighthouse/audits/geolocation-on-load).',
+      title: str_(UIStrings.title),
+      failureTitle: str_(UIStrings.failureTitle),
+      description: str_(UIStrings.description),
       requiredArtifacts: ['ConsoleMessages'],
     };
   }
@@ -57,3 +66,4 @@ class GeolocationOnStart extends ViolationAudit {
 }
 
 module.exports = GeolocationOnStart;
+module.exports.UIStrings = UIStrings;

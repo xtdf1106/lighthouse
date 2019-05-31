@@ -15,6 +15,20 @@ const URL = require('../../lib/url-shim.js');
 const Audit = require('../audit.js');
 const Util = require('../../report/html/renderer/util.js');
 const NetworkRecords = require('../../computed/network-records.js');
+const i18n = require('../../lib/i18n/i18n.js');
+
+const UIStrings = {
+  title: 'Uses HTTP/2 for its own resources',
+  failureTitle: 'Does not use HTTP/2 for all of its resources',
+  description: 'HTTP/2 offers many benefits over HTTP/1.1, including binary headers, ' +
+      'multiplexing, and server push. [Learn more](https://developers.google.com/web/tools/lighthouse/audits/http2).',
+  displayValue: `{itemCount, plural,
+    =1 {1 request not served via HTTP/2}
+    other {# requests not served via HTTP/2}
+    }`,
+};
+
+const str_ = i18n.createMessageInstanceIdFn(__filename, UIStrings);
 
 class UsesHTTP2Audit extends Audit {
   /**
@@ -23,10 +37,9 @@ class UsesHTTP2Audit extends Audit {
   static get meta() {
     return {
       id: 'uses-http2',
-      title: 'Uses HTTP/2 for its own resources',
-      failureTitle: 'Does not use HTTP/2 for all of its resources',
-      description: 'HTTP/2 offers many benefits over HTTP/1.1, including binary headers, ' +
-          'multiplexing, and server push. [Learn more](https://developers.google.com/web/tools/lighthouse/audits/http2).',
+      title: str_(UIStrings.title),
+      failureTitle: str_(UIStrings.failureTitle),
+      description: str_(UIStrings.description),
       requiredArtifacts: ['URL', 'devtoolsLogs'],
     };
   }
@@ -64,11 +77,8 @@ class UsesHTTP2Audit extends Audit {
       });
 
       let displayValue = '';
-      if (resources.length > 1) {
-        displayValue =
-          `${Util.formatNumber(resources.length)} requests not served via HTTP/2`;
-      } else if (resources.length === 1) {
-        displayValue = `${resources.length} request not served via HTTP/2`;
+      if (resources.length > 0) {
+        displayValue = str_(UIStrings.displayValue, {itemCount: resources.length});
       }
 
       /** @type {LH.Audit.Details.Table['headings']} */
@@ -93,3 +103,4 @@ class UsesHTTP2Audit extends Audit {
 }
 
 module.exports = UsesHTTP2Audit;
+module.exports.UIStrings = UIStrings;

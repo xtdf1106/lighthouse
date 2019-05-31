@@ -11,6 +11,17 @@
 'use strict';
 
 const ViolationAudit = require('../violation-audit.js');
+const i18n = require('../../lib/i18n/i18n.js');
+
+const UIStrings = {
+  title: 'Avoids `document.write()`',
+  failureTitle: 'Uses `document.write()`',
+  description: 'For users on slow connections, external scripts dynamically injected via ' +
+      '`document.write()` can delay page load by tens of seconds. ' +
+      '[Learn more](https://developers.google.com/web/tools/lighthouse/audits/document-write).',
+};
+
+const str_ = i18n.createMessageInstanceIdFn(__filename, UIStrings);
 
 class NoDocWriteAudit extends ViolationAudit {
   /**
@@ -19,11 +30,9 @@ class NoDocWriteAudit extends ViolationAudit {
   static get meta() {
     return {
       id: 'no-document-write',
-      title: 'Avoids `document.write()`',
-      failureTitle: 'Uses `document.write()`',
-      description: 'For users on slow connections, external scripts dynamically injected via ' +
-          '`document.write()` can delay page load by tens of seconds. ' +
-          '[Learn more](https://developers.google.com/web/tools/lighthouse/audits/document-write).',
+      title: str_(UIStrings.title),
+      failureTitle: str_(UIStrings.failureTitle),
+      description: str_(UIStrings.description),
       requiredArtifacts: ['ConsoleMessages'],
     };
   }
@@ -54,3 +63,4 @@ class NoDocWriteAudit extends ViolationAudit {
 }
 
 module.exports = NoDocWriteAudit;
+module.exports.UIStrings = UIStrings;

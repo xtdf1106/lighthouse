@@ -11,6 +11,17 @@
 'use strict';
 
 const Audit = require('../audit.js');
+const i18n = require('../../lib/i18n/i18n.js');
+
+const UIStrings = {
+  title: 'Avoids Application Cache',
+  failureTitle: 'Uses Application Cache',
+  description: 'Application Cache is deprecated. ' +
+    '[Learn more](https://developers.google.com/web/tools/lighthouse/audits/appcache).',
+  displayValue: 'Found "{AppCacheManifest}"'
+};
+
+const str_ = i18n.createMessageInstanceIdFn(__filename, UIStrings);
 
 class AppCacheManifestAttr extends Audit {
   /**
@@ -19,10 +30,9 @@ class AppCacheManifestAttr extends Audit {
   static get meta() {
     return {
       id: 'appcache-manifest',
-      title: 'Avoids Application Cache',
-      failureTitle: 'Uses Application Cache',
-      description: 'Application Cache is deprecated. ' +
-          '[Learn more](https://developers.google.com/web/tools/lighthouse/audits/appcache).',
+      title: str_(UIStrings.title),
+      failureTitle: str_(UIStrings.failureTitle),
+      description: str_(UIStrings.description),
       requiredArtifacts: ['AppCacheManifest'],
     };
   }
@@ -33,7 +43,8 @@ class AppCacheManifestAttr extends Audit {
    */
   static audit(artifacts) {
     const usingAppcache = artifacts.AppCacheManifest !== null;
-    const displayValue = usingAppcache ? `Found "${artifacts.AppCacheManifest}"` : '';
+    const displayValue = usingAppcache ?
+      str_(UIStrings.displayValue, {AppCacheManifest: artifacts.AppCacheManifest}): '';
 
     return {
       score: usingAppcache ? 0 : 1,
@@ -43,3 +54,4 @@ class AppCacheManifestAttr extends Audit {
 }
 
 module.exports = AppCacheManifestAttr;
+module.exports.UIStrings = UIStrings;

@@ -7,6 +7,19 @@
 
 const URL = require('../../lib/url-shim.js');
 const Audit = require('../audit.js');
+const i18n = require('../../lib/i18n/i18n.js');
+
+const UIStrings = {
+  title: 'Links to cross-origin destinations are safe',
+  failureTitle: 'Links to cross-origin destinations are unsafe',
+  description: 'Add `rel="noopener"` or `rel="noreferrer"` to any external links to improve ' +
+    'performance and prevent security vulnerabilities. ' +
+    '[Learn more](https://developers.google.com/web/tools/lighthouse/audits/noopener).',
+  warning: 'Unable to determine the destination for anchor ({anchorHTML}). ' + 
+    'If not used as a hyperlink, consider removing target=_blank.'
+};
+
+const str_ = i18n.createMessageInstanceIdFn(__filename, UIStrings);
 
 class ExternalAnchorsUseRelNoopenerAudit extends Audit {
   /**
@@ -15,11 +28,9 @@ class ExternalAnchorsUseRelNoopenerAudit extends Audit {
   static get meta() {
     return {
       id: 'external-anchors-use-rel-noopener',
-      title: 'Links to cross-origin destinations are safe',
-      failureTitle: 'Links to cross-origin destinations are unsafe',
-      description: 'Add `rel="noopener"` or `rel="noreferrer"` to any external links to improve ' +
-          'performance and prevent security vulnerabilities. ' +
-          '[Learn more](https://developers.google.com/web/tools/lighthouse/audits/noopener).',
+      title: str_(UIStrings.title),
+      failureTitle: str_(UIStrings.failureTitle),
+      description: str_(UIStrings.description),
       requiredArtifacts: ['URL', 'AnchorElements'],
     };
   }
@@ -40,8 +51,7 @@ class ExternalAnchorsUseRelNoopenerAudit extends Audit {
         try {
           return new URL(anchor.href).host !== pageHost;
         } catch (err) {
-          warnings.push(`Unable to determine the destination for anchor (${anchor.outerHTML}). ` +
-            'If not used as a hyperlink, consider removing target=_blank.');
+          warnings.push(str_(UIStrings.warning,{anchorHTML: anchor.outerHTML}));
           return true;
         }
       })
@@ -78,3 +88,4 @@ class ExternalAnchorsUseRelNoopenerAudit extends Audit {
 }
 
 module.exports = ExternalAnchorsUseRelNoopenerAudit;
+module.exports.UIStrings = UIStrings;

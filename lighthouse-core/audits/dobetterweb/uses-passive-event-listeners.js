@@ -12,6 +12,17 @@
 'use strict';
 
 const ViolationAudit = require('../violation-audit.js');
+const i18n = require('../../lib/i18n/i18n.js');
+
+const UIStrings = {
+  title: 'Uses passive listeners to improve scrolling performance',
+  failureTitle: 'Does not use passive listeners to improve scrolling performance',
+  description: 'Consider marking your touch and wheel event listeners as `passive` ' +
+      'to improve your page\'s scroll performance. ' +
+      '[Learn more](https://developers.google.com/web/tools/lighthouse/audits/passive-event-listeners).',
+};
+
+const str_ = i18n.createMessageInstanceIdFn(__filename, UIStrings);
 
 class PassiveEventsAudit extends ViolationAudit {
   /**
@@ -20,11 +31,9 @@ class PassiveEventsAudit extends ViolationAudit {
   static get meta() {
     return {
       id: 'uses-passive-event-listeners',
-      title: 'Uses passive listeners to improve scrolling performance',
-      failureTitle: 'Does not use passive listeners to improve scrolling performance',
-      description: 'Consider marking your touch and wheel event listeners as `passive` ' +
-          'to improve your page\'s scroll performance. ' +
-          '[Learn more](https://developers.google.com/web/tools/lighthouse/audits/passive-event-listeners).',
+      title: str_(UIStrings.title),
+      failureTitle: str_(UIStrings.failureTitle),
+      description: str_(UIStrings.description),
       requiredArtifacts: ['ConsoleMessages'],
     };
   }
@@ -55,3 +64,4 @@ class PassiveEventsAudit extends ViolationAudit {
 }
 
 module.exports = PassiveEventsAudit;
+module.exports.UIStrings = UIStrings;

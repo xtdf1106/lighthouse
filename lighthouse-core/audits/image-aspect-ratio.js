@@ -12,8 +12,19 @@
 'use strict';
 
 const Audit = require('./audit.js');
-
 const URL = require('../lib/url-shim.js');
+const i18n = require('../lib/i18n/i18n.js');
+
+const UIStrings = {
+  title: 'Displays images with correct aspect ratio',
+  failureTitle: 'Displays images with incorrect aspect ratio',
+  description: 'Image display dimensions should match natural aspect ratio. ' +
+    '[Learn more](https://developers.google.com/web/tools/lighthouse/audits/aspect-ratio).',
+  warningCompute: 'Invalid image sizing information {url}',
+};
+
+const str_ = i18n.createMessageInstanceIdFn(__filename, UIStrings);
+
 const THRESHOLD_PX = 2;
 
 /** @typedef {Required<LH.Artifacts.ImageElement>} WellDefinedImage */
@@ -25,10 +36,9 @@ class ImageAspectRatio extends Audit {
   static get meta() {
     return {
       id: 'image-aspect-ratio',
-      title: 'Displays images with correct aspect ratio',
-      failureTitle: 'Displays images with incorrect aspect ratio',
-      description: 'Image display dimensions should match natural aspect ratio. ' +
-        '[Learn more](https://developers.google.com/web/tools/lighthouse/audits/aspect-ratio).',
+      title: str_(UIStrings.title),
+      failureTitle: str_(UIStrings.failureTitle),
+      description: str_(UIStrings.description),
       requiredArtifacts: ['ImageElements'],
     };
   }
@@ -47,7 +57,7 @@ class ImageAspectRatio extends Audit {
 
     if (!Number.isFinite(actualAspectRatio) ||
       !Number.isFinite(displayedAspectRatio)) {
-      return new Error(`Invalid image sizing information ${url}`);
+      return new Error(str_(UIStrings.warningCompute,{url}));
     }
 
     return {
@@ -113,3 +123,4 @@ class ImageAspectRatio extends Audit {
 }
 
 module.exports = ImageAspectRatio;
+module.exports.UIStrings = UIStrings;

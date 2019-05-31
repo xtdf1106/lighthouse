@@ -16,6 +16,23 @@ const Audit = require('../audit.js');
 const Sentry = require('../../lib/sentry.js');
 const semver = require('semver');
 const snykDatabase = require('../../../third-party/snyk/snapshot.json');
+const i18n = require('../../lib/i18n/i18n.js');
+
+const UIStrings = {
+  title: 'Avoids front-end JavaScript libraries' +
+    ' with known security vulnerabilities',
+  failureTitle: 'Includes front-end JavaScript libraries' +
+    ' with known security vulnerabilities',
+  description: 'Some third-party scripts may contain known security vulnerabilities ' +
+    'that are easily identified and exploited by attackers. ' +
+    '[Learn more](https://developers.google.com/web/tools/lighthouse/audits/vulnerabilities).',
+  displayValue: `{itemCount, plural,
+    =1 {1 vulnerability detected}
+    other {# vulnerabilities detected}
+    }`,
+};
+
+const str_ = i18n.createMessageInstanceIdFn(__filename, UIStrings);
 
 const SEMVER_REGEX = /^(\d+\.\d+\.\d+)[^-0-9]+/;
 
@@ -29,13 +46,9 @@ class NoVulnerableLibrariesAudit extends Audit {
   static get meta() {
     return {
       id: 'no-vulnerable-libraries',
-      title: 'Avoids front-end JavaScript libraries'
-        + ' with known security vulnerabilities',
-      failureTitle: 'Includes front-end JavaScript libraries'
-        + ' with known security vulnerabilities',
-      description: 'Some third-party scripts may contain known security vulnerabilities ' +
-        'that are easily identified and exploited by attackers. ' +
-        '[Learn more](https://developers.google.com/web/tools/lighthouse/audits/vulnerabilities).',
+      title: str_(UIStrings.title),
+      failureTitle: str_(UIStrings.failureTitle),
+      description: str_(UIStrings.description),
       requiredArtifacts: ['Stacks'],
     };
   }
@@ -179,10 +192,8 @@ class NoVulnerableLibrariesAudit extends Audit {
     });
 
     let displayValue = '';
-    if (totalVulns > 1) {
-      displayValue = `${totalVulns} vulnerabilities detected`;
-    } else if (totalVulns === 1) {
-      displayValue = `${totalVulns} vulnerability detected`;
+    if (totalVulns > 0) {
+      displayValue = str_(UIStrings.displayValue,{itemCount: totalVulns})
     }
 
     /** @type {LH.Audit.Details.Table['headings']} */
@@ -206,3 +217,4 @@ class NoVulnerableLibrariesAudit extends Audit {
 }
 
 module.exports = NoVulnerableLibrariesAudit;
+module.exports.UIStrings = UIStrings;

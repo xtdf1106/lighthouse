@@ -6,6 +6,16 @@
 'use strict';
 
 const Audit = require('../audit.js');
+const i18n = require('../../lib/i18n/i18n.js');
+
+const UIStrings = {
+  title: 'Allows users to paste into password fields',
+  failureTitle: 'Prevents users to paste into password fields',
+  description: 'Preventing password pasting undermines good security policy. ' +
+      '[Learn more](https://developers.google.com/web/tools/lighthouse/audits/password-pasting).',
+};
+
+const str_ = i18n.createMessageInstanceIdFn(__filename, UIStrings);
 
 class PasswordInputsCanBePastedIntoAudit extends Audit {
   /**
@@ -14,10 +24,9 @@ class PasswordInputsCanBePastedIntoAudit extends Audit {
   static get meta() {
     return {
       id: 'password-inputs-can-be-pasted-into',
-      title: 'Allows users to paste into password fields',
-      failureTitle: 'Prevents users to paste into password fields',
-      description: 'Preventing password pasting undermines good security policy. ' +
-          '[Learn more](https://developers.google.com/web/tools/lighthouse/audits/password-pasting).',
+      title: str_(UIStrings.title),
+      failureTitle: str_(UIStrings.failureTitle),
+      description: str_(UIStrings.description),
       requiredArtifacts: ['PasswordInputsWithPreventedPaste'],
     };
   }
@@ -53,3 +62,4 @@ class PasswordInputsCanBePastedIntoAudit extends Audit {
 }
 
 module.exports = PasswordInputsCanBePastedIntoAudit;
+module.exports.UIStrings = UIStrings;

@@ -599,6 +599,66 @@
     "message": "Minimize Critical Requests Depth",
     "description": "Imperative title of a Lighthouse audit that tells the user to reduce the depth of critical network requests to enhance initial load of a page. Critical request chains are series of dependent network requests that are important for page rendering. For example, here's a 4-request-deep chain: The biglogo.jpg image is required, but is requested via the styles.css style code, which is requested by the initialize.js javascript, which is requested by the page's HTML. This is displayed in a list of audit titles that Lighthouse generates."
   },
+  "lighthouse-core/audits/deprecations.js | description": {
+    "message": "Deprecated APIs will eventually be removed from the browser. [Learn more](https://www.chromestatus.com/features#deprecated).",
+    "description": ""
+  },
+  "lighthouse-core/audits/deprecations.js | displayValue": {
+    "message": "{itemCount, plural,\n    =1 {1 warning found}\n    other {# warnings found}\n    }",
+    "description": ""
+  },
+  "lighthouse-core/audits/deprecations.js | failureTitle": {
+    "message": "Uses deprecated APIs",
+    "description": ""
+  },
+  "lighthouse-core/audits/deprecations.js | title": {
+    "message": "Avoids deprecated APIs",
+    "description": ""
+  },
+  "lighthouse-core/audits/dobetterweb/appcache-manifest.js | description": {
+    "message": "Application Cache is deprecated. [Learn more](https://developers.google.com/web/tools/lighthouse/audits/appcache).",
+    "description": ""
+  },
+  "lighthouse-core/audits/dobetterweb/appcache-manifest.js | displayValue": {
+    "message": "Found \"{AppCacheManifest}\"",
+    "description": ""
+  },
+  "lighthouse-core/audits/dobetterweb/appcache-manifest.js | failureTitle": {
+    "message": "Uses Application Cache",
+    "description": ""
+  },
+  "lighthouse-core/audits/dobetterweb/appcache-manifest.js | title": {
+    "message": "Avoids Application Cache",
+    "description": ""
+  },
+  "lighthouse-core/audits/dobetterweb/doctype.js | description": {
+    "message": "Specifying a doctype prevents the browser from switching to quirks-mode. Read more on the [MDN Web Docs page](https://developer.mozilla.org/en-US/docs/Glossary/Doctype)",
+    "description": ""
+  },
+  "lighthouse-core/audits/dobetterweb/doctype.js | explanationBadDoctype": {
+    "message": "Doctype name must be the lowercase string `html`",
+    "description": ""
+  },
+  "lighthouse-core/audits/dobetterweb/doctype.js | explanationNoDoctype": {
+    "message": "Document must contain a doctype",
+    "description": ""
+  },
+  "lighthouse-core/audits/dobetterweb/doctype.js | explanationPublicId": {
+    "message": "Expected publicId to be an empty string",
+    "description": ""
+  },
+  "lighthouse-core/audits/dobetterweb/doctype.js | explanationSystemId": {
+    "message": "Expected systemId to be an empty string",
+    "description": ""
+  },
+  "lighthouse-core/audits/dobetterweb/doctype.js | failureTitle": {
+    "message": "Page is missing the HTML doctype",
+    "description": ""
+  },
+  "lighthouse-core/audits/dobetterweb/doctype.js | title": {
+    "message": "Page has the HTML doctype",
+    "description": ""
+  },
   "lighthouse-core/audits/dobetterweb/dom-size.js | columnElement": {
     "message": "Element",
     "description": "Table column header for the DOM element. Each DOM element is described with its HTML representation."
@@ -639,6 +699,134 @@
     "message": "Avoids an excessive DOM size",
     "description": "Title of a diagnostic audit that provides detail on the size of the web page's DOM. The size of a DOM is characterized by the total number of DOM elements and greatest DOM depth. This descriptive title is shown to users when the amount is acceptable and no user action is required."
   },
+  "lighthouse-core/audits/dobetterweb/external-anchors-use-rel-noopener.js | description": {
+    "message": "Add `rel=\"noopener\"` or `rel=\"noreferrer\"` to any external links to improve performance and prevent security vulnerabilities. [Learn more](https://developers.google.com/web/tools/lighthouse/audits/noopener).",
+    "description": ""
+  },
+  "lighthouse-core/audits/dobetterweb/external-anchors-use-rel-noopener.js | failureTitle": {
+    "message": "Links to cross-origin destinations are unsafe",
+    "description": ""
+  },
+  "lighthouse-core/audits/dobetterweb/external-anchors-use-rel-noopener.js | title": {
+    "message": "Links to cross-origin destinations are safe",
+    "description": ""
+  },
+  "lighthouse-core/audits/dobetterweb/external-anchors-use-rel-noopener.js | warning": {
+    "message": "Unable to determine the destination for anchor ({anchorHTML}). If not used as a hyperlink, consider removing target=_blank.",
+    "description": ""
+  },
+  "lighthouse-core/audits/dobetterweb/geolocation-on-start.js | description": {
+    "message": "Users are mistrustful of or confused by sites that request their location without context. Consider tying the request to user gestures instead. [Learn more](https://developers.google.com/web/tools/lighthouse/audits/geolocation-on-load).",
+    "description": ""
+  },
+  "lighthouse-core/audits/dobetterweb/geolocation-on-start.js | failureTitle": {
+    "message": "Requests the geolocation permission on page load",
+    "description": ""
+  },
+  "lighthouse-core/audits/dobetterweb/geolocation-on-start.js | title": {
+    "message": "Avoids requesting the geolocation permission on page load",
+    "description": ""
+  },
+  "lighthouse-core/audits/dobetterweb/js-libraries.js | description": {
+    "message": "All front-end JavaScript libraries detected on the page.",
+    "description": ""
+  },
+  "lighthouse-core/audits/dobetterweb/js-libraries.js | title": {
+    "message": "Detected JavaScript libraries",
+    "description": ""
+  },
+  "lighthouse-core/audits/dobetterweb/no-document-write.js | description": {
+    "message": "For users on slow connections, external scripts dynamically injected via `document.write()` can delay page load by tens of seconds. [Learn more](https://developers.google.com/web/tools/lighthouse/audits/document-write).",
+    "description": ""
+  },
+  "lighthouse-core/audits/dobetterweb/no-document-write.js | failureTitle": {
+    "message": "Uses `document.write()`",
+    "description": ""
+  },
+  "lighthouse-core/audits/dobetterweb/no-document-write.js | title": {
+    "message": "Avoids `document.write()`",
+    "description": ""
+  },
+  "lighthouse-core/audits/dobetterweb/no-vulnerable-libraries.js | description": {
+    "message": "Some third-party scripts may contain known security vulnerabilities that are easily identified and exploited by attackers. [Learn more](https://developers.google.com/web/tools/lighthouse/audits/vulnerabilities).",
+    "description": ""
+  },
+  "lighthouse-core/audits/dobetterweb/no-vulnerable-libraries.js | displayValue": {
+    "message": "{itemCount, plural,\n    =1 {1 vulnerability detected}\n    other {# vulnerabilities detected}\n    }",
+    "description": ""
+  },
+  "lighthouse-core/audits/dobetterweb/no-vulnerable-libraries.js | failureTitle": {
+    "message": "Includes front-end JavaScript libraries with known security vulnerabilities",
+    "description": ""
+  },
+  "lighthouse-core/audits/dobetterweb/no-vulnerable-libraries.js | title": {
+    "message": "Avoids front-end JavaScript libraries with known security vulnerabilities",
+    "description": ""
+  },
+  "lighthouse-core/audits/dobetterweb/notification-on-start.js | description": {
+    "message": "Users are mistrustful of or confused by sites that request to send notifications without context. Consider tying the request to user gestures instead. [Learn more](https://developers.google.com/web/tools/lighthouse/audits/notifications-on-load).",
+    "description": ""
+  },
+  "lighthouse-core/audits/dobetterweb/notification-on-start.js | failureTitle": {
+    "message": "Requests the notification permission on page load",
+    "description": ""
+  },
+  "lighthouse-core/audits/dobetterweb/notification-on-start.js | title": {
+    "message": "Avoids requesting the notification permission on page load",
+    "description": ""
+  },
+  "lighthouse-core/audits/dobetterweb/password-inputs-can-be-pasted-into.js | description": {
+    "message": "Preventing password pasting undermines good security policy. [Learn more](https://developers.google.com/web/tools/lighthouse/audits/password-pasting).",
+    "description": ""
+  },
+  "lighthouse-core/audits/dobetterweb/password-inputs-can-be-pasted-into.js | failureTitle": {
+    "message": "Prevents users to paste into password fields",
+    "description": ""
+  },
+  "lighthouse-core/audits/dobetterweb/password-inputs-can-be-pasted-into.js | title": {
+    "message": "Allows users to paste into password fields",
+    "description": ""
+  },
+  "lighthouse-core/audits/dobetterweb/uses-http2.js | description": {
+    "message": "HTTP/2 offers many benefits over HTTP/1.1, including binary headers, multiplexing, and server push. [Learn more](https://developers.google.com/web/tools/lighthouse/audits/http2).",
+    "description": ""
+  },
+  "lighthouse-core/audits/dobetterweb/uses-http2.js | displayValue": {
+    "message": "{itemCount, plural,\n    =1 {1 request not served via HTTP/2}\n    other {# requests not served via HTTP/2}\n    }",
+    "description": ""
+  },
+  "lighthouse-core/audits/dobetterweb/uses-http2.js | failureTitle": {
+    "message": "Does not use HTTP/2 for all of its resources",
+    "description": ""
+  },
+  "lighthouse-core/audits/dobetterweb/uses-http2.js | title": {
+    "message": "Uses HTTP/2 for its own resources",
+    "description": ""
+  },
+  "lighthouse-core/audits/dobetterweb/uses-passive-event-listeners.js | description": {
+    "message": "Consider marking your touch and wheel event listeners as `passive` to improve your page's scroll performance. [Learn more](https://developers.google.com/web/tools/lighthouse/audits/passive-event-listeners).",
+    "description": ""
+  },
+  "lighthouse-core/audits/dobetterweb/uses-passive-event-listeners.js | failureTitle": {
+    "message": "Does not use passive listeners to improve scrolling performance",
+    "description": ""
+  },
+  "lighthouse-core/audits/dobetterweb/uses-passive-event-listeners.js | title": {
+    "message": "Uses passive listeners to improve scrolling performance",
+    "description": ""
+  },
+  "lighthouse-core/audits/errors-in-console.js | description": {
+    "message": "Errors logged to the console indicate unresolved problems. They can come from network request failures and other browser concerns.",
+    "description": ""
+  },
+  "lighthouse-core/audits/errors-in-console.js | failureTitle": {
+    "message": "Browser errors were logged to the console",
+    "description": ""
+  },
+  "lighthouse-core/audits/errors-in-console.js | title": {
+    "message": "No browser errors logged to the console",
+    "description": ""
+  },
   "lighthouse-core/audits/font-display.js | description": {
     "message": "Leverage the font-display CSS feature to ensure text is user-visible while webfonts are loading. [Learn more](https://developers.google.com/web/updates/2016/02/font-display).",
     "description": "Description of a Lighthouse audit that tells the user *why* they should use the font-display CSS feature. This is displayed after a user expands the section to see more. No character length limits. 'Learn More' becomes link text to additional documentation."
@@ -650,6 +838,38 @@
   "lighthouse-core/audits/font-display.js | title": {
     "message": "All text remains visible during webfont loads",
     "description": "Title of a diagnostic audit that provides detail on if all the text on a webpage was visible while the page was loading its webfonts. This descriptive title is shown to users when the amount is acceptable and no user action is required."
+  },
+  "lighthouse-core/audits/image-aspect-ratio.js | description": {
+    "message": "Image display dimensions should match natural aspect ratio. [Learn more](https://developers.google.com/web/tools/lighthouse/audits/aspect-ratio).",
+    "description": ""
+  },
+  "lighthouse-core/audits/image-aspect-ratio.js | failureTitle": {
+    "message": "Displays images with incorrect aspect ratio",
+    "description": ""
+  },
+  "lighthouse-core/audits/image-aspect-ratio.js | title": {
+    "message": "Displays images with correct aspect ratio",
+    "description": ""
+  },
+  "lighthouse-core/audits/image-aspect-ratio.js | warningCompute": {
+    "message": "Invalid image sizing information {url}",
+    "description": ""
+  },
+  "lighthouse-core/audits/is-on-https.js | description": {
+    "message": "All sites should be protected with HTTPS, even ones that don't handle sensitive data. HTTPS prevents intruders from tampering with or passively listening in on the communications between your app and your users, and is a prerequisite for HTTP/2 and many new web platform APIs. [Learn more](https://developers.google.com/web/tools/lighthouse/audits/https).",
+    "description": ""
+  },
+  "lighthouse-core/audits/is-on-https.js | displayValue": {
+    "message": "{itemCount, plural,\n    =1 {1 insecure request found}\n    other {# insecure requests found}\n    }",
+    "description": ""
+  },
+  "lighthouse-core/audits/is-on-https.js | failureTitle": {
+    "message": "Does not use HTTPS",
+    "description": ""
+  },
+  "lighthouse-core/audits/is-on-https.js | title": {
+    "message": "Uses HTTPS",
+    "description": ""
   },
   "lighthouse-core/audits/load-fast-enough-for-pwa.js | description": {
     "message": "A fast page load over a cellular network ensures a good mobile user experience. [Learn more](https://developers.google.com/web/tools/lighthouse/audits/fast-3g).",
@@ -1142,6 +1362,10 @@
   "lighthouse-core/config/default-config.js | a11yTablesListsVideoGroupTitle": {
     "message": "Tables and lists",
     "description": "Title of the navigation section within the Accessibility category. Within this section are audits with descriptive titles that highlight opportunities to improve the experience of reading tabular or list data using assistive technology."
+  },
+  "lighthouse-core/config/default-config.js | bestPracticesCategoryTitle": {
+    "message": "Best Practices",
+    "description": ""
   },
   "lighthouse-core/config/default-config.js | budgetsGroupDescription": {
     "message": "Performance budgets set standards for the performance of your site.",

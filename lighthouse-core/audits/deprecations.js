@@ -13,6 +13,20 @@
 
 const Audit = require('./audit.js');
 const Util = require('../report/html/renderer/util.js');
+const i18n = require('../lib/i18n/i18n.js');
+
+const UIStrings = {
+  title: 'Avoids deprecated APIs',
+  failureTitle: 'Uses deprecated APIs',
+  description: 'Deprecated APIs will eventually be removed from the browser. ' +
+      '[Learn more](https://www.chromestatus.com/features#deprecated).',
+  displayValue: `{itemCount, plural,
+    =1 {1 warning found}
+    other {# warnings found}
+    }`,
+};
+
+const str_ = i18n.createMessageInstanceIdFn(__filename, UIStrings);
 
 class Deprecations extends Audit {
   /**
@@ -21,10 +35,9 @@ class Deprecations extends Audit {
   static get meta() {
     return {
       id: 'deprecations',
-      title: 'Avoids deprecated APIs',
-      failureTitle: 'Uses deprecated APIs',
-      description: 'Deprecated APIs will eventually be removed from the browser. ' +
-          '[Learn more](https://www.chromestatus.com/features#deprecated).',
+      title: str_(UIStrings.title),
+      failureTitle: str_(UIStrings.failureTitle),
+      description: str_(UIStrings.description),
       requiredArtifacts: ['ConsoleMessages'],
     };
   }
@@ -54,10 +67,8 @@ class Deprecations extends Audit {
     const details = Audit.makeTableDetails(headings, deprecations);
 
     let displayValue = '';
-    if (deprecations.length > 1) {
-      displayValue = `${Util.formatNumber(deprecations.length)} warnings found`;
-    } else if (deprecations.length === 1) {
-      displayValue = `${deprecations.length} warning found`;
+    if (deprecations.length > 0) {
+      displayValue = str_(UIStrings.displayValue, {itemCount: deprecations.length});
     }
 
     return {
@@ -72,3 +83,4 @@ class Deprecations extends Audit {
 }
 
 module.exports = Deprecations;
+module.exports.UIStrings = UIStrings;

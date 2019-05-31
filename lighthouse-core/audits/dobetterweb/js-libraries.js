@@ -11,6 +11,14 @@
 'use strict';
 
 const Audit = require('../audit.js');
+const i18n = require('../../lib/i18n/i18n.js');
+
+const UIStrings = {
+  title: 'Detected JavaScript libraries',
+  description: 'All front-end JavaScript libraries detected on the page.',
+};
+
+const str_ = i18n.createMessageInstanceIdFn(__filename, UIStrings);
 
 class JsLibrariesAudit extends Audit {
   /**
@@ -19,8 +27,8 @@ class JsLibrariesAudit extends Audit {
   static get meta() {
     return {
       id: 'js-libraries',
-      title: 'Detected JavaScript libraries',
-      description: 'All front-end JavaScript libraries detected on the page.',
+      title: str_(UIStrings.title),
+      description: str_(UIStrings.description),
       requiredArtifacts: ['Stacks'],
     };
   }
@@ -53,3 +61,4 @@ class JsLibrariesAudit extends Audit {
 }
 
 module.exports = JsLibrariesAudit;
+module.exports.UIStrings = UIStrings;
