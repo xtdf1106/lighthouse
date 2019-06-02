@@ -6,6 +6,16 @@
 'use strict';
 
 const Audit = require('./audit.js');
+const i18n = require('../lib/i18n/i18n.js');
+
+const UIStrings = {
+  title: 'Redirects HTTP traffic to HTTPS',
+  failureTitle: 'Does not redirect HTTP traffic to HTTPS',
+  description: 'If you\'ve already set up HTTPS, make sure that you redirect all HTTP ' +
+     'traffic to HTTPS. [Learn more](https://developers.google.com/web/tools/lighthouse/audits/http-redirects-to-https).',
+};
+
+const str_ = i18n.createMessageInstanceIdFn(__filename, UIStrings);
 
 class RedirectsHTTP extends Audit {
   /**
@@ -14,10 +24,9 @@ class RedirectsHTTP extends Audit {
   static get meta() {
     return {
       id: 'redirects-http',
-      title: 'Redirects HTTP traffic to HTTPS',
-      failureTitle: 'Does not redirect HTTP traffic to HTTPS',
-      description: 'If you\'ve already set up HTTPS, make sure that you redirect all HTTP ' +
-         'traffic to HTTPS. [Learn more](https://developers.google.com/web/tools/lighthouse/audits/http-redirects-to-https).',
+      title: str_(UIStrings.title),
+      failureTitle: str_(UIStrings.failureTitle),
+      description: str_(UIStrings.description),
       requiredArtifacts: ['HTTPRedirect'],
     };
   }
@@ -34,3 +43,4 @@ class RedirectsHTTP extends Audit {
 }
 
 module.exports = RedirectsHTTP;
+module.exports.UIStrings = UIStrings;

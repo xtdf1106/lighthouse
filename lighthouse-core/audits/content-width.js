@@ -6,6 +6,18 @@
 'use strict';
 
 const Audit = require('./audit.js');
+const i18n = require('../lib/i18n/i18n.js');
+
+const UIStrings = {
+  title: 'Content is sized correctly for the viewport',
+  failureTitle: 'Content is not sized correctly for the viewport',
+  description: 'If the width of your app\'s content doesn\'t match the width ' +
+      'of the viewport, your app might not be optimized for mobile screens. ' +
+      '[Learn more](https://developers.google.com/web/tools/lighthouse/audits/content-sized-correctly-for-viewport).',
+  explanation: 'The viewport size is {innerWidth}px, whereas the window size is {outerWidth}px.',
+};
+
+const str_ = i18n.createMessageInstanceIdFn(__filename, UIStrings);
 
 class ContentWidth extends Audit {
   /**
@@ -14,11 +26,9 @@ class ContentWidth extends Audit {
   static get meta() {
     return {
       id: 'content-width',
-      title: 'Content is sized correctly for the viewport',
-      failureTitle: 'Content is not sized correctly for the viewport',
-      description: 'If the width of your app\'s content doesn\'t match the width ' +
-          'of the viewport, your app might not be optimized for mobile screens. ' +
-          '[Learn more](https://developers.google.com/web/tools/lighthouse/audits/content-sized-correctly-for-viewport).',
+      title: str_(UIStrings.title),
+      failureTitle: str_(UIStrings.failureTitle),
+      description: str_(UIStrings.description),
       requiredArtifacts: ['ViewportDimensions', 'TestedAsMobileDevice'],
     };
   }
@@ -33,32 +43,26 @@ class ContentWidth extends Audit {
     const windowWidth = artifacts.ViewportDimensions.outerWidth;
     const widthsMatch = viewportWidth === windowWidth;
 
-    if (IsMobile) {
-      return {
-        score: Number(widthsMatch),
-        explanation: this.createExplanation(widthsMatch, artifacts.ViewportDimensions),
-      };
-    } else {
+    if (!IsMobile) {
       return {
         score: 1,
         notApplicable: true,
       };
     }
-  }
 
-  /**
-   * @param {boolean} match
-   * @param {LH.Artifacts.ViewportDimensions} artifact
-   * @return {string}
-   */
-  static createExplanation(match, artifact) {
-    if (match) {
-      return '';
+    let explanation = '';
+    if (!widthsMatch) {
+      explanation = str_(UIStrings.explanation,
+        {innerWidth: artifacts.ViewportDimensions.innerWidth,
+          outerWidth: artifacts.ViewportDimensions.outerWidth});
     }
 
-    return 'The viewport size is ' + artifact.innerWidth + 'px, ' +
-        'whereas the window size is ' + artifact.outerWidth + 'px.';
+    return {
+      score: Number(widthsMatch),
+      explanation,
+    };
   }
 }
 
 module.exports = ContentWidth;
+module.exports.UIStrings = UIStrings;

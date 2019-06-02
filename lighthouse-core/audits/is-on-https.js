@@ -7,9 +7,25 @@
 
 const Audit = require('./audit.js');
 const URL = require('../lib/url-shim.js');
-const Util = require('../report/html/renderer/util.js');
 const NetworkRecords = require('../computed/network-records.js');
+const i18n = require('../lib/i18n/i18n.js');
 
+const UIStrings = {
+  title: 'Uses HTTPS',
+  failureTitle: 'Does not use HTTPS',
+  description: 'All sites should be protected with HTTPS, even ones that don\'t handle ' +
+    'sensitive data. HTTPS prevents intruders from tampering with or passively listening ' +
+    'in on the communications between your app and your users, and is a prerequisite for ' +
+    'HTTP/2 and many new web platform APIs. ' +
+    '[Learn more](https://developers.google.com/web/tools/lighthouse/audits/https).',
+  displayValue: `{itemCount, plural,
+    =1 {1 insecure request found}
+    other {# insecure requests found}
+    }`,
+  columnInsecure: 'Insecure URL',
+};
+
+const str_ = i18n.createMessageInstanceIdFn(__filename, UIStrings);
 const SECURE_SCHEMES = ['data', 'https', 'wss', 'blob', 'chrome', 'chrome-extension', 'about'];
 const SECURE_DOMAINS = ['localhost', '127.0.0.1'];
 
@@ -20,13 +36,9 @@ class HTTPS extends Audit {
   static get meta() {
     return {
       id: 'is-on-https',
-      title: 'Uses HTTPS',
-      failureTitle: 'Does not use HTTPS',
-      description: 'All sites should be protected with HTTPS, even ones that don\'t handle ' +
-          'sensitive data. HTTPS prevents intruders from tampering with or passively listening ' +
-          'in on the communications between your app and your users, and is a prerequisite for ' +
-          'HTTP/2 and many new web platform APIs. ' +
-          '[Learn more](https://developers.google.com/web/tools/lighthouse/audits/https).',
+      title: str_(UIStrings.title),
+      failureTitle: str_(UIStrings.failureTitle),
+      description: str_(UIStrings.description),
       requiredArtifacts: ['devtoolsLogs'],
     };
   }
@@ -54,17 +66,15 @@ class HTTPS extends Audit {
           .map(record => URL.elideDataURI(record.url));
 
       let displayValue = '';
-      if (insecureURLs.length > 1) {
-        displayValue = `${Util.formatNumber(insecureURLs.length)} insecure requests found`;
-      } else if (insecureURLs.length === 1) {
-        displayValue = `${insecureURLs.length} insecure request found`;
+      if (insecureURLs.length > 0) {
+        displayValue = str_(UIStrings.displayValue, {itemCount: insecureURLs.length});
       }
 
       const items = Array.from(new Set(insecureURLs)).map(url => ({url}));
 
       /** @type {LH.Audit.Details.Table['headings']} */
       const headings = [
-        {key: 'url', itemType: 'url', text: 'Insecure URL'},
+        {key: 'url', itemType: 'url', text: str_(UIStrings.columnInsecure)},
       ];
 
       return {
@@ -80,3 +90,4 @@ class HTTPS extends Audit {
 }
 
 module.exports = HTTPS;
+module.exports.UIStrings = UIStrings;

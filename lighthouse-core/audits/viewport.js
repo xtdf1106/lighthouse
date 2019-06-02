@@ -7,6 +7,18 @@
 
 const Audit = require('./audit.js');
 const ComputedViewportMeta = require('../computed/viewport-meta.js');
+const i18n = require('../lib/i18n/i18n.js');
+
+const UIStrings = {
+  title: 'Has a `<meta name="viewport">` tag with `width` or `initial-scale`',
+  failureTitle: 'Does not have a `<meta name="viewport">` tag with `width` ' +
+    'or `initial-scale`',
+  description: 'Add a viewport meta tag to optimize your app for mobile screens. ' +
+    '[Learn more](https://developers.google.com/web/tools/lighthouse/audits/has-viewport-meta-tag).',
+  explanationNoTag: 'No viewport meta tag found',
+};
+
+const str_ = i18n.createMessageInstanceIdFn(__filename, UIStrings);
 
 class Viewport extends Audit {
   /**
@@ -15,11 +27,9 @@ class Viewport extends Audit {
   static get meta() {
     return {
       id: 'viewport',
-      title: 'Has a `<meta name="viewport">` tag with `width` or `initial-scale`',
-      failureTitle: 'Does not have a `<meta name="viewport">` tag with `width` ' +
-          'or `initial-scale`',
-      description: 'Add a viewport meta tag to optimize your app for mobile screens. ' +
-          '[Learn more](https://developers.google.com/web/tools/lighthouse/audits/has-viewport-meta-tag).',
+      title: str_(UIStrings.title),
+      failureTitle: str_(UIStrings.failureTitle),
+      description: str_(UIStrings.description),
       requiredArtifacts: ['MetaElements'],
     };
   }
@@ -35,7 +45,7 @@ class Viewport extends Audit {
     if (!viewportMeta.hasViewportTag) {
       return {
         score: 0,
-        explanation: 'No viewport meta tag found',
+        explanation: str_(UIStrings.explanationNoTag),
       };
     }
 
@@ -47,3 +57,5 @@ class Viewport extends Audit {
 }
 
 module.exports = Viewport;
+module.exports.UIStrings = UIStrings;
+

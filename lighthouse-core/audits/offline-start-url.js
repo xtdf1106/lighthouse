@@ -6,6 +6,18 @@
 'use strict';
 
 const Audit = require('./audit.js');
+const i18n = require('../lib/i18n/i18n.js');
+
+const UIStrings = {
+  title: 'start_url responds with a 200 when offline',
+  failureTitle: 'start_url does not respond with a 200 when offline',
+  description: 'A service worker enables your web app to be reliable in unpredictable ' +
+    'network conditions. [Learn more](https://developers.google.com/web/tools/lighthouse/audits/http-200-when-offline).',
+  warningCantStart: 'We couldn\'t read the start_url from the manifest. As a result, the ' +
+    'start_url was assumed to be the document\'s URL. Error message: \'{manifestWarning}\'.',
+};
+
+const str_ = i18n.createMessageInstanceIdFn(__filename, UIStrings);
 
 class OfflineStartUrl extends Audit {
   /**
@@ -14,9 +26,9 @@ class OfflineStartUrl extends Audit {
   static get meta() {
     return {
       id: 'offline-start-url',
-      title: 'start_url responds with a 200 when offline',
-      failureTitle: 'start_url does not respond with a 200 when offline',
-      description: 'A service worker enables your web app to be reliable in unpredictable network conditions. [Learn more](https://developers.google.com/web/tools/lighthouse/audits/http-200-when-offline).',
+      title: str_(UIStrings.title),
+      failureTitle: str_(UIStrings.failureTitle),
+      description: str_(UIStrings.description),
       requiredArtifacts: ['WebAppManifest', 'StartUrl'],
     };
   }
@@ -32,8 +44,7 @@ class OfflineStartUrl extends Audit {
     const manifest = artifacts.WebAppManifest;
     if (manifest && manifest.value && manifest.value.start_url.warning) {
       const manifestWarning = manifest.value.start_url.warning;
-      warnings.push('We couldn\'t read the start_url from the manifest. As a result, the ' +
-          `start_url was assumed to be the document's URL. Error message: '${manifestWarning}'.`);
+      warnings.push(str_(UIStrings.warningCantStart, {manifestWarning}));
     }
 
     const hasOfflineStartUrl = artifacts.StartUrl.statusCode === 200;
@@ -47,3 +58,4 @@ class OfflineStartUrl extends Audit {
 }
 
 module.exports = OfflineStartUrl;
+module.exports.UIStrings = UIStrings;

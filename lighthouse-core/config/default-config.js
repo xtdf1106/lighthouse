@@ -94,6 +94,15 @@ const UIStrings = {
   seoCrawlingGroupTitle: 'Crawling and Indexing',
   /* Description of the navigation section within the Search Engine Optimization (SEO) category. Within this section are audits with descriptive titles that highlight ways to make a website accessible to search engine crawlers. */
   seoCrawlingGroupDescription: 'To appear in search results, crawlers need access to your app.',
+  /** */
+  pwaCategoryTitle: 'Progressive Web App',
+  /** */
+  pwaCategoryDescription: 'These checks validate the aspects of a Progressive Web App. ' +
+  '[Learn more](https://developers.google.com/web/progressive-web-apps/checklist).',
+  /** */
+  pwaCategoryManualDescription: 'These checks are required by the baseline ' +
+  '[PWA Checklist](https://developers.google.com/web/progressive-web-apps/checklist) but are ' +
+  'not automatically checked by Lighthouse. They do not affect your score but it\'s important that you verify them manually.',
   /** Title of the Fast and Reliable section of the web app category. Within this section are audits that check if the web site loaded quickly and can reliably load even if the internet connection is very slow or goes offline. */
   pwaFastReliableGroupTitle: 'Fast and reliable',
   /** Title of the Installable section of the web app category. Within this section are audits that check if Chrome supports installing the web site as an app on their device. */
@@ -503,11 +512,9 @@ const defaultConfig = {
       ],
     },
     'pwa': {
-      title: 'Progressive Web App',
-      description: 'These checks validate the aspects of a Progressive Web App. [Learn more](https://developers.google.com/web/progressive-web-apps/checklist).',
-      manualDescription: 'These checks are required by the baseline ' +
-          '[PWA Checklist](https://developers.google.com/web/progressive-web-apps/checklist) but are ' +
-          'not automatically checked by Lighthouse. They do not affect your score but it\'s important that you verify them manually.',
+      title: str_(UIStrings.pwaCategoryTitle),
+      description: str_(UIStrings.pwaCategoryDescription),
+      manualDescription: str_(UIStrings.pwaCategoryManualDescription),
       auditRefs: [
         // Fast and Reliable
         {id: 'load-fast-enough-for-pwa', weight: 7, group: 'pwa-fast-reliable'},

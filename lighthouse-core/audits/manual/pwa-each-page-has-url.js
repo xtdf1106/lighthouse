@@ -6,6 +6,15 @@
 'use strict';
 
 const ManualAudit = require('./manual-audit.js');
+const i18n = require('../../lib/i18n/i18n.js');
+
+const UIStrings = {
+  title: 'Each page has a URL',
+  description: 'Ensure individual pages are deep linkable via the URLs and that URLs are ' +
+      'unique for the purpose of shareability on social media. [Learn more](https://developers.google.com/web/progressive-web-apps/checklist#each-page-has-a-url).',
+};
+
+const str_ = i18n.createMessageInstanceIdFn(__filename, UIStrings);
 
 /**
  * @fileoverview Manual PWA audit to ensure every page has a deep link.
@@ -18,11 +27,11 @@ class PWAEachPageHasURL extends ManualAudit {
   static get meta() {
     return Object.assign({
       id: 'pwa-each-page-has-url',
-      description: 'Ensure individual pages are deep linkable via the URLs and that URLs are ' +
-          'unique for the purpose of shareability on social media. [Learn more](https://developers.google.com/web/progressive-web-apps/checklist#each-page-has-a-url).',
-      title: 'Each page has a URL',
+      title: str_(UIStrings.title),
+      description: str_(UIStrings.description),
     }, super.partialMeta);
   }
 }
 
 module.exports = PWAEachPageHasURL;
+module.exports.UIStrings = UIStrings;

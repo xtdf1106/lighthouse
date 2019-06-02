@@ -587,6 +587,22 @@
     "message": "Serve images in next-gen formats",
     "description": "Imperative title of a Lighthouse audit that tells the user to serve images in newer and more efficient image formats in order to enhance the performance of a page. A non-modern image format was designed 20+ years ago. This is displayed in a list of audit titles that Lighthouse generates."
   },
+  "lighthouse-core/audits/content-width.js | description": {
+    "message": "If the width of your app's content doesn't match the width of the viewport, your app might not be optimized for mobile screens. [Learn more](https://developers.google.com/web/tools/lighthouse/audits/content-sized-correctly-for-viewport).",
+    "description": ""
+  },
+  "lighthouse-core/audits/content-width.js | explanation": {
+    "message": "The viewport size is {innerWidth}px, whereas the window size is {outerWidth}px.",
+    "description": ""
+  },
+  "lighthouse-core/audits/content-width.js | failureTitle": {
+    "message": "Content is not sized correctly for the viewport",
+    "description": ""
+  },
+  "lighthouse-core/audits/content-width.js | title": {
+    "message": "Content is sized correctly for the viewport",
+    "description": ""
+  },
   "lighthouse-core/audits/critical-request-chains.js | description": {
     "message": "The Critical Request Chains below show you what resources are loaded with a high priority. Consider reducing the length of chains, reducing the download size of resources, or deferring the download of unnecessary resources to improve page load. [Learn more](https://developers.google.com/web/tools/lighthouse/audits/critical-request-chains).",
     "description": "Description of a Lighthouse audit that tells the user *why* they should reduce the depth of critical network requests to enhance initial load of a page . This is displayed after a user expands the section to see more. No character length limits. 'Learn More' becomes link text to additional documentation."
@@ -651,6 +667,38 @@
     "message": "All text remains visible during webfont loads",
     "description": "Title of a diagnostic audit that provides detail on if all the text on a webpage was visible while the page was loading its webfonts. This descriptive title is shown to users when the amount is acceptable and no user action is required."
   },
+  "lighthouse-core/audits/installable-manifest.js | description": {
+    "message": "Browsers can proactively prompt users to add your app to their homescreen, which can lead to higher engagement. [Learn more](https://developers.google.com/web/tools/lighthouse/audits/install-prompt).",
+    "description": ""
+  },
+  "lighthouse-core/audits/installable-manifest.js | failureTitle": {
+    "message": "Web app manifest does not meet the installability requirements",
+    "description": ""
+  },
+  "lighthouse-core/audits/installable-manifest.js | title": {
+    "message": "Web app manifest meets the installability requirements",
+    "description": ""
+  },
+  "lighthouse-core/audits/is-on-https.js | columnInsecure": {
+    "message": "Insecure URL",
+    "description": ""
+  },
+  "lighthouse-core/audits/is-on-https.js | description": {
+    "message": "All sites should be protected with HTTPS, even ones that don't handle sensitive data. HTTPS prevents intruders from tampering with or passively listening in on the communications between your app and your users, and is a prerequisite for HTTP/2 and many new web platform APIs. [Learn more](https://developers.google.com/web/tools/lighthouse/audits/https).",
+    "description": ""
+  },
+  "lighthouse-core/audits/is-on-https.js | displayValue": {
+    "message": "{itemCount, plural,\n    =1 {1 insecure request found}\n    other {# insecure requests found}\n    }",
+    "description": ""
+  },
+  "lighthouse-core/audits/is-on-https.js | failureTitle": {
+    "message": "Does not use HTTPS",
+    "description": ""
+  },
+  "lighthouse-core/audits/is-on-https.js | title": {
+    "message": "Uses HTTPS",
+    "description": ""
+  },
   "lighthouse-core/audits/load-fast-enough-for-pwa.js | description": {
     "message": "A fast page load over a cellular network ensures a good mobile user experience. [Learn more](https://developers.google.com/web/tools/lighthouse/audits/fast-3g).",
     "description": "Description of a Lighthouse audit that tells the user *why* they need to load fast enough on mobile networks. This is displayed after a user expands the section to see more. No character length limits. 'Learn More' becomes link text to additional documentation."
@@ -686,6 +734,30 @@
   "lighthouse-core/audits/mainthread-work-breakdown.js | title": {
     "message": "Minimizes main-thread work",
     "description": "Title of a diagnostic audit that provides detail on the main thread work the browser did to load the page. This descriptive title is shown to users when the amount is acceptable and no user action is required."
+  },
+  "lighthouse-core/audits/manual/pwa-cross-browser.js | description": {
+    "message": "To reach the most number of users, sites should work across every major browser. [Learn more](https://developers.google.com/web/progressive-web-apps/checklist#site-works-cross-browser).",
+    "description": ""
+  },
+  "lighthouse-core/audits/manual/pwa-cross-browser.js | title": {
+    "message": "Site works cross-browser",
+    "description": ""
+  },
+  "lighthouse-core/audits/manual/pwa-each-page-has-url.js | description": {
+    "message": "Ensure individual pages are deep linkable via the URLs and that URLs are unique for the purpose of shareability on social media. [Learn more](https://developers.google.com/web/progressive-web-apps/checklist#each-page-has-a-url).",
+    "description": ""
+  },
+  "lighthouse-core/audits/manual/pwa-each-page-has-url.js | title": {
+    "message": "Each page has a URL",
+    "description": ""
+  },
+  "lighthouse-core/audits/manual/pwa-page-transitions.js | description": {
+    "message": "Transitions should feel snappy as you tap around, even on a slow network, a key to perceived performance. [Learn more](https://developers.google.com/web/progressive-web-apps/checklist#page-transitions-dont-feel-like-they-block-on-the-network).",
+    "description": ""
+  },
+  "lighthouse-core/audits/manual/pwa-page-transitions.js | title": {
+    "message": "Page transitions don't feel like they block on the network",
+    "description": ""
   },
   "lighthouse-core/audits/metrics/estimated-input-latency.js | description": {
     "message": "Estimated Input Latency is an estimate of how long your app takes to respond to user input, in milliseconds, during the busiest 5s window of page load. If your latency is higher than 50 ms, users may perceive your app as laggy. [Learn more](https://developers.google.com/web/tools/lighthouse/audits/estimated-input-latency).",
@@ -759,6 +831,22 @@
     "message": "Server Backend Latencies",
     "description": "Descriptive title of a Lighthouse audit that tells the user the server latencies observed from each origin the page connected to. This is displayed in a list of audit titles that Lighthouse generates."
   },
+  "lighthouse-core/audits/offline-start-url.js | description": {
+    "message": "A service worker enables your web app to be reliable in unpredictable network conditions. [Learn more](https://developers.google.com/web/tools/lighthouse/audits/http-200-when-offline).",
+    "description": ""
+  },
+  "lighthouse-core/audits/offline-start-url.js | failureTitle": {
+    "message": "start_url does not respond with a 200 when offline",
+    "description": ""
+  },
+  "lighthouse-core/audits/offline-start-url.js | title": {
+    "message": "start_url responds with a 200 when offline",
+    "description": ""
+  },
+  "lighthouse-core/audits/offline-start-url.js | warningCantStart": {
+    "message": "We couldn't read the start_url from the manifest. As a result, the start_url was assumed to be the document's URL. Error message: '{manifestWarning}'.",
+    "description": ""
+  },
   "lighthouse-core/audits/performance-budget.js | description": {
     "message": "Keep the quantity and size of network requests under the targets set by the provided performance budget. [Learn more](https://developers.google.com/web/tools/lighthouse/audits/budgets).",
     "description": "Description of a Lighthouse audit where a user sets budgets for the quantity and size of page resources. No character length limits. 'Learn More' becomes link text to additional documentation."
@@ -770,6 +858,18 @@
   "lighthouse-core/audits/performance-budget.js | title": {
     "message": "Performance budget",
     "description": "Title of a Lighthouse audit that compares the size and quantity of page resources against targets set by the user. These targets are thought of as \"performance budgets\" because these metrics impact page performance (i.e. how quickly a page loads)."
+  },
+  "lighthouse-core/audits/redirects-http.js | description": {
+    "message": "If you've already set up HTTPS, make sure that you redirect all HTTP traffic to HTTPS. [Learn more](https://developers.google.com/web/tools/lighthouse/audits/http-redirects-to-https).",
+    "description": ""
+  },
+  "lighthouse-core/audits/redirects-http.js | failureTitle": {
+    "message": "Does not redirect HTTP traffic to HTTPS",
+    "description": ""
+  },
+  "lighthouse-core/audits/redirects-http.js | title": {
+    "message": "Redirects HTTP traffic to HTTPS",
+    "description": ""
   },
   "lighthouse-core/audits/redirects.js | description": {
     "message": "Redirects introduce additional delays before the page can be loaded. [Learn more](https://developers.google.com/web/tools/lighthouse/audits/redirects).",
@@ -999,6 +1099,58 @@
     "message": "Tap targets are sized appropriately",
     "description": "Title of a Lighthouse audit that provides detail on whether tap targets (like buttons and links) on a page are big enough so they can easily be tapped on a mobile device. This descriptive title is shown when tap targets are easy to tap on."
   },
+  "lighthouse-core/audits/service-worker.js | description": {
+    "message": "The service worker is the technology that enables your app to use many Progressive Web App features, such as offline, add to homescreen, and push notifications. [Learn more](https://developers.google.com/web/tools/lighthouse/audits/registered-service-worker).",
+    "description": ""
+  },
+  "lighthouse-core/audits/service-worker.js | explanationBadManifest": {
+    "message": "This page is controlled by a service worker, however no start_url was found because manifest failed to parse as valid JSON",
+    "description": ""
+  },
+  "lighthouse-core/audits/service-worker.js | explanationBadStartUrl": {
+    "message": "This page is controlled by a service worker, however the start_url ({startUrl}) is not in the service worker's scope ({scopeUrl})",
+    "description": ""
+  },
+  "lighthouse-core/audits/service-worker.js | explanationNoManifest": {
+    "message": "This page is controlled by a service worker, however no start_url was found because no manifest was fetched.",
+    "description": ""
+  },
+  "lighthouse-core/audits/service-worker.js | explanationOutOfScope": {
+    "message": "This origin has one or more service workers, however the page ({pageUrl}) is not in scope.",
+    "description": ""
+  },
+  "lighthouse-core/audits/service-worker.js | failureTitle": {
+    "message": "Does not register a service worker that controls page and start_url",
+    "description": ""
+  },
+  "lighthouse-core/audits/service-worker.js | title": {
+    "message": "Registers a service worker that controls page and start_url",
+    "description": ""
+  },
+  "lighthouse-core/audits/splash-screen.js | description": {
+    "message": "A themed splash screen ensures a high-quality experience when users launch your app from their homescreens. [Learn more](https://developers.google.com/web/tools/lighthouse/audits/custom-splash-screen).",
+    "description": ""
+  },
+  "lighthouse-core/audits/splash-screen.js | failureTitle": {
+    "message": "Is not configured for a custom splash screen",
+    "description": ""
+  },
+  "lighthouse-core/audits/splash-screen.js | title": {
+    "message": "Configured for a custom splash screen",
+    "description": ""
+  },
+  "lighthouse-core/audits/themed-omnibox.js | description": {
+    "message": "The browser address bar can be themed to match your site. [Learn more](https://developers.google.com/web/tools/lighthouse/audits/address-bar).",
+    "description": ""
+  },
+  "lighthouse-core/audits/themed-omnibox.js | failureTitle": {
+    "message": "Does not set an address-bar theme color",
+    "description": ""
+  },
+  "lighthouse-core/audits/themed-omnibox.js | title": {
+    "message": "Sets an address-bar theme color",
+    "description": ""
+  },
   "lighthouse-core/audits/time-to-first-byte.js | description": {
     "message": "Time To First Byte identifies the time at which your server sends a response. [Learn more](https://developers.google.com/web/tools/lighthouse/audits/ttfb).",
     "description": "Description of a Lighthouse audit that tells the user *why* they should reduce the amount of time it takes their server to start responding to requests. This is displayed after a user expands the section to see more. No character length limits. 'Learn More' becomes link text to additional documentation."
@@ -1066,6 +1218,54 @@
   "lighthouse-core/audits/uses-rel-preload.js | title": {
     "message": "Preload key requests",
     "description": "Imperative title of a Lighthouse audit that tells the user to use <link rel=preload> to initiate important network requests earlier during page load. This is displayed in a list of audit titles that Lighthouse generates."
+  },
+  "lighthouse-core/audits/viewport.js | description": {
+    "message": "Add a viewport meta tag to optimize your app for mobile screens. [Learn more](https://developers.google.com/web/tools/lighthouse/audits/has-viewport-meta-tag).",
+    "description": ""
+  },
+  "lighthouse-core/audits/viewport.js | explanationNoTag": {
+    "message": "No viewport meta tag found",
+    "description": ""
+  },
+  "lighthouse-core/audits/viewport.js | failureTitle": {
+    "message": "Does not have a `<meta name=\"viewport\">` tag with `width` or `initial-scale`",
+    "description": ""
+  },
+  "lighthouse-core/audits/viewport.js | title": {
+    "message": "Has a `<meta name=\"viewport\">` tag with `width` or `initial-scale`",
+    "description": ""
+  },
+  "lighthouse-core/audits/without-javascript.js | description": {
+    "message": "Your app should display some content when JavaScript is disabled, even if it's just a warning to the user that JavaScript is required to use the app. [Learn more](https://developers.google.com/web/tools/lighthouse/audits/no-js).",
+    "description": ""
+  },
+  "lighthouse-core/audits/without-javascript.js | explanation": {
+    "message": "The page body should render some content if its scripts are not available.",
+    "description": ""
+  },
+  "lighthouse-core/audits/without-javascript.js | failureTitle": {
+    "message": "Does not provide fallback content when JavaScript is not available",
+    "description": ""
+  },
+  "lighthouse-core/audits/without-javascript.js | title": {
+    "message": "Contains some content when JavaScript is not available",
+    "description": ""
+  },
+  "lighthouse-core/audits/works-offline.js | description": {
+    "message": "If you're building a Progressive Web App, consider using a service worker so that your app can work offline. [Learn more](https://developers.google.com/web/tools/lighthouse/audits/http-200-when-offline).",
+    "description": ""
+  },
+  "lighthouse-core/audits/works-offline.js | failureTitle": {
+    "message": "Current page does not respond with a 200 when offline",
+    "description": ""
+  },
+  "lighthouse-core/audits/works-offline.js | title": {
+    "message": "Current page responds with a 200 when offline",
+    "description": ""
+  },
+  "lighthouse-core/audits/works-offline.js | warningNoLoad": {
+    "message": "You may be not loading offline because your test URL ({requested}) was redirected to \"{final}\". Try testing the second URL directly.",
+    "description": ""
   },
   "lighthouse-core/config/default-config.js | a11yAriaGroupDescription": {
     "message": "These are opportunities to improve the usage of ARIA in your application which may enhance the experience for users of assistive technology, like a screen reader.",
@@ -1190,6 +1390,18 @@
   "lighthouse-core/config/default-config.js | performanceCategoryTitle": {
     "message": "Performance",
     "description": "Title of the Performance category of audits. Equivalent to 'Web performance', this term is inclusive of all web page speed and loading optimization topics. Also used as a label of a score gauge; try to limit to 20 characters."
+  },
+  "lighthouse-core/config/default-config.js | pwaCategoryDescription": {
+    "message": "These checks validate the aspects of a Progressive Web App. [Learn more](https://developers.google.com/web/progressive-web-apps/checklist).",
+    "description": ""
+  },
+  "lighthouse-core/config/default-config.js | pwaCategoryManualDescription": {
+    "message": "These checks are required by the baseline [PWA Checklist](https://developers.google.com/web/progressive-web-apps/checklist) but are not automatically checked by Lighthouse. They do not affect your score but it's important that you verify them manually.",
+    "description": ""
+  },
+  "lighthouse-core/config/default-config.js | pwaCategoryTitle": {
+    "message": "Progressive Web App",
+    "description": ""
   },
   "lighthouse-core/config/default-config.js | pwaFastReliableGroupTitle": {
     "message": "Fast and reliable",

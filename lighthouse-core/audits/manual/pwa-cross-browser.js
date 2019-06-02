@@ -7,6 +7,15 @@
 'use strict';
 
 const ManualAudit = require('./manual-audit.js');
+const i18n = require('../../lib/i18n/i18n.js');
+
+const UIStrings = {
+  title: 'Site works cross-browser',
+  description: 'To reach the most number of users, sites should work across ' +
+  'every major browser. [Learn more](https://developers.google.com/web/progressive-web-apps/checklist#site-works-cross-browser).',
+};
+
+const str_ = i18n.createMessageInstanceIdFn(__filename, UIStrings);
 
 /**
  * @fileoverview Manual PWA audit for cross browser support.
@@ -19,11 +28,12 @@ class PWACrossBrowser extends ManualAudit {
   static get meta() {
     return Object.assign({
       id: 'pwa-cross-browser',
-      description: 'To reach the most number of users, sites should work across ' +
-      'every major browser. [Learn more](https://developers.google.com/web/progressive-web-apps/checklist#site-works-cross-browser).',
-      title: 'Site works cross-browser',
+      title: str_(UIStrings.title),
+      description: str_(UIStrings.description),
     }, super.partialMeta);
   }
 }
 
 module.exports = PWACrossBrowser;
+module.exports.UIStrings = UIStrings;
+

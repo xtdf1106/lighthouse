@@ -6,6 +6,15 @@
 'use strict';
 
 const ManualAudit = require('./manual-audit.js');
+const i18n = require('../../lib/i18n/i18n.js');
+
+const UIStrings = {
+  title: 'Page transitions don\'t feel like they block on the network',
+  description: 'Transitions should feel snappy as you tap around, even on a slow network, a ' +
+      'key to perceived performance. [Learn more](https://developers.google.com/web/progressive-web-apps/checklist#page-transitions-dont-feel-like-they-block-on-the-network).',
+};
+
+const str_ = i18n.createMessageInstanceIdFn(__filename, UIStrings);
 
 /**
  * @fileoverview Manual PWA audit for janky-free page transitions.
@@ -18,11 +27,11 @@ class PWAPageTransitions extends ManualAudit {
   static get meta() {
     return Object.assign({
       id: 'pwa-page-transitions',
-      description: 'Transitions should feel snappy as you tap around, even on a slow network, a ' +
-          'key to perceived performance. [Learn more](https://developers.google.com/web/progressive-web-apps/checklist#page-transitions-dont-feel-like-they-block-on-the-network).',
-      title: 'Page transitions don\'t feel like they block on the network',
+      title: str_(UIStrings.title),
+      description: str_(UIStrings.description),
     }, super.partialMeta);
   }
 }
 
 module.exports = PWAPageTransitions;
+module.exports.UIStrings = UIStrings;

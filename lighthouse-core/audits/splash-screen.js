@@ -7,6 +7,17 @@
 
 const MultiCheckAudit = require('./multi-check-audit.js');
 const ManifestValues = require('../computed/manifest-values.js');
+const i18n = require('../lib/i18n/i18n.js');
+
+const UIStrings = {
+  title: 'Configured for a custom splash screen',
+  failureTitle: 'Is not configured for a custom splash screen',
+  description: 'A themed splash screen ensures a high-quality experience when ' +
+    'users launch your app from their homescreens. [Learn ' +
+    'more](https://developers.google.com/web/tools/lighthouse/audits/custom-splash-screen).',
+};
+
+const str_ = i18n.createMessageInstanceIdFn(__filename, UIStrings);
 
 /**
  * @fileoverview
@@ -28,11 +39,9 @@ class SplashScreen extends MultiCheckAudit {
   static get meta() {
     return {
       id: 'splash-screen',
-      title: 'Configured for a custom splash screen',
-      failureTitle: 'Is not configured for a custom splash screen',
-      description: 'A themed splash screen ensures a high-quality experience when ' +
-          'users launch your app from their homescreens. [Learn ' +
-          'more](https://developers.google.com/web/tools/lighthouse/audits/custom-splash-screen).',
+      title: str_(UIStrings.title),
+      failureTitle: str_(UIStrings.failureTitle),
+      description: str_(UIStrings.description),
       requiredArtifacts: ['WebAppManifest'],
     };
   }
@@ -83,3 +92,4 @@ class SplashScreen extends MultiCheckAudit {
 }
 
 module.exports = SplashScreen;
+module.exports.UIStrings = UIStrings;

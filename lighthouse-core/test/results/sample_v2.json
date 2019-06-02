@@ -5028,6 +5028,53 @@
       "warningHeader": "Warnings: "
     },
     "icuMessagePaths": {
+      "lighthouse-core/audits/is-on-https.js | failureTitle": [
+        "audits[is-on-https].title"
+      ],
+      "lighthouse-core/audits/is-on-https.js | description": [
+        "audits[is-on-https].description"
+      ],
+      "lighthouse-core/audits/is-on-https.js | displayValue": [
+        {
+          "values": {
+            "itemCount": 1
+          },
+          "path": "audits[is-on-https].displayValue"
+        }
+      ],
+      "lighthouse-core/audits/is-on-https.js | columnInsecure": [
+        "audits[is-on-https].details.headings[0].text"
+      ],
+      "lighthouse-core/audits/redirects-http.js | failureTitle": [
+        "audits[redirects-http].title"
+      ],
+      "lighthouse-core/audits/redirects-http.js | description": [
+        "audits[redirects-http].description"
+      ],
+      "lighthouse-core/audits/service-worker.js | failureTitle": [
+        "audits[service-worker].title"
+      ],
+      "lighthouse-core/audits/service-worker.js | description": [
+        "audits[service-worker].description"
+      ],
+      "lighthouse-core/audits/works-offline.js | failureTitle": [
+        "audits[works-offline].title"
+      ],
+      "lighthouse-core/audits/works-offline.js | description": [
+        "audits[works-offline].description"
+      ],
+      "lighthouse-core/audits/viewport.js | title": [
+        "audits.viewport.title"
+      ],
+      "lighthouse-core/audits/viewport.js | description": [
+        "audits.viewport.description"
+      ],
+      "lighthouse-core/audits/without-javascript.js | title": [
+        "audits[without-javascript].title"
+      ],
+      "lighthouse-core/audits/without-javascript.js | description": [
+        "audits[without-javascript].description"
+      ],
       "lighthouse-core/audits/metrics/first-contentful-paint.js | title": [
         "audits[first-contentful-paint].title"
       ],
@@ -5186,11 +5233,35 @@
       "lighthouse-core/audits/redirects.js | description": [
         "audits.redirects.description"
       ],
+      "lighthouse-core/audits/installable-manifest.js | failureTitle": [
+        "audits[installable-manifest].title"
+      ],
+      "lighthouse-core/audits/installable-manifest.js | description": [
+        "audits[installable-manifest].description"
+      ],
       "lighthouse-core/audits/apple-touch-icon.js | failureTitle": [
         "audits[apple-touch-icon].title"
       ],
       "lighthouse-core/audits/apple-touch-icon.js | description": [
         "audits[apple-touch-icon].description"
+      ],
+      "lighthouse-core/audits/splash-screen.js | failureTitle": [
+        "audits[splash-screen].title"
+      ],
+      "lighthouse-core/audits/splash-screen.js | description": [
+        "audits[splash-screen].description"
+      ],
+      "lighthouse-core/audits/themed-omnibox.js | failureTitle": [
+        "audits[themed-omnibox].title"
+      ],
+      "lighthouse-core/audits/themed-omnibox.js | description": [
+        "audits[themed-omnibox].description"
+      ],
+      "lighthouse-core/audits/content-width.js | title": [
+        "audits[content-width].title"
+      ],
+      "lighthouse-core/audits/content-width.js | description": [
+        "audits[content-width].description"
       ],
       "lighthouse-core/audits/mainthread-work-breakdown.js | title": [
         "audits[mainthread-work-breakdown].title"
@@ -5261,6 +5332,12 @@
       ],
       "lighthouse-core/audits/network-server-latency.js | description": [
         "audits[network-server-latency].description"
+      ],
+      "lighthouse-core/audits/offline-start-url.js | failureTitle": [
+        "audits[offline-start-url].title"
+      ],
+      "lighthouse-core/audits/offline-start-url.js | description": [
+        "audits[offline-start-url].description"
       ],
       "lighthouse-core/audits/performance-budget.js | title": [
         "audits[performance-budget].title"
@@ -5350,6 +5427,24 @@
           },
           "path": "audits[resource-summary].displayValue"
         }
+      ],
+      "lighthouse-core/audits/manual/pwa-cross-browser.js | title": [
+        "audits[pwa-cross-browser].title"
+      ],
+      "lighthouse-core/audits/manual/pwa-cross-browser.js | description": [
+        "audits[pwa-cross-browser].description"
+      ],
+      "lighthouse-core/audits/manual/pwa-page-transitions.js | title": [
+        "audits[pwa-page-transitions].title"
+      ],
+      "lighthouse-core/audits/manual/pwa-page-transitions.js | description": [
+        "audits[pwa-page-transitions].description"
+      ],
+      "lighthouse-core/audits/manual/pwa-each-page-has-url.js | title": [
+        "audits[pwa-each-page-has-url].title"
+      ],
+      "lighthouse-core/audits/manual/pwa-each-page-has-url.js | description": [
+        "audits[pwa-each-page-has-url].description"
       ],
       "lighthouse-core/audits/accessibility/accesskeys.js | title": [
         "audits.accesskeys.title"
@@ -5843,6 +5938,15 @@
       ],
       "lighthouse-core/config/default-config.js | seoCategoryManualDescription": [
         "categories.seo.manualDescription"
+      ],
+      "lighthouse-core/config/default-config.js | pwaCategoryTitle": [
+        "categories.pwa.title"
+      ],
+      "lighthouse-core/config/default-config.js | pwaCategoryDescription": [
+        "categories.pwa.description"
+      ],
+      "lighthouse-core/config/default-config.js | pwaCategoryManualDescription": [
+        "categories.pwa.manualDescription"
       ],
       "lighthouse-core/config/default-config.js | metricGroupTitle": [
         "categoryGroups.metrics.title"

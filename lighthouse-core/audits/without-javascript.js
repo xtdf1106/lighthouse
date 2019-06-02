@@ -6,6 +6,18 @@
 'use strict';
 
 const Audit = require('./audit.js');
+const i18n = require('../lib/i18n/i18n.js');
+
+const UIStrings = {
+  title: 'Contains some content when JavaScript is not available',
+  failureTitle: 'Does not provide fallback content when JavaScript is not available',
+  description: 'Your app should display some content when JavaScript is disabled, even if ' +
+    'it\'s just a warning to the user that JavaScript is required to use the app. ' +
+    '[Learn more](https://developers.google.com/web/tools/lighthouse/audits/no-js).',
+  explanation: 'The page body should render some content if its scripts are not available.',
+};
+
+const str_ = i18n.createMessageInstanceIdFn(__filename, UIStrings);
 
 class WithoutJavaScript extends Audit {
   /**
@@ -14,11 +26,9 @@ class WithoutJavaScript extends Audit {
   static get meta() {
     return {
       id: 'without-javascript',
-      title: 'Contains some content when JavaScript is not available',
-      failureTitle: 'Does not provide fallback content when JavaScript is not available',
-      description: 'Your app should display some content when JavaScript is disabled, even if ' +
-          'it\'s just a warning to the user that JavaScript is required to use the app. ' +
-          '[Learn more](https://developers.google.com/web/tools/lighthouse/audits/no-js).',
+      title: str_(UIStrings.title),
+      failureTitle: str_(UIStrings.failureTitle),
+      description: str_(UIStrings.description),
       requiredArtifacts: ['HTMLWithoutJavaScript'],
     };
   }
@@ -34,7 +44,7 @@ class WithoutJavaScript extends Audit {
     if (artifact.bodyText.trim() === '' && !artifact.hasNoScript) {
       return {
         score: 0,
-        explanation: 'The page body should render some content if its scripts are not available.',
+        explanation: str_(UIStrings.explanation),
       };
     }
 
@@ -45,3 +55,4 @@ class WithoutJavaScript extends Audit {
 }
 
 module.exports = WithoutJavaScript;
+module.exports.UIStrings = UIStrings;
