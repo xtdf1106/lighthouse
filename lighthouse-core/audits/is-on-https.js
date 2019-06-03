@@ -22,7 +22,6 @@ const UIStrings = {
     =1 {1 insecure request found}
     other {# insecure requests found}
     }`,
-  columnInsecure: 'Insecure URL',
 };
 
 const str_ = i18n.createMessageInstanceIdFn(__filename, UIStrings);
@@ -65,16 +64,16 @@ class HTTPS extends Audit {
           .filter(record => !HTTPS.isSecureRecord(record))
           .map(record => URL.elideDataURI(record.url));
 
-      let displayValue = '';
-      if (insecureURLs.length > 0) {
-        displayValue = str_(UIStrings.displayValue, {itemCount: insecureURLs.length});
-      }
-
       const items = Array.from(new Set(insecureURLs)).map(url => ({url}));
+
+      let displayValue = '';
+      if (items.length > 0) {
+        displayValue = str_(UIStrings.displayValue, {itemCount: items.length});
+      }
 
       /** @type {LH.Audit.Details.Table['headings']} */
       const headings = [
-        {key: 'url', itemType: 'url', text: str_(UIStrings.columnInsecure)},
+        {key: 'url', itemType: 'url', text: str_(i18n.UIStrings.columnURL)},
       ];
 
       return {

@@ -24,7 +24,7 @@
           {
             "key": "url",
             "itemType": "url",
-            "text": "Insecure URL"
+            "text": "URL"
           }
         ],
         "items": [
@@ -5042,8 +5042,17 @@
           "path": "audits[is-on-https].displayValue"
         }
       ],
-      "lighthouse-core/audits/is-on-https.js | columnInsecure": [
-        "audits[is-on-https].details.headings[0].text"
+      "lighthouse-core/lib/i18n/i18n.js | columnURL": [
+        "audits[is-on-https].details.headings[0].text",
+        "audits[bootup-time].details.headings[0].text",
+        "audits[network-rtt].details.headings[0].text",
+        "audits[network-server-latency].details.headings[0].text",
+        "audits[uses-long-cache-ttl].details.headings[0].text",
+        "audits[total-byte-weight].details.headings[0].text",
+        "audits[render-blocking-resources].details.headings[0].label",
+        "audits[unminified-javascript].details.headings[0].label",
+        "audits[uses-webp-images].details.headings[1].label",
+        "audits[uses-text-compression].details.headings[0].label"
       ],
       "lighthouse-core/audits/redirects-http.js | failureTitle": [
         "audits[redirects-http].title"
@@ -5282,17 +5291,6 @@
       ],
       "lighthouse-core/audits/bootup-time.js | description": [
         "audits[bootup-time].description"
-      ],
-      "lighthouse-core/lib/i18n/i18n.js | columnURL": [
-        "audits[bootup-time].details.headings[0].text",
-        "audits[network-rtt].details.headings[0].text",
-        "audits[network-server-latency].details.headings[0].text",
-        "audits[uses-long-cache-ttl].details.headings[0].text",
-        "audits[total-byte-weight].details.headings[0].text",
-        "audits[render-blocking-resources].details.headings[0].label",
-        "audits[unminified-javascript].details.headings[0].label",
-        "audits[uses-webp-images].details.headings[1].label",
-        "audits[uses-text-compression].details.headings[0].label"
       ],
       "lighthouse-core/audits/bootup-time.js | columnTotal": [
         "audits[bootup-time].details.headings[1].text"
