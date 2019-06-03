@@ -149,3 +149,4 @@ class ThirdPartySummary extends Audit {
 }
 
 module.exports = ThirdPartySummary;
+module.exports.UIStrings = UIStrings;
