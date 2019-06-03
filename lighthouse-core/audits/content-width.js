@@ -9,12 +9,17 @@ const Audit = require('./audit.js');
 const i18n = require('../lib/i18n/i18n.js');
 
 const UIStrings = {
+  /** Title of a Lighthouse audit that provides detail on the content size of a site compared to its viewport. This descriptive title is shown to users when the site's content is sized appropriately. */
   title: 'Content is sized correctly for the viewport',
+  /** Title of a Lighthouse audit that provides detail on the content size of a site compared to its viewport. This descriptive title is shown to users when the site's content is not sized appropriately. */
   failureTitle: 'Content is not sized correctly for the viewport',
+  /** Description of a Lighthouse audit that tells the user why they should care that a site's content size should match its viewport size. This is displayed after a user expands the section to see more. No character length limits. 'Learn More' becomes link text to additional documentation. */
   description: 'If the width of your app\'s content doesn\'t match the width ' +
-      'of the viewport, your app might not be optimized for mobile screens. ' +
-      '[Learn more](https://developers.google.com/web/tools/lighthouse/audits/content-sized-correctly-for-viewport).',
-  explanation: 'The viewport size of {innerWidth}px, does not match the window size of {outerWidth}px.',
+    'of the viewport, your app might not be optimized for mobile screens. ' +
+    '[Learn more](https://developers.google.com/web/tools/lighthouse/audits/content-sized-correctly-for-viewport).',
+  /** Explanatory message stating that the viewport size and window size differ. */
+  explanation: 'The viewport size of {innerWidth}px, does not match the window ' +
+    'size of {outerWidth}px.',
 };
 
 const str_ = i18n.createMessageInstanceIdFn(__filename, UIStrings);

@@ -10,8 +10,11 @@ const ManifestValues = require('../computed/manifest-values.js');
 const i18n = require('../lib/i18n/i18n.js');
 
 const UIStrings = {
+  /** Title of a Lighthouse audit that provides detail on splash screens. This descriptive title is shown to users when the site has a custom splash screen. */
   title: 'Configured for a custom splash screen',
+  /** Title of a Lighthouse audit that provides detail on splash screens. This descriptive title is shown to users when the site does not have a custom splash screen. */
   failureTitle: 'Is not configured for a custom splash screen',
+  /** Description of a Lighthouse audit that tells the user why they should configure a custom splash screen. This is displayed after a user expands the section to see more. No character length limits. 'Learn More' becomes link text to additional documentation. */
   description: 'A themed splash screen ensures a high-quality experience when ' +
     'users launch your app from their homescreens. [Learn ' +
     'more](https://developers.google.com/web/tools/lighthouse/audits/custom-splash-screen).',

@@ -10,17 +10,24 @@ const Audit = require('./audit.js');
 const i18n = require('../lib/i18n/i18n.js');
 
 const UIStrings = {
+  /** Title of a Lighthouse audit that provides detail on a page's service worker. This descriptive title is shown to users when a service worker is registered and valid. */
   title: 'Registers a service worker that controls page and start_url',
+  /** Title of a Lighthouse audit that provides detail on a page's service worker. This descriptive title is shown to users when a service worker is invalid. */
   failureTitle: 'Does not register a service worker that controls page and start_url',
+  /** Description of a Lighthouse audit that tells the user why they should use a service worker. This is displayed after a user expands the section to see more. No character length limits. 'Learn More' becomes link text to additional documentation. */
   description: 'The service worker is the technology that enables your app to use many ' +
     'Progressive Web App features, such as offline, add to homescreen, and push ' +
     'notifications. [Learn more](https://developers.google.com/web/tools/lighthouse/audits/registered-service-worker).',
+  /** Explanatory message stating that the page has multiple, or out of scope service workers. */
   explanationOutOfScope: 'This origin has one or more service workers, however the page ' +
     '({pageUrl}) is not in scope.',
+  /** Explanatory message stating that the page has no manifest. */
   explanationNoManifest: 'This page is controlled by a service worker, however ' +
     'no start_url was found because no manifest was fetched.',
+  /** Explanatory message stating that the page's manifest is invalid. */
   explanationBadManifest: 'This page is controlled by a service worker, however ' +
     'no start_url was found because manifest failed to parse as valid JSON',
+  /** Explanatory message stating that the manifest's start_url is not in scope, and therefor invalid. */
   explanationBadStartUrl: 'This page is controlled by a service worker, however ' +
     'the start_url ({startUrl}) is not in the service worker\'s scope ({scopeUrl})',
 };

@@ -589,19 +589,19 @@
   },
   "lighthouse-core/audits/content-width.js | description": {
     "message": "If the width of your app's content doesn't match the width of the viewport, your app might not be optimized for mobile screens. [Learn more](https://developers.google.com/web/tools/lighthouse/audits/content-sized-correctly-for-viewport).",
-    "description": ""
+    "description": "Description of a Lighthouse audit that tells the user why they should care that a site's content size should match its viewport size. This is displayed after a user expands the section to see more. No character length limits. 'Learn More' becomes link text to additional documentation."
   },
   "lighthouse-core/audits/content-width.js | explanation": {
     "message": "The viewport size of {innerWidth}px, does not match the window size of {outerWidth}px.",
-    "description": ""
+    "description": "Explanatory message stating that the viewport size and window size differ."
   },
   "lighthouse-core/audits/content-width.js | failureTitle": {
     "message": "Content is not sized correctly for the viewport",
-    "description": ""
+    "description": "Title of a Lighthouse audit that provides detail on the content size of a site compared to its viewport. This descriptive title is shown to users when the site's content is not sized appropriately."
   },
   "lighthouse-core/audits/content-width.js | title": {
     "message": "Content is sized correctly for the viewport",
-    "description": ""
+    "description": "Title of a Lighthouse audit that provides detail on the content size of a site compared to its viewport. This descriptive title is shown to users when the site's content is sized appropriately."
   },
   "lighthouse-core/audits/critical-request-chains.js | description": {
     "message": "The Critical Request Chains below show you what resources are loaded with a high priority. Consider reducing the length of chains, reducing the download size of resources, or deferring the download of unnecessary resources to improve page load. [Learn more](https://developers.google.com/web/tools/lighthouse/audits/critical-request-chains).",
@@ -669,31 +669,31 @@
   },
   "lighthouse-core/audits/installable-manifest.js | description": {
     "message": "Browsers can proactively prompt users to add your app to their homescreen, which can lead to higher engagement. [Learn more](https://developers.google.com/web/tools/lighthouse/audits/install-prompt).",
-    "description": ""
+    "description": "Description of a Lighthouse audit that tells the user why installability is important for webapps. This is displayed after a user expands the section to see more. No character length limits. 'Learn More' becomes link text to additional documentation."
   },
   "lighthouse-core/audits/installable-manifest.js | failureTitle": {
     "message": "Web app manifest does not meet the installability requirements",
-    "description": ""
+    "description": "Title of a Lighthouse audit that provides detail on the installability of a website. This descriptive title is shown to users when a webapp is not installable."
   },
   "lighthouse-core/audits/installable-manifest.js | title": {
     "message": "Web app manifest meets the installability requirements",
-    "description": ""
+    "description": "Title of a Lighthouse audit that provides detail on the installability of a website. This descriptive title is shown to users when a webapp is installable."
   },
   "lighthouse-core/audits/is-on-https.js | description": {
     "message": "All sites should be protected with HTTPS, even ones that don't handle sensitive data. HTTPS prevents intruders from tampering with or passively listening in on the communications between your app and your users, and is a prerequisite for HTTP/2 and many new web platform APIs. [Learn more](https://developers.google.com/web/tools/lighthouse/audits/https).",
-    "description": ""
+    "description": "Description of a Lighthouse audit that tells the user why they should use HTTPS on all requests. This is displayed after a user expands the section to see more. No character length limits. 'Learn More' becomes link text to additional documentation."
   },
   "lighthouse-core/audits/is-on-https.js | displayValue": {
     "message": "{itemCount, plural,\n    =1 {1 insecure request found}\n    other {# insecure requests found}\n    }",
-    "description": ""
+    "description": "[ICU Syntax] Label for the audit identifying the number of insecure requests on the site."
   },
   "lighthouse-core/audits/is-on-https.js | failureTitle": {
     "message": "Does not use HTTPS",
-    "description": ""
+    "description": "Title of a Lighthouse audit that provides detail on the use of HTTPS on a website. This descriptive title is shown to users when some network activity does not use HTTPS."
   },
   "lighthouse-core/audits/is-on-https.js | title": {
     "message": "Uses HTTPS",
-    "description": ""
+    "description": "Title of a Lighthouse audit that provides detail on the use of HTTPS on a website. This descriptive title is shown to users when all network activity uses HTTPS."
   },
   "lighthouse-core/audits/load-fast-enough-for-pwa.js | description": {
     "message": "A fast page load over a cellular network ensures a good mobile user experience. [Learn more](https://developers.google.com/web/tools/lighthouse/audits/fast-3g).",
@@ -733,27 +733,27 @@
   },
   "lighthouse-core/audits/manual/pwa-cross-browser.js | description": {
     "message": "To reach the most number of users, sites should work across every major browser. [Learn more](https://developers.google.com/web/progressive-web-apps/checklist#site-works-cross-browser).",
-    "description": ""
+    "description": "Description of a Lighthouse audit that tells the user why they should make sites work across different browsers. This is displayed after a user expands the section to see more. No character length limits. 'Learn More' becomes link text to additional documentation."
   },
   "lighthouse-core/audits/manual/pwa-cross-browser.js | title": {
     "message": "Site works cross-browser",
-    "description": ""
+    "description": "Title of a Lighthouse audit that provides detail on whether or not a site works across different browsers."
   },
   "lighthouse-core/audits/manual/pwa-each-page-has-url.js | description": {
     "message": "Ensure individual pages are deep linkable via the URLs and that URLs are unique for the purpose of shareability on social media. [Learn more](https://developers.google.com/web/progressive-web-apps/checklist#each-page-has-a-url).",
-    "description": ""
+    "description": "Description of a Lighthouse audit that tells the user why they should use distinct URLs for each page. This is displayed after a user expands the section to see more. No character length limits. 'Learn More' becomes link text to additional documentation."
   },
   "lighthouse-core/audits/manual/pwa-each-page-has-url.js | title": {
     "message": "Each page has a URL",
-    "description": ""
+    "description": "Title of a Lighthouse audit that provides detail on a site's pages all having distinct URLs."
   },
   "lighthouse-core/audits/manual/pwa-page-transitions.js | description": {
     "message": "Transitions should feel snappy as you tap around, even on a slow network, a key to perceived performance. [Learn more](https://developers.google.com/web/progressive-web-apps/checklist#page-transitions-dont-feel-like-they-block-on-the-network).",
-    "description": ""
+    "description": "Description of a Lighthouse audit that tells the user why they should make the transitions smooth. This is displayed after a user expands the section to see more. No character length limits. 'Learn More' becomes link text to additional documentation."
   },
   "lighthouse-core/audits/manual/pwa-page-transitions.js | title": {
     "message": "Page transitions don't feel like they block on the network",
-    "description": ""
+    "description": "Title of a Lighthouse audit that provides detail on page transitions blocking network requests."
   },
   "lighthouse-core/audits/metrics/estimated-input-latency.js | description": {
     "message": "Estimated Input Latency is an estimate of how long your app takes to respond to user input, in milliseconds, during the busiest 5s window of page load. If your latency is higher than 50 ms, users may perceive your app as laggy. [Learn more](https://developers.google.com/web/tools/lighthouse/audits/estimated-input-latency).",
@@ -857,15 +857,15 @@
   },
   "lighthouse-core/audits/redirects-http.js | description": {
     "message": "If you've already set up HTTPS, make sure that you redirect all HTTP traffic to HTTPS. [Learn more](https://developers.google.com/web/tools/lighthouse/audits/http-redirects-to-https).",
-    "description": ""
+    "description": "Description of a Lighthouse audit that tells the user why they should direct HTTP traffic to HTTPS. This is displayed after a user expands the section to see more. No character length limits. 'Learn More' becomes link text to additional documentation."
   },
   "lighthouse-core/audits/redirects-http.js | failureTitle": {
     "message": "Does not redirect HTTP traffic to HTTPS",
-    "description": ""
+    "description": "Title of a Lighthouse audit that provides detail on HTTP to HTTPS redirects. This descriptive title is shown to users when HTTP traffic is not redirected to HTTPS."
   },
   "lighthouse-core/audits/redirects-http.js | title": {
     "message": "Redirects HTTP traffic to HTTPS",
-    "description": ""
+    "description": "Title of a Lighthouse audit that provides detail on HTTP to HTTPS redirects. This descriptive title is shown to users when HTTP traffic is redirected to HTTPS."
   },
   "lighthouse-core/audits/redirects.js | description": {
     "message": "Redirects introduce additional delays before the page can be loaded. [Learn more](https://developers.google.com/web/tools/lighthouse/audits/redirects).",
@@ -1097,55 +1097,55 @@
   },
   "lighthouse-core/audits/service-worker.js | description": {
     "message": "The service worker is the technology that enables your app to use many Progressive Web App features, such as offline, add to homescreen, and push notifications. [Learn more](https://developers.google.com/web/tools/lighthouse/audits/registered-service-worker).",
-    "description": ""
+    "description": "Description of a Lighthouse audit that tells the user why they should use a service worker. This is displayed after a user expands the section to see more. No character length limits. 'Learn More' becomes link text to additional documentation."
   },
   "lighthouse-core/audits/service-worker.js | explanationBadManifest": {
     "message": "This page is controlled by a service worker, however no start_url was found because manifest failed to parse as valid JSON",
-    "description": ""
+    "description": "Explanatory message stating that the page's manifest is invalid."
   },
   "lighthouse-core/audits/service-worker.js | explanationBadStartUrl": {
     "message": "This page is controlled by a service worker, however the start_url ({startUrl}) is not in the service worker's scope ({scopeUrl})",
-    "description": ""
+    "description": "Explanatory message stating that the manifest's start_url is not in scope, and therefor invalid."
   },
   "lighthouse-core/audits/service-worker.js | explanationNoManifest": {
     "message": "This page is controlled by a service worker, however no start_url was found because no manifest was fetched.",
-    "description": ""
+    "description": "Explanatory message stating that the page has no manifest."
   },
   "lighthouse-core/audits/service-worker.js | explanationOutOfScope": {
     "message": "This origin has one or more service workers, however the page ({pageUrl}) is not in scope.",
-    "description": ""
+    "description": "Explanatory message stating that the page has multiple, or out of scope service workers."
   },
   "lighthouse-core/audits/service-worker.js | failureTitle": {
     "message": "Does not register a service worker that controls page and start_url",
-    "description": ""
+    "description": "Title of a Lighthouse audit that provides detail on a page's service worker. This descriptive title is shown to users when a service worker is invalid."
   },
   "lighthouse-core/audits/service-worker.js | title": {
     "message": "Registers a service worker that controls page and start_url",
-    "description": ""
+    "description": "Title of a Lighthouse audit that provides detail on a page's service worker. This descriptive title is shown to users when a service worker is registered and valid."
   },
   "lighthouse-core/audits/splash-screen.js | description": {
     "message": "A themed splash screen ensures a high-quality experience when users launch your app from their homescreens. [Learn more](https://developers.google.com/web/tools/lighthouse/audits/custom-splash-screen).",
-    "description": ""
+    "description": "Description of a Lighthouse audit that tells the user why they should configure a custom splash screen. This is displayed after a user expands the section to see more. No character length limits. 'Learn More' becomes link text to additional documentation."
   },
   "lighthouse-core/audits/splash-screen.js | failureTitle": {
     "message": "Is not configured for a custom splash screen",
-    "description": ""
+    "description": "Title of a Lighthouse audit that provides detail on splash screens. This descriptive title is shown to users when the site does not have a custom splash screen."
   },
   "lighthouse-core/audits/splash-screen.js | title": {
     "message": "Configured for a custom splash screen",
-    "description": ""
+    "description": "Title of a Lighthouse audit that provides detail on splash screens. This descriptive title is shown to users when the site has a custom splash screen."
   },
   "lighthouse-core/audits/themed-omnibox.js | description": {
     "message": "The browser address bar can be themed to match your site. [Learn more](https://developers.google.com/web/tools/lighthouse/audits/address-bar).",
-    "description": ""
+    "description": "Description of a Lighthouse audit that tells the user why they should set a theme color for the address bar. This is displayed after a user expands the section to see more. No character length limits. 'Learn More' becomes link text to additional documentation."
   },
   "lighthouse-core/audits/themed-omnibox.js | failureTitle": {
     "message": "Does not set an address-bar theme color",
-    "description": ""
+    "description": "Title of a Lighthouse audit that provides detail on address-bar theme colors. This descriptive title is shown to users when an address-bar theme color has not been set."
   },
   "lighthouse-core/audits/themed-omnibox.js | title": {
     "message": "Sets an address-bar theme color",
-    "description": ""
+    "description": "Title of a Lighthouse audit that provides detail on address-bar theme colors. This descriptive title is shown to users when an address-bar theme color has been set."
   },
   "lighthouse-core/audits/time-to-first-byte.js | description": {
     "message": "Time To First Byte identifies the time at which your server sends a response. [Learn more](https://developers.google.com/web/tools/lighthouse/audits/ttfb).",
@@ -1217,51 +1217,51 @@
   },
   "lighthouse-core/audits/viewport.js | description": {
     "message": "Add a viewport meta tag to optimize your app for mobile screens. [Learn more](https://developers.google.com/web/tools/lighthouse/audits/has-viewport-meta-tag).",
-    "description": ""
+    "description": "Description of a Lighthouse audit that tells the user why they should have a viewport meta tag. This is displayed after a user expands the section to see more. No character length limits. 'Learn More' becomes link text to additional documentation."
   },
   "lighthouse-core/audits/viewport.js | explanationNoTag": {
     "message": "No viewport meta tag found",
-    "description": ""
+    "description": "Explanatory message stating that no viewport meta tag exists on the page."
   },
   "lighthouse-core/audits/viewport.js | failureTitle": {
     "message": "Does not have a `<meta name=\"viewport\">` tag with `width` or `initial-scale`",
-    "description": ""
+    "description": "Title of a Lighthouse audit that provides detail on the viewport meta tag. This descriptive title is shown to users when a viewport tag is not set or configured."
   },
   "lighthouse-core/audits/viewport.js | title": {
     "message": "Has a `<meta name=\"viewport\">` tag with `width` or `initial-scale`",
-    "description": ""
+    "description": "Title of a Lighthouse audit that provides detail on the viewport meta tag. This descriptive title is shown to users when a viewport tag is set and configured."
   },
   "lighthouse-core/audits/without-javascript.js | description": {
     "message": "Your app should display some content when JavaScript is disabled, even if it's just a warning to the user that JavaScript is required to use the app. [Learn more](https://developers.google.com/web/tools/lighthouse/audits/no-js).",
-    "description": ""
+    "description": "Description of a Lighthouse audit that tells the user why they should return content even if Javascript is unavailable. This is displayed after a user expands the section to see more. No character length limits. 'Learn More' becomes link text to additional documentation."
   },
   "lighthouse-core/audits/without-javascript.js | explanation": {
     "message": "The page body should render some content if its scripts are not available.",
-    "description": ""
+    "description": "Explanatory message stating that the site body should render some (any) content even if the page's scripts cannot be loaded."
   },
   "lighthouse-core/audits/without-javascript.js | failureTitle": {
     "message": "Does not provide fallback content when JavaScript is not available",
-    "description": ""
+    "description": "Title of a Lighthouse audit that provides detail on the page's ability to return content without Javascript. This descriptive title is shown to users when no content is shown when Javascript is not available."
   },
   "lighthouse-core/audits/without-javascript.js | title": {
     "message": "Contains some content when JavaScript is not available",
-    "description": ""
+    "description": "Title of a Lighthouse audit that provides detail on the page's ability to return content without Javascript. This descriptive title is shown to users when at least some content is shown when Javascript is not available."
   },
   "lighthouse-core/audits/works-offline.js | description": {
     "message": "If you're building a Progressive Web App, consider using a service worker so that your app can work offline. [Learn more](https://developers.google.com/web/tools/lighthouse/audits/http-200-when-offline).",
-    "description": ""
+    "description": "Description of a Lighthouse audit that tells the user why they should respond to requests when offline. This is displayed after a user expands the section to see more. No character length limits. 'Learn More' becomes link text to additional documentation."
   },
   "lighthouse-core/audits/works-offline.js | failureTitle": {
     "message": "Current page does not respond with a 200 when offline",
-    "description": ""
+    "description": "Title of a Lighthouse audit that provides detail on the offline responsiveness of a site. This descriptive title is shown to users when the page does not respond when offline."
   },
   "lighthouse-core/audits/works-offline.js | title": {
     "message": "Current page responds with a 200 when offline",
-    "description": ""
+    "description": "Title of a Lighthouse audit that provides detail on the offline responsiveness of a site. This descriptive title is shown to users when the page responds even when offline."
   },
   "lighthouse-core/audits/works-offline.js | warningNoLoad": {
     "message": "The page may be not loading offline because your test URL ({requested}) was redirected to \"{final}\". Try testing the second URL directly.",
-    "description": ""
+    "description": "Warning that the page redirected during offline load and that may affect offline testing."
   },
   "lighthouse-core/config/default-config.js | a11yAriaGroupDescription": {
     "message": "These are opportunities to improve the usage of ARIA in your application which may enhance the experience for users of assistive technology, like a screen reader.",
@@ -1389,15 +1389,15 @@
   },
   "lighthouse-core/config/default-config.js | pwaCategoryDescription": {
     "message": "These checks validate the aspects of a Progressive Web App. [Learn more](https://developers.google.com/web/progressive-web-apps/checklist).",
-    "description": ""
+    "description": "Description of the Progressive Web Application (PWA) category. This is displayed at the top of a list of audits focused on topics related to whether or not a site is a progressive web app, e.g. responds offline, uses a service worker, is on https, etc. No character length limits. 'Learn More' becomes link text to additional documentation."
   },
   "lighthouse-core/config/default-config.js | pwaCategoryManualDescription": {
     "message": "These checks are required by the baseline [PWA Checklist](https://developers.google.com/web/progressive-web-apps/checklist) but are not automatically checked by Lighthouse. They do not affect your score but it's important that you verify them manually.",
-    "description": ""
+    "description": "Description of the Progressive Web Application (PWA) manual checks category, the additional validators must be run by hand in order to check all PWA best practices. This is displayed at the top of a list of manually run audits focused on topics related to whether or not a site is a progressive web app, e.g. responds offline, uses a service worker, is on https, etc.. No character length limits."
   },
   "lighthouse-core/config/default-config.js | pwaCategoryTitle": {
     "message": "Progressive Web App",
-    "description": ""
+    "description": "Title of the Progressive Web Application (PWA) category of audits. This is displayed at the top of a list of audits focused on topics related to whether or not a site is a progressive web app, e.g. responds offline, uses a service worker, is on https, etc. Also used as a label of a score gauge; try to limit to 20 characters."
   },
   "lighthouse-core/config/default-config.js | pwaFastReliableGroupTitle": {
     "message": "Fast and reliable",

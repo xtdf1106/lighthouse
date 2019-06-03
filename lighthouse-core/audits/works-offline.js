@@ -10,11 +10,15 @@ const Audit = require('./audit.js');
 const i18n = require('../lib/i18n/i18n.js');
 
 const UIStrings = {
+  /** Title of a Lighthouse audit that provides detail on the offline responsiveness of a site. This descriptive title is shown to users when the page responds even when offline. */
   title: 'Current page responds with a 200 when offline',
+  /** Title of a Lighthouse audit that provides detail on the offline responsiveness of a site. This descriptive title is shown to users when the page does not respond when offline. */
   failureTitle: 'Current page does not respond with a 200 when offline',
+  /** Description of a Lighthouse audit that tells the user why they should respond to requests when offline. This is displayed after a user expands the section to see more. No character length limits. 'Learn More' becomes link text to additional documentation. */
   description: 'If you\'re building a Progressive Web App, consider using a service worker ' +
       'so that your app can work offline. ' +
       '[Learn more](https://developers.google.com/web/tools/lighthouse/audits/http-200-when-offline).',
+  /** Warning that the page redirected during offline load and that may affect offline testing. */
   warningNoLoad: 'The page may be not loading offline because your test URL ' +
   `({requested}) was redirected to "{final}". ` +
   'Try testing the second URL directly.',
