@@ -22,6 +22,11 @@ const UIStrings = {
     'your page has primarily finished loading. [Learn more](https://developers.google.com/web/fundamentals/performance/optimizing-content-efficiency/loading-third-party-javascript/).',
   /** Label for a table column that displays how much time each row spent executing on the main thread, entries will be the number of milliseconds spent. */
   columnMainThreadTime: 'Main Thread Time',
+  /** Summary text for the result of a Lighthouse audit that identifies the code on the page that the user doesn't control. This text summarizes the number of distinct entities that were found on the page. */
+  displayValue: `{itemCount, plural,
+    =1 {1 Third-Party Found}
+    other {# Third-Parties Found}
+  }`,
 };
 
 const str_ = i18n.createMessageInstanceIdFn(__filename, UIStrings);
@@ -141,8 +146,16 @@ class ThirdPartySummary extends Audit {
         text: str_(UIStrings.columnMainThreadTime)},
     ];
 
+    if (!results.length) {
+      return {
+        score: 1,
+        notApplicable: true,
+      };
+    }
+
     return {
       score: Number(results.length === 0),
+      displayValue: str_(UIStrings.displayValue, {itemCount: results.length}),
       details: Audit.makeTableDetails(headings, results, summary),
     };
   }

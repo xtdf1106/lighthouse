@@ -6,9 +6,11 @@
 'use strict';
 
 const ThirdPartySummary = require('../../audits/third-party-summary.js');
+const networkRecordsToDevtoolsLog = require('../network-records-to-devtools-log.js');
 
 const pwaTrace = require('../fixtures/traces/progressive-app-m60.json');
 const pwaDevtoolsLog = require('../fixtures/traces/progressive-app-m60.devtools.log.json');
+const noThirdPartyTrace = require('../fixtures/traces/no-tracingstarted-m74.json');
 
 /* eslint-env jest */
 describe('Third party summary', () => {
@@ -20,6 +22,7 @@ describe('Third party summary', () => {
 
     const results = await ThirdPartySummary.audit(artifacts, {computedCache: new Map()});
 
+    expect(results.displayValue).toBeDisplayString('2 Third-Parties Found');
     expect(results.details.items).toEqual([
       {
         entity: {
@@ -54,5 +57,20 @@ describe('Third party summary', () => {
     expect(results.details.items).toHaveLength(2);
     expect(Math.round(results.details.items[0].mainThreadTime)).toEqual(419);
     expect(Math.round(results.details.items[1].mainThreadTime)).toEqual(350);
+  });
+
+  it('be not applicable when no third parties are present', async () => {
+    const artifacts = {
+      devtoolsLogs: {defaultPass: networkRecordsToDevtoolsLog([{url: 'chrome://version'}])},
+      traces: {defaultPass: noThirdPartyTrace},
+    };
+
+    const settings = {throttlingMethod: 'simulate', throttling: {cpuSlowdownMultiplier: 4}};
+    const results = await ThirdPartySummary.audit(artifacts, {computedCache: new Map(), settings});
+
+    expect(results).toEqual({
+      score: 1,
+      notApplicable: true,
+    });
   });
 });
