@@ -14,11 +14,9 @@ const UIStrings = {
   /** Imperative title of a Lighthouse audit that tells the user to minify (remove whitespace) the page's CSS code. This is displayed in a list of audit titles that Lighthouse generates. */
   title: 'Minify CSS',
   /** Description of a Lighthouse audit that tells the user *why* they should minify (remove whitespace) the page's CSS code. This is displayed after a user expands the section to see more. No character length limits. 'Learn More' becomes link text to additional documentation. */
-  description: 'Minifying CSS files can reduce network payload sizes. ' +
-  '[Learn more](https://developers.google.com/web/tools/lighthouse/audits/minify-css).',
-  titleObj: {
+  description: {
     message: 'Minifying CSS files can reduce network payload sizes.' +
-      ' $LINK_START$Learn More$LINK_END$',
+      ' $link_start$Learn More$link_end$',
     description: 'Description of a Lighthouse audit that tells the user *why* they should ' +
       'minify (remove whitespace) the page\'s CSS code. This is displayed after a user expands ' +
       'the section to see more. No character length limits.',

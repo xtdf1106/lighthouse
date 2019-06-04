@@ -164,6 +164,8 @@ function _preprocessMessageValues(icuMessage, values) {
 /** @type {Map<string, IcuMessageInstance[]>} */
 const _icuMessageInstanceMap = new Map();
 
+const _icuMessageInstanceMap2 = new Map();
+
 /**
  *
  * @param {LH.Locale} locale
@@ -174,7 +176,23 @@ const _icuMessageInstanceMap = new Map();
  */
 function _formatIcuMessage(locale, icuMessageId, icuMessage, values) {
   const localeMessages = LOCALES[locale];
-  const localeMessage = localeMessages[icuMessageId] && localeMessages[icuMessageId].message;
+  let localeMessage = localeMessages[icuMessageId] && localeMessages[icuMessageId].message;
+  // lets try to replace some things :o
+  const placeholders = localeMessages[icuMessageId] && localeMessages[icuMessageId].placeholders;
+  if (placeholders) {
+    console.log('placeholders!');
+    // do some regex
+    Object.entries(placeholders).forEach(entry => {
+      const key = entry[0];
+      const value = entry[1];
+      //use key and value here
+      let regexStr = `\$${key}\$`;
+      console.log(key, value, regexStr);
+      localeMessage = localeMessage.replace(regexStr, value.content);
+      console.log(localeMessage);
+    });
+  }
+
   // fallback to the original english message if we couldn't find a message in the specified locale
   // better to have an english message than no message at all, in some number cases it won't even matter
   const messageForMessageFormat = localeMessage || icuMessage;
@@ -227,6 +245,40 @@ function getRendererFormattedStrings(locale) {
  * @param {Record<string, string>} fileStrings
  */
 function createMessageInstanceIdFn(filename, fileStrings) {
+  /** @type {Record<string, string>} */
+  const mergedStrings = {...UIStrings, ...fileStrings};
+
+  /** @param {string} icuMessage @param {*} [values] */
+  const getMessageInstanceIdFn = (icuMessage, values) => {
+    const keyname = Object.keys(mergedStrings).find(key => mergedStrings[key] === icuMessage);
+    if (!keyname) throw new Error(`Could not locate: ${icuMessage}`);
+
+    const filenameToLookup = keyname in fileStrings ? filename : __filename;
+    const unixStyleFilename = path.relative(LH_ROOT, filenameToLookup).replace(/\\/g, '/');
+    const icuMessageId = `${unixStyleFilename} | ${keyname}`;
+    const icuMessageInstances = _icuMessageInstanceMap.get(icuMessageId) || [];
+
+    let indexOfInstance = icuMessageInstances.findIndex(inst => isDeepEqual(inst.values, values));
+    if (indexOfInstance === -1) {
+      icuMessageInstances.push({icuMessageId, icuMessage, values});
+      indexOfInstance = icuMessageInstances.length - 1;
+    }
+
+    _icuMessageInstanceMap.set(icuMessageId, icuMessageInstances);
+
+    return `${icuMessageId} # ${indexOfInstance}`;
+  };
+
+  return getMessageInstanceIdFn;
+}
+
+/**
+ * @param {string} filename
+ * @param {Record<string, string>} fileStrings
+ */
+function createMessageInstanceIdFn2(filename, fileStrings) {
+
+
   /** @type {Record<string, string>} */
   const mergedStrings = {...UIStrings, ...fileStrings};
 

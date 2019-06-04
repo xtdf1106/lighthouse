@@ -84,10 +84,18 @@ function collectAllStringsInDir(dir, strings = {}) {
           let lastPropertyEndIndex = 0;
           for (const property of stmt.declarations[0].init.properties) {
             const key = property.key.name;
-            const message = exportVars.UIStrings[key];
-            const description = computeDescription(ast, property, lastPropertyEndIndex);
-            strings[`${relativePath} | ${key}`] = {message, description};
-            lastPropertyEndIndex = property.range[1];
+            const val = exportVars.UIStrings[key];
+            if (typeof val === 'string') {
+              const description = computeDescription(ast, property, lastPropertyEndIndex);
+              strings[`${relativePath} | ${key}`] = {message: val, description};
+              lastPropertyEndIndex = property.range[1];
+            } else {
+              const message = val.message;
+              const description = val.description;
+              const placeholders = val.placeholders;
+              strings[`${relativePath} | ${key}`] = {message, description, placeholders};
+              lastPropertyEndIndex = property.range[1];
+            }
           }
         }
       }
