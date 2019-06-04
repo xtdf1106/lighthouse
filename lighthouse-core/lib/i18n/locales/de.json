@@ -392,8 +392,13 @@
     }
   },
   "lighthouse-core/audits/byte-efficiency/unminified-css.js | explanationGender": {
-    "message": "{person, select, female {<GERMAN> She minified this CSS.} male {<GERMAN> He minified this CSS.} other {<GERMAN> They minified this CSS.}}",
-    "description": ""
+    "message": "<GERMAN> Someone minified this, $name$. {person, select, female {<GERMAN> She minified this CSS.} male {<GERMAN> He minified this CSS.} other {<GERMAN> They minified this CSS.}}",
+    "description": "",
+    "placeholders": {
+      "name": {
+        "content": "{name}"
+      }
+    }
   },
   "lighthouse-core/audits/byte-efficiency/unminified-css.js | warningPlural": {
     "message": "{itemCount, plural, =1 {<GERMAN> # error found}other {<GERMAN> # errors found}}",

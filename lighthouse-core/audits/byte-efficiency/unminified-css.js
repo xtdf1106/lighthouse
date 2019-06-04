@@ -33,10 +33,16 @@ const UIStrings = {
     '=1 {# error found}' +
     'other {# errors found}}',
   /** [ICU Syntax] Some gendered (ICU select) explanation... */
-  explanationGender: '{person, select, ' +
+  explanationGender: {
+    message: 'Someone minified this, {name}. {person, select, ' +
     'female {She minified this CSS.} ' +
     'male {He minified this CSS.} ' +
     'other {They minified this CSS.}}',
+    placeholders: {
+      /** Ouch this syntax kind of sucks, {name} then {name} stutters.  But example: Karen. */
+      name: '{name}',
+    },
+  }
 };
 
 const str_ = i18n.createMessageInstanceIdFn(__filename, UIStrings);
@@ -130,7 +136,7 @@ class UnminifiedCSS extends ByteEfficiencyAudit {
       {key: 'wastedBytes', valueType: 'bytes', label: str_(i18n.UIStrings.columnWastedBytes)},
     ];
 
-    return {items, headings, explanation: str_(UIStrings.explanationGender, {person: 'female'}), warnings: [str_(UIStrings.warningPlural, {itemCount: 2})]};
+    return {items, headings, explanation: str_(UIStrings.explanationGender, {person: 'female', name: 'Kim'}), warnings: [str_(UIStrings.warningPlural, {itemCount: 2})]};
   }
 }
 
