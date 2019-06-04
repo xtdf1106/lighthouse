@@ -177,16 +177,11 @@
   },
   "lighthouse-core/audits/accessibility/document-title.js | failureTitle": {
     "message": "Document doesn't have a `<title>` element",
-    "description": "Title of an accesibility audit that evaluates if the page has a <title> element that describes the page. This title is descriptive of the failing state and is shown to users when there is a failure that needs to be addressed."
+    "description": "title: {"
   },
   "lighthouse-core/audits/accessibility/document-title.js | title": {
-    "message": "Document has a $html_title$ element",
-    "description": "Title of an accesibility audit that evaluates if the page has a <title> element that describes the page. This title is descriptive of the successful state and is shown to users when no user action is required.",
-    "placeholders": {
-      "html_title": {
-        "content": "`<title>`"
-      }
-    }
+    "message": "placeholder",
+    "description": ""
   },
   "lighthouse-core/audits/accessibility/duplicate-id.js | description": {
     "message": "The value of an id attribute must be unique to prevent other instances from being overlooked by assistive technologies. [Learn more](https://dequeuniversity.com/rules/axe/3.1/duplicate-id?application=lighthouse).",
@@ -513,20 +508,29 @@
     "description": "Title of a diagnostic audit that provides detail on large network resources required during page load. 'Payloads' is roughly equivalent to 'resources'. This descriptive title is shown to users when the amount is acceptable and no user action is required."
   },
   "lighthouse-core/audits/byte-efficiency/unminified-css.js | description": {
-    "message": "Minifying CSS files can reduce network payload sizes. $link_start$Learn More$link_end$",
-    "description": "Description of a Lighthouse audit that tells the user *why* they should minify (remove whitespace) the page's CSS code. This is displayed after a user expands the section to see more. No character length limits.",
+    "message": "Minifying CSS files can reduce network payload sizes. $link_start$Learn More!!!$link_end$. This audit took $milliseconds$ ms.",
+    "description": "(Message Description goes here) Description of a Lighthouse audit that tells the user *why* they should minify (remove whitespace) the page's CSS code. This is displayed after a user expands the section to see more. No character length limits. 'Learn More' becomes link text to additional documentation.",
     "placeholders": {
       "link_start": {
-        "content": "["
+        "content": "[->"
       },
       "link_end": {
         "content": "](https://developers.google.com/web/tools/lighthouse/audits/minify-css)"
+      },
+      "milliseconds": {
+        "content": "{timeInMs, number, milliseconds}",
+        "example": "520 (Placeholder examples go here)"
       }
     }
   },
   "lighthouse-core/audits/byte-efficiency/unminified-css.js | title": {
-    "message": "Minify CSS",
-    "description": "Imperative title of a Lighthouse audit that tells the user to minify (remove whitespace) the page's CSS code. This is displayed in a list of audit titles that Lighthouse generates."
+    "message": "Minify CSS like $css$",
+    "description": "Imperative title of a Lighthouse audit that tells the user to minify (remove whitespace) the page's CSS code. This is displayed in a list of audit titles that Lighthouse generates.",
+    "placeholders": {
+      "css": {
+        "content": "`<link rel=stylesheet>`"
+      }
+    }
   },
   "lighthouse-core/audits/byte-efficiency/unminified-javascript.js | description": {
     "message": "Minifying JavaScript files can reduce payload sizes and script parse time. [Learn more](https://developers.google.com/speed/docs/insights/MinifyResources).",

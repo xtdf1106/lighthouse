@@ -369,10 +369,27 @@
     "message": "Vermeidet sehr große Netzwerknutzlasten"
   },
   "lighthouse-core/audits/byte-efficiency/unminified-css.js | description": {
-    "message": "Durch die Komprimierung von CSS-Dateien kann die Größe von Netzwerknutzlasten reduziert werden. [Weitere Informationen](https://developers.google.com/web/tools/lighthouse/audits/minify-css)."
+    "message": "Durch die Komprimierung von CSS-Dateien kann die Größe von Netzwerknutzlasten reduziert werden. $link_start$Weitere Informationen$link_end$. This audit took $milliseconds$ ms.",
+    "placeholders": {
+      "link_start": {
+        "content": "[->"
+      },
+      "link_end": {
+        "content": "](https://developers.google.com/web/tools/lighthouse/audits/minify-css)"
+      },
+      "milliseconds": {
+        "content": "{timeInMs, number, milliseconds}",
+        "example": "520"
+      }
+    }
   },
   "lighthouse-core/audits/byte-efficiency/unminified-css.js | title": {
-    "message": "CSS komprimieren"
+    "message": "CSS komprimieren $css$",
+    "placeholders": {
+      "css": {
+        "content": "`<link rel=stylesheet>`"
+      }
+    }
   },
   "lighthouse-core/audits/byte-efficiency/unminified-javascript.js | description": {
     "message": "Durch die Komprimierung von JavaScript-Dateien können Nutzlastgrößen und die Zeit zum Parsen von Skripts reduziert werden. [Weitere Informationen](https://developers.google.com/speed/docs/insights/MinifyResources)."

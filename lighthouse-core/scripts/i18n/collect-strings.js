@@ -90,9 +90,51 @@ function collectAllStringsInDir(dir, strings = {}) {
               strings[`${relativePath} | ${key}`] = {message: val, description};
               lastPropertyEndIndex = property.range[1];
             } else {
-              const message = val.message;
-              const description = val.description;
-              const placeholders = val.placeholders;
+              // console.log(property.value.properties[0].range[1]);
+              // console.log(property.value.properties[1].value.properties);
+              let message = val.message;
+              // const prevProp = property.value.properties[1].value.properties[1];
+              // const thisProp = property.value.properties[1].value.properties[2];
+              
+              const description = computeDescription(ast, property, lastPropertyEndIndex);
+              /**
+               *  Transform: 
+               *  placeholders: {
+               *    /** example val *\/
+               *    key: value,
+               *    ...
+               *  },
+               *  Into:
+               *  placeholders: {
+               *    key: {
+               *      content: value,
+               *      example: example val,
+               *    },
+               *    ...
+               *  }
+               */
+              // init last prop to the 'messages' end range
+              let lastPropEndIndex = property.value.properties[0].range[1];
+              let idx = 0;
+              const placeholdersMini = val.placeholders;
+              const placeholders = {};
+              Object.entries(placeholdersMini).forEach(entry => {
+                const key = entry[0];
+                const value = entry[1];
+                const thisProp = property.value.properties[1].value.properties[idx];
+                const thisDesc = computeDescription(ast, thisProp, lastPropEndIndex);
+                placeholders[key] = {
+                  content: value,
+                };
+                if (thisDesc) {
+                  placeholders[key].example = thisDesc;
+                }
+
+                // replace {.*} with $.*$
+                message = message.replace(`{${key}}`, `\$${key}\$`);
+                idx++;
+                lastPropEndIndex = thisProp.range[1];
+              });
               strings[`${relativePath} | ${key}`] = {message, description, placeholders};
               lastPropertyEndIndex = property.range[1];
             }

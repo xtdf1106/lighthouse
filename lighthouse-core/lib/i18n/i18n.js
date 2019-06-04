@@ -121,7 +121,7 @@ function lookupLocale(locale) {
  */
 function _preprocessMessageValues(icuMessage, values) {
   if (!values) return;
-
+  // console.log(icuMessage, values);
   const clonedValues = JSON.parse(JSON.stringify(values));
   const parsed = MessageParser.parse(icuMessage);
   // Throw an error if a message's value isn't provided
@@ -178,17 +178,17 @@ function _formatIcuMessage(locale, icuMessageId, icuMessage, values) {
   // lets try to replace some things :o
   const placeholders = localeMessages[icuMessageId] && localeMessages[icuMessageId].placeholders;
   if (placeholders) {
-    console.log('placeholders!');
     // do some regex
     Object.entries(placeholders).forEach(entry => {
       const key = entry[0];
       const value = entry[1];
       //use key and value here
       let regexStr = `\$${key}\$`;
-      console.log(key, value, regexStr);
+      // console.log(key, value, regexStr);
       localeMessage = localeMessage.replace(regexStr, value.content);
-      console.log(localeMessage);
+      // console.log(localeMessage);
     });
+    icuMessage = localeMessage;
   }
 
   // fallback to the original english message if we couldn't find a message in the specified locale

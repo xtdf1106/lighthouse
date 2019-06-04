@@ -12,21 +12,20 @@ const computeTokenLength = require('../../lib/minification-estimator.js').comput
 
 const UIStrings = {
   /** Imperative title of a Lighthouse audit that tells the user to minify (remove whitespace) the page's CSS code. This is displayed in a list of audit titles that Lighthouse generates. */
-  title: 'Minify CSS',
-  /** Description of a Lighthouse audit that tells the user *why* they should minify (remove whitespace) the page's CSS code. This is displayed after a user expands the section to see more. No character length limits. 'Learn More' becomes link text to additional documentation. */
-  description: {
-    message: 'Minifying CSS files can reduce network payload sizes.' +
-      ' $link_start$Learn More$link_end$',
-    description: 'Description of a Lighthouse audit that tells the user *why* they should ' +
-      'minify (remove whitespace) the page\'s CSS code. This is displayed after a user expands ' +
-      'the section to see more. No character length limits.',
+  title: {
+    message: 'Minify CSS like {css}',
     placeholders: {
-      link_start: {
-        content: '[',
-      },
-      link_end: {
-        content: '](https://developers.google.com/web/tools/lighthouse/audits/minify-css)',
-      },
+      css: '`<link rel=stylesheet>`',
+    },
+  },
+  /** (Message Description goes here) Description of a Lighthouse audit that tells the user *why* they should minify (remove whitespace) the page's CSS code. This is displayed after a user expands the section to see more. No character length limits. 'Learn More' becomes link text to additional documentation. */
+  description: {
+    message: 'Minifying CSS files can reduce network payload sizes. {link_start}Learn More!!!{link_end}. This audit took {milliseconds} ms.',
+    placeholders: {
+      link_start: '[->',
+      link_end: '](https://developers.google.com/web/tools/lighthouse/audits/minify-css)',
+      /** 520 (Placeholder examples go here) */
+      milliseconds: '{timeInMs, number, milliseconds}',
     },
   },
 };
@@ -47,7 +46,7 @@ class UnminifiedCSS extends ByteEfficiencyAudit {
     return {
       id: 'unminified-css',
       title: str_(UIStrings.title),
-      description: str_(UIStrings.description),
+      description: str_(UIStrings.description, {timeInMs: 10}),
       scoreDisplayMode: ByteEfficiencyAudit.SCORING_MODES.NUMERIC,
       requiredArtifacts: ['CSSUsage', 'devtoolsLogs', 'traces', 'URL'],
     };
