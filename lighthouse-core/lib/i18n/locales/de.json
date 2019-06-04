@@ -391,6 +391,14 @@
       }
     }
   },
+  "lighthouse-core/audits/byte-efficiency/unminified-css.js | explanationGender": {
+    "message": "{person, select, female {<GERMAN> She minified this CSS.} male {<GERMAN> He minified this CSS.} other {<GERMAN> They minified this CSS.}}",
+    "description": ""
+  },
+  "lighthouse-core/audits/byte-efficiency/unminified-css.js | warningPlural": {
+    "message": "{itemCount, plural, =1 {<GERMAN> # error found}other {<GERMAN> # errors found}}",
+    "description": ""
+  },
   "lighthouse-core/audits/byte-efficiency/unminified-javascript.js | description": {
     "message": "Durch die Komprimierung von JavaScript-Dateien können Nutzlastgrößen und die Zeit zum Parsen von Skripts reduziert werden. [Weitere Informationen](https://developers.google.com/speed/docs/insights/MinifyResources)."
   },
