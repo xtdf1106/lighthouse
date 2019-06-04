@@ -34,15 +34,28 @@ const UIStrings = {
     'other {# errors found}}',
   /** [ICU Syntax] Some gendered (ICU select) explanation... */
   explanationGender: {
-    message: 'Someone minified this, {name}. {person, select, ' +
+    message: 'Someone minified this, {direct_replace_name}. {static_replacement} {person, select, ' +
     'female {She minified this CSS.} ' +
     'male {He minified this CSS.} ' +
     'other {They minified this CSS.}}',
     placeholders: {
-      /** Ouch this syntax kind of sucks, {name} then {name} stutters.  But example: Karen. */
+      /** Some static replacement. */
+      static_replacement: '`<link rel=>`',
+    },
+  },
+  /** [ICU Syntax] Some gendered (ICU select) explanation... */
+  explanationGender2: {
+    message: 'Someone minified this, {name}. {static_replacement} {person, select, ' +
+    'female {She minified this CSS.} ' +
+    'male {He minified this CSS.} ' +
+    'other {They minified this CSS.}}',
+    placeholders: {
+      /** Some static replacement. */
+      static_replacement: '`<link rel=>`',
+      /** This stutters, BUT we have the opportunity to tell translators an example, and give context? Example text: Karen. */
       name: '{name}',
     },
-  }
+  },
 };
 
 const str_ = i18n.createMessageInstanceIdFn(__filename, UIStrings);
@@ -136,7 +149,7 @@ class UnminifiedCSS extends ByteEfficiencyAudit {
       {key: 'wastedBytes', valueType: 'bytes', label: str_(i18n.UIStrings.columnWastedBytes)},
     ];
 
-    return {items, headings, explanation: str_(UIStrings.explanationGender, {person: 'female', name: 'Kim'}), warnings: [str_(UIStrings.warningPlural, {itemCount: 2})]};
+    return {items, headings, explanation: str_(UIStrings.explanationGender, {person: 'female', direct_replace_name: 'Kim'}), warnings: [str_(UIStrings.warningPlural, {itemCount: 2})]};
   }
 }
 

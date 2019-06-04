@@ -392,17 +392,29 @@
     }
   },
   "lighthouse-core/audits/byte-efficiency/unminified-css.js | explanationGender": {
-    "message": "<GERMAN> Someone minified this, $name$. {person, select, female {<GERMAN> She minified this CSS.} male {<GERMAN> He minified this CSS.} other {<GERMAN> They minified this CSS.}}",
-    "description": "",
+    "message": "<GERMAN> Someone minified this, {direct_replace_name}. $static_replacement$ {person, select, female {<GERMAN> She minified this CSS.} male {<GERMAN> He minified this CSS.} other {<GERMAN> They minified this CSS.}}",
     "placeholders": {
+      "static_replacement": {
+        "content": "`<link rel=>`",
+        "example": "Some static replacement."
+      }
+    }
+  },
+  "lighthouse-core/audits/byte-efficiency/unminified-css.js | explanationGender2": {
+    "message": "Someone minified this, $name$. $static_replacement$ {person, select, female {She minified this CSS.} male {He minified this CSS.} other {They minified this CSS.}}",
+    "placeholders": {
+      "static_replacement": {
+        "content": "`<link rel=>`",
+        "example": "Some static replacement."
+      },
       "name": {
-        "content": "{name}"
+        "content": "{name}",
+        "example": "This stutters, BUT we have the opportunity to tell translators an example, and give context? Example text: Karen."
       }
     }
   },
   "lighthouse-core/audits/byte-efficiency/unminified-css.js | warningPlural": {
-    "message": "{itemCount, plural, =1 {<GERMAN> # error found}other {<GERMAN> # errors found}}",
-    "description": ""
+    "message": "{itemCount, plural, =1 {<GERMAN> # error found}other {<GERMAN> # errors found}}"
   },
   "lighthouse-core/audits/byte-efficiency/unminified-javascript.js | description": {
     "message": "Durch die Komprimierung von JavaScript-Dateien können Nutzlastgrößen und die Zeit zum Parsen von Skripts reduziert werden. [Weitere Informationen](https://developers.google.com/speed/docs/insights/MinifyResources)."
