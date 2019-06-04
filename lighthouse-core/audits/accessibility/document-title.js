@@ -19,7 +19,7 @@ const UIStrings = {
     description: 'Title of an accesibility audit that evaluates if the page has a <title> element that describes the page. This title is descriptive of the successful state and is shown to users when no user action is required.',
     placeholders: {
       html_title: {
-        content: '`<title-x>`',
+        content: '`<title>`',
       },
     },
   },

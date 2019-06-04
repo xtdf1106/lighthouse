@@ -164,8 +164,6 @@ function _preprocessMessageValues(icuMessage, values) {
 /** @type {Map<string, IcuMessageInstance[]>} */
 const _icuMessageInstanceMap = new Map();
 
-const _icuMessageInstanceMap2 = new Map();
-
 /**
  *
  * @param {LH.Locale} locale
@@ -245,40 +243,6 @@ function getRendererFormattedStrings(locale) {
  * @param {Record<string, string>} fileStrings
  */
 function createMessageInstanceIdFn(filename, fileStrings) {
-  /** @type {Record<string, string>} */
-  const mergedStrings = {...UIStrings, ...fileStrings};
-
-  /** @param {string} icuMessage @param {*} [values] */
-  const getMessageInstanceIdFn = (icuMessage, values) => {
-    const keyname = Object.keys(mergedStrings).find(key => mergedStrings[key] === icuMessage);
-    if (!keyname) throw new Error(`Could not locate: ${icuMessage}`);
-
-    const filenameToLookup = keyname in fileStrings ? filename : __filename;
-    const unixStyleFilename = path.relative(LH_ROOT, filenameToLookup).replace(/\\/g, '/');
-    const icuMessageId = `${unixStyleFilename} | ${keyname}`;
-    const icuMessageInstances = _icuMessageInstanceMap.get(icuMessageId) || [];
-
-    let indexOfInstance = icuMessageInstances.findIndex(inst => isDeepEqual(inst.values, values));
-    if (indexOfInstance === -1) {
-      icuMessageInstances.push({icuMessageId, icuMessage, values});
-      indexOfInstance = icuMessageInstances.length - 1;
-    }
-
-    _icuMessageInstanceMap.set(icuMessageId, icuMessageInstances);
-
-    return `${icuMessageId} # ${indexOfInstance}`;
-  };
-
-  return getMessageInstanceIdFn;
-}
-
-/**
- * @param {string} filename
- * @param {Record<string, string>} fileStrings
- */
-function createMessageInstanceIdFn2(filename, fileStrings) {
-
-
   /** @type {Record<string, string>} */
   const mergedStrings = {...UIStrings, ...fileStrings};
 
