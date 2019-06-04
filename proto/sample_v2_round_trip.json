@@ -2556,7 +2556,7 @@
             "id": "themed-omnibox",
             "score": 0.0,
             "scoreDisplayMode": "binary",
-            "title": "Does not set an address-bar theme color"
+            "title": "Does not set a theme color for the address bar."
         },
         "time-to-first-byte": {
             "description": "Time To First Byte identifies the time at which your server sends a response. [Learn more](https://developers.google.com/web/tools/lighthouse/audits/ttfb).",
