@@ -159,7 +159,7 @@ limitations under the License.
     .lh-scores-container {
       display: flex;
       flex-direction: column;
-      padding: var(--header-padding);
+      padding: var(--scores-container-padding);
       position: relative;
       width: 100%;
     }
@@ -168,8 +168,8 @@ limitations under the License.
       --gauge-circle-size: 36px;
       --plugin-badge-size: 18px;
       --plugin-icon-size: 75%;
-      --score-container-width: 60px;
-      --score-number-font-size: 13px;
+      --score-gauge-wrapper-width: 60px;
+      --score-gauge-percentage-font-size: 13px;
       position: sticky;
       left: 0;
       right: 0;
@@ -177,7 +177,7 @@ limitations under the License.
       font-weight: 700;
       display: none;
       justify-content: center;
-      background-color: var(--color-sticky-header-bg);
+      background-color: var(--sticky-header-background-color);
       border-bottom: 1px solid var(--color-black-200);
       padding-top: var(--score-container-padding);
       padding-bottom: 4px;
@@ -201,9 +201,9 @@ limitations under the License.
     }
 
     .lh-highlighter {
-      width: var(--score-container-width);
+      width: var(--score-gauge-wrapper-width);
       height: 1px;
-      background: var(--color-highlighter-bg);
+      background-color: var(--highlighter-background-color);
       position: absolute;
       bottom: -5px;
     }
@@ -234,13 +234,13 @@ limitations under the License.
       display: flex;
       align-items: center;
       height: var(--topbar-height);
-      background-color: var(--topbar-bg);
+      background-color: var(--topbar-background-color);
       padding: var(--topbar-padding);
     }
 
     .lh-topbar__logo {
-      width: var(--topbar-icon-size);
-      height: var(--topbar-icon-size);
+      width: var(--topbar-logo-size);
+      height: var(--topbar-logo-size);
       user-select: none;
     }
     .lh-topbar__logo .shape {
@@ -494,7 +494,7 @@ limitations under the License.
 <template id="tmpl-lh-footer">
   <style>
     .lh-footer {
-      padding: var(--section-indent) calc(var(--default-padding) * 2);
+      padding: var(--footer-vertical-padding) calc(var(--default-padding) * 2);
       max-width: var(--report-width);
       margin: 0 auto;
     }
@@ -502,8 +502,8 @@ limitations under the License.
       text-align: center;
     }
     .lh-env__title {
-      font-size: var(--score-title-font-size-big);
-      line-height: var(--score-title-line-height-big);
+      font-size: var(--env-item-font-size-big);
+      line-height: var(--env-item-line-height-big);
       text-align: center;
       padding: var(--score-container-padding);
     }
@@ -516,11 +516,11 @@ limitations under the License.
       padding: 0;
     }
     .lh-env__items .lh-env__item:nth-child(2n) {
-      background: var(--env-item-bg);
+      background-color: var(--env-item-background-color);
     }
     .lh-env__item {
       display: flex;
-      padding: var(--env-tem-padding);
+      padding: var(--env-item-padding);
       position: relative;
     }
     span.lh-env__name {
@@ -782,7 +782,7 @@ limitations under the License.
 <template id="tmpl-lh-3p-filter">
   <style>
     .lh-3p-filter {
-      background: var(--lh-table-higlight-bg);
+      background-color: var(--lh-table-higlight-background-color);
       color: var(--medium-75-gray);
       float: right;
       padding: 6px;
@@ -815,7 +815,7 @@ limitations under the License.
           overflow: hidden;
           padding: 10px;
           border-bottom: none;
-          color: var(--subheader-color);
+          color: var(--snippet-color);
           background: var(--medium-50-gray);
           border: 1px solid var(--report-secondary-border-color);
         }
@@ -898,8 +898,8 @@ limitations under the License.
           display: inline-block;
           vertical-align: middle;
           margin-right: 4px;
-          width: var(--score-shape-size);
-          height: var(--score-shape-size);
+          width: var(--score-icon-size);
+          height: var(--score-icon-size);
           background-image: var(--fail-icon-url);
         }
         .lh-snippet__line-number {

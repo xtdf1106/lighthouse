@@ -15,6 +15,22 @@
  * limitations under the License.
  */
 
+/*
+  Naming convention:
+
+  If a variable is used for a specific component: --{component}-{property name}-{modifier}
+
+  Both {component} and {property name} should be kebab-case. If the target is the entire page,
+  use 'report' for the component. The property name should be not be abbreviated. Use the
+  property name the variable is intended for - if it's used for multiple, a common descriptor
+  is fine (ex: 'size' for a variable applied to 'width' and 'height'). If a variable is shared
+  across multiple components, either create more variables or just drop the "{component}-"
+  part of the name. Append any modifiers at the end (ex: 'big', 'dark').
+
+  For colors: --color-{type}-{hue}
+
+  Omit "-{hue}" if there is only one color of that type.
+*/
 .lh-vars {
   --text-font-family: Roboto, Helvetica, Arial, sans-serif;
   --monospace-font-family: 'Roboto Mono', 'Menlo', 'dejavu sans mono', 'Consolas', 'Lucida Console', monospace;
@@ -22,34 +38,33 @@
   --body-text-color: var(--color-black-900);
   --body-font-size: 16px;
   --body-line-height: 24px;
-  --subheader-color: hsl(206, 6%, 25%);
-  --header-font-size: 20px;
+  --snippet-color: hsl(206, 6%, 25%);
+  --category-header-font-size: 20px;
   --header-line-height: 24px;
-  --caption-line-height: 16px;
+  --audit-explanation-line-height: 16px;
   --default-padding: 12px;
-  --section-padding: 16px;
-  --section-indent: 16px;
-  --audit-item-gap: 5px;
-  --text-indent: 8px;
+  --footer-vertical-padding: 16px;
+  --audit-item-gap: 5px; /* TODO rename. */
+  --stackpack-horizontal-padding: 10px;
   --secondary-text-color: var(--color-black-800);
   --informative-color: var(--color-blue-900);
-  --medium-75-gray: #757575;
-  --medium-50-gray: hsl(210, 17%, 98%);
+  --medium-75-gray: #757575; /* TODO rename / switch to MD */
+  --medium-50-gray: hsl(210, 17%, 98%); /* TODO rename / switch to MD */
   --report-secondary-border-color: #ebebeb;
-  --display-value-gray: hsl(216, 5%, 39%);
+  --chevron-line-stroke: hsl(216, 5%, 39%);
   --report-width: calc(60 * var(--body-font-size));
   --report-min-width: 400px;
   --report-header-height: 161px;
   --lh-score-icon-background-size: 24px;
   --lh-export-icon-size: var(--lh-score-icon-background-size);
   --lh-export-icon-color: var(--medium-75-gray);
-  --lh-table-higlight-bg: hsla(0, 0%, 75%, 0.1);
+  --lh-table-higlight-background-color: hsla(0, 0%, 75%, 0.1);
   --lh-sparkline-height: 5px;
-  --lh-audit-vpadding: 8px;
-  --lh-audit-group-vpadding: 8px;
-  --lh-section-vpadding: 12px;
+  --lh-audit-vertical-padding: 8px;
+  --lh-audit-group-vertical-padding: 8px;
+  --lh-section-vertical-padding: 12px;
   --chevron-size: 12px;
-  --inner-audit-left-padding: calc(var(--score-shape-size) + var(--score-shape-margin-left) + var(--score-shape-margin-right));
+  --inner-audit-left-padding: calc(var(--score-icon-size) + var(--score-icon-margin-left) + var(--score-icon-margin-right)); /* TODO: rename */
 
   /* Palette using Material Design Colors
    * https://www.materialui.co/colors */
@@ -61,56 +76,56 @@
   --color-black-800: #424242;
   --color-black-900: #212121;
   --color-black: #000000;
-  --color-blue: #2962FF;
+  --color-blue: #2962FF; /* A700. */
   --color-green-700: #018642;
-  --color-green: #0CCE6B;
+  --color-green: #0CCE6B; /* TODO: this is not a MD color */
   --color-orange-700: #D04900;
-  --color-orange: #FFA400;
+  --color-orange: #FFA400; /* TODO: this is not a MD color */
   --color-red-700: #EB0F00;
-  --color-red: #FF4E42;
+  --color-red: #FF4E42; /* TODO: this is not a MD color */
   --color-white: #FFFFFF;
   --color-blue-200: #90CAF9;
   --color-blue-900: #0D47A1;
   --color-cyan-500: #00BCD4;
   --color-teal-600: #00897B;
 
-
-  /* TODO(cjamcl) clean up unused variables. */
-  --audits-margin-bottom: 40px;
-  --env-item-bg: var(--color-black-100);
+  --audit-group-margin-bottom: 40px;
+  --env-item-background-color: var(--color-black-100);
   --env-name-min-width: 220px;
-  --env-tem-padding: 10px 0px;
-  --expandable-padding: 0 0 2px calc(var(--score-shape-margin-left) + var(--score-shape-size) + var(--score-shape-margin-right));
+  --env-item-padding: 10px 0px;
+  --env-item-font-size: 28px;
+  --env-item-line-height: 36px;
+  --metric-description-padding: 0 0 2px calc(var(--score-icon-margin-left) + var(--score-icon-size) + var(--score-icon-margin-right));
   --gauge-circle-size-big: 112px;
   --gauge-circle-size: 80px;
-  --header-padding: 20px 0 20px 0;
-  --icon-square-size: calc(var(--score-shape-size) * 0.88);
-  --plugin-badge-bg: var(--color-white);
+  --scores-container-padding: 20px 0 20px 0;
+  --icon-square-size: calc(var(--score-icon-size) * 0.88);
+  --plugin-badge-background-color: var(--color-white);
   --plugin-badge-size-big: calc(var(--gauge-circle-size-big) / 2.7);
   --plugin-badge-size: calc(var(--gauge-circle-size) / 2.7);
   --plugin-icon-size: 65%;
   --pwa-icon-margin: 0 6px 0 -2px;
-  --pwa-icon-size: var(--topbar-icon-size);
+  --pwa-icon-size: var(--topbar-logo-size);
   --score-container-padding: 8px;
-  --score-container-width: 148px;
-  --score-number-font-size-big: 38px;
-  --score-number-font-size: 28px;
-  --score-shape-margin-left: 4px;
-  --score-shape-margin-right: 12px;
-  --score-shape-margin: 0 var(--score-shape-margin-right) 0 var(--score-shape-margin-left);
-  --score-shape-size: 12px;
-  --score-title-font-size-big: 28px;
-  --score-title-font-size: 20px;
-  --score-title-line-height-big: 36px;
-  --score-title-line-height: 26px;
+  --score-gauge-wrapper-width: 148px;
+  --score-gauge-percentage-font-size-big: 38px;
+  --score-gauge-percentage-font-size: 28px;
+  --score-icon-margin-left: 4px;
+  --score-icon-margin-right: 12px;
+  --score-icon-margin: 0 var(--score-icon-margin-right) 0 var(--score-icon-margin-left);
+  --score-icon-size: 12px;
+  --score-gauge-label-font-size-big: 28px;
+  --score-gauge-label-font-size: 20px;
+  --score-gauge-label-line-height-big: 36px;
+  --score-gauge-label-line-height: 26px;
   --scorescale-height: 6px;
   --scorescale-width: 18px;
-  --section-padding: 40px;
-  --topbar-bg: var(--color-black-100);
+  --category-padding: 40px;
+  --topbar-background-color: var(--color-black-100);
   --topbar-height: 32px;
-  --topbar-icon-size: 24px;
+  --topbar-logo-size: 24px;
   --topbar-padding: 0 8px;
-  --metrics-toggle-color: var(--color-black-200);
+  --metrics-toggle-background-color: var(--color-black-200);
 
   --color-average-secondary: var(--color-orange-700);
   --color-average: var(--color-orange);
@@ -118,11 +133,11 @@
   --color-fail: var(--color-red);
   --color-pass-secondary: var(--color-green-700);
   --color-pass: var(--color-green);
-  --color-sticky-header-bg: var(--body-background-color);
-  --color-highlighter-bg: var(--body-text-color);
+  --sticky-header-background-color: var(--body-background-color);
+  --highlighter-background-color: var(--body-text-color);
 
   --color-hover: #FAFAFA;
-  --color-metric-toggle-lines: #7F7F7F;
+  --metric-toggle-lines-fill: #7F7F7F;
 
   --plugin-icon-url: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="24px" height="24px" viewBox="0 0 24 24" fill="%23757575"><path d="M0 0h24v24H0z" fill="none"/><path d="M20.5 11H19V7c0-1.1-.9-2-2-2h-4V3.5C13 2.12 11.88 1 10.5 1S8 2.12 8 3.5V5H4c-1.1 0-1.99.9-1.99 2v3.8H3.5c1.49 0 2.7 1.21 2.7 2.7s-1.21 2.7-2.7 2.7H2V20c0 1.1.9 2 2 2h3.8v-1.5c0-1.49 1.21-2.7 2.7-2.7 1.49 0 2.7 1.21 2.7 2.7V22H17c1.1 0 2-.9 2-2v-4h1.5c1.38 0 2.5-1.12 2.5-2.5S21.88 11 20.5 11z"/></svg>');
   --plugin-icon-url-dark: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="24px" height="24px" viewBox="0 0 24 24" fill="%23FFFFFF"><path d="M0 0h24v24H0z" fill="none"/><path d="M20.5 11H19V7c0-1.1-.9-2-2-2h-4V3.5C13 2.12 11.88 1 10.5 1S8 2.12 8 3.5V5H4c-1.1 0-1.99.9-1.99 2v3.8H3.5c1.49 0 2.7 1.21 2.7 2.7s-1.21 2.7-2.7 2.7H2V20c0 1.1.9 2 2 2h3.8v-1.5c0-1.49 1.21-2.7 2.7-2.7 1.49 0 2.7 1.21 2.7 2.7V22H17c1.1 0 2-.9 2-2v-4h1.5c1.38 0 2.5-1.12 2.5-2.5S21.88 11 20.5 11z"/></svg>');
@@ -154,9 +169,9 @@
   --color-black-400: var(--color-black-600);
   --color-black-600: var(--color-black-500);
 
-  --topbar-bg: var(--color-black);
-  --plugin-badge-bg: var(--color-black-800);
-  --env-item-bg: var(--color-black);
+  --topbar-background-color: var(--color-black);
+  --plugin-badge-background-color: var(--color-black-800);
+  --env-item-background-color: var(--color-black);
   --report-secondary-border-color: var(--color-black-200);
 
   --body-background-color: var(--color-black-900);
@@ -179,7 +194,7 @@
 
 @media only screen and (max-width: 480px) {
   .lh-vars {
-    --audits-margin-bottom: 20px;
+    --audit-group-margin-bottom: 20px;
     --body-font-size: 14px;
     --body-line-height: 20px;
     --env-name-min-width: 120px;
@@ -188,18 +203,18 @@
     --header-padding: 16px 0 16px 0;
     --plugin-icon-size: 75%;
     --pwa-icon-margin: 0 7px 0 -3px;
-    --score-container-width: 112px;
-    --score-number-font-size-big: 34px;
-    --score-number-font-size: 26px;
-    --score-shape-margin-left: 2px;
-    --score-shape-size: 10px;
-    --score-title-font-size-big: 22px;
-    --score-title-font-size: 14px;
-    --score-title-line-height-big: 26px;
-    --score-title-line-height: 20px;
-    --section-padding: 24px;
+    --score-gauge-wrapper-width: 112px;
+    --score-gauge-percentage-font-size-big: 34px;
+    --score-gauge-percentage-font-size: 26px;
+    --score-icon-margin-left: 2px;
+    --score-icon-size: 10px;
+    --score-gauge-label-font-size-big: 22px;
+    --score-gauge-label-font-size: 14px;
+    --score-gauge-label-line-height-big: 26px;
+    --score-gauge-label-line-height: 20px;
+    --category-padding: 24px;
     --topbar-height: 28px;
-    --topbar-icon-size: 20px;
+    --topbar-logo-size: 20px;
   }
 
   /* Not enough space to adequately show the relative savings bars. */
@@ -213,34 +228,34 @@
   --monospace-font-family: 'Menlo', 'dejavu sans mono', 'Consolas', 'Lucida Console', monospace;
   --body-font-size: 12px;
   --body-line-height: 20px;
-  --header-font-size: 16px;
+  --category-header-font-size: 16px;
   --header-line-height: 20px;
-  --caption-line-height: 14px;
+  --audit-explanation-line-height: 14px;
   --default-padding: 12px;
-  --section-padding: 12px;
-  --section-indent: 8px;
+  --category-padding: 12px;
+  --footer-vertical-padding: 8px;
 
   --gauge-circle-size-big: 72px;
   --gauge-circle-size: 64px;
 
-  --audits-margin-bottom: 20px;
+  --audit-group-margin-bottom: 20px;
   --env-name-min-width: 120px;
   --header-padding: 16px 0 16px 0;
   --plugin-icon-size: 75%;
   --pwa-icon-margin: 0 7px 0 -3px;
-  --score-container-width: 97px;
-  --score-number-font-size-big: 34px;
-  --score-number-font-size: 26px;
-  --score-shape-margin-left: 2px;
-  --score-shape-size: 10px;
-  --score-title-font-size-big: 22px;
-  --score-title-font-size: 14px;
-  --score-title-line-height-big: 26px;
-  --score-title-line-height: 20px;
+  --score-gauge-wrapper-width: 97px;
+  --score-gauge-percentage-font-size-big: 34px;
+  --score-gauge-percentage-font-size: 26px;
+  --score-icon-margin-left: 2px;
+  --score-icon-size: 10px;
+  --score-gauge-label-font-size-big: 22px;
+  --score-gauge-label-font-size: 14px;
+  --score-gauge-label-line-height-big: 26px;
+  --score-gauge-label-line-height: 20px;
 
-  --lh-audit-vpadding: 4px;
-  --lh-audit-group-vpadding: 12px;
-  --lh-section-vpadding: 8px;
+  --lh-audit-vertical-padding: 4px;
+  --lh-audit-group-vertical-padding: 12px;
+  --lh-section-vertical-padding: 8px;
 }
 
 .lh-devtools.lh-root {
@@ -320,7 +335,7 @@
 }
 
 .lh-audit__description, .lh-audit__stackpack {
-  --inner-audit-right-padding: calc(var(--text-indent) + 2px);
+  --inner-audit-right-padding: var(--stackpack-horizontal-padding);
   padding-left: var(--inner-audit-left-padding);
   padding-right: var(--inner-audit-right-padding);
   padding-top: 8px;
@@ -390,9 +405,9 @@
 /* Score */
 
 .lh-audit__score-icon {
-  width: var(--score-shape-size);
-  height: var(--score-shape-size);
-  margin: var(--score-shape-margin);
+  width: var(--score-icon-size);
+  height: var(--score-icon-size);
+  margin: var(--score-icon-margin);
 }
 
 .lh-audit--pass .lh-audit__display-text {
@@ -416,9 +431,9 @@
   color: var(--color-fail-secondary);
 }
 .lh-audit--fail .lh-audit__score-icon {
-  border-left: calc(var(--score-shape-size) / 2) solid transparent;
-  border-right: calc(var(--score-shape-size) / 2) solid transparent;
-  border-bottom: var(--score-shape-size) solid var(--color-fail);
+  border-left: calc(var(--score-icon-size) / 2) solid transparent;
+  border-right: calc(var(--score-icon-size) / 2) solid transparent;
+  border-bottom: var(--score-icon-size) solid var(--color-fail);
 }
 
 .lh-audit--manual .lh-audit__display-text,
@@ -484,7 +499,7 @@
   display: flex;
   align-items: center;
   font-weight: 500;
-  padding: var(--lh-audit-vpadding) 0;
+  padding: var(--lh-audit-vertical-padding) 0;
 }
 
 .lh-audit--load-opportunity .lh-audit__header {
@@ -575,13 +590,13 @@
 
 .lh-metrics__disclaimer {
   color: var(--medium-75-gray);
-  margin: var(--lh-section-vpadding) 0;
+  margin: var(--lh-section-vertical-padding) 0;
 }
 
 .lh-metric__description {
   display: none;
   color: var(--secondary-text-color);
-  padding: var(--expandable-padding);
+  padding: var(--metric-description-padding);
 }
 
 .lh-metric__value {
@@ -628,14 +643,14 @@
 .lh-metrics-toggle__input:not(:checked) + label .lh-metrics-toggle__icon--less,
 .lh-metrics-toggle__input:checked + label .lh-metrics-toggle__icon--more {
   background-color: var(--color-blue);
-  --color-metric-toggle-lines: var(--color-white);
+  --metric-toggle-lines-fill: var(--color-white);
 }
 .lh-metrics-toggle__lines {
-  fill: var(--color-metric-toggle-lines);
+  fill: var(--metric-toggle-lines-fill);
 }
 
 .lh-metrics-toggle__label  {
-  background-color: var(--metrics-toggle-color);
+  background-color: var(--metrics-toggle-background-color);
 }
 
 .lh-metrics-toggle__label .lh-metrics-toggle__icon--less {
@@ -655,10 +670,10 @@
 
 .lh-metric .lh-metric__innerwrap::before {
   content: '';
-  width: var(--score-shape-size);
-  height: var(--score-shape-size);
+  width: var(--score-icon-size);
+  height: var(--score-icon-size);
   display: inline-block;
-  margin: var(--score-shape-margin);
+  margin: var(--score-icon-margin);
 }
 
 .lh-metric--pass .lh-metric__value {
@@ -682,9 +697,9 @@
   color: var(--color-fail-secondary);
 }
 .lh-metric--fail .lh-metric__innerwrap::before {
-  border-left: calc(var(--score-shape-size) / 2) solid transparent;
-  border-right: calc(var(--score-shape-size) / 2) solid transparent;
-  border-bottom: var(--score-shape-size) solid var(--color-fail);
+  border-left: calc(var(--score-icon-size) / 2) solid transparent;
+  border-right: calc(var(--score-icon-size) / 2) solid transparent;
+  border-bottom: var(--score-icon-size) solid var(--color-fail);
 }
 
 .lh-metric--error .lh-metric__value,
@@ -822,7 +837,7 @@
 /* Audit Group */
 
 .lh-audit-group {
-  margin-bottom: var(--audits-margin-bottom);
+  margin-bottom: var(--audit-group-margin-bottom);
   position: relative;
 }
 
@@ -881,9 +896,8 @@
 .lh-audit-group__summary {
   display: flex;
   justify-content: space-between;
-  padding-right: var(--text-indent);
-  margin-top: calc(var(--section-padding) * 1.5);
-  margin-bottom: var(--section-padding);
+  margin-top: calc(var(--category-padding) * 1.5);
+  margin-bottom: var(--category-padding);
 }
 
 .lh-audit-group__itemcount {
@@ -896,7 +910,7 @@
 
 .lh-audit-group__header {
   font-size: var(--body-font-size);
-  margin: 0 0 var(--lh-audit-group-vpadding);
+  margin: 0 0 var(--lh-audit-group-vertical-padding);
   /* When the header takes 100% width, the chevron becomes small. */
   max-width: calc(100% - var(--chevron-size));
 }
@@ -930,12 +944,12 @@
 .lh-audit-group--pwa-fast-reliable .lh-audit-group__header,
 .lh-audit-group--pwa-installable .lh-audit-group__header,
 .lh-audit-group--pwa-optimized .lh-audit-group__header {
-  margin-top: var(--lh-audit-group-vpadding);
+  margin-top: var(--lh-audit-group-vertical-padding);
 }
 
 .lh-audit-explanation {
-  margin: var(--lh-audit-vpadding) 0 calc(var(--lh-audit-vpadding) / 2);
-  line-height: var(--caption-line-height);
+  margin: var(--lh-audit-vertical-padding) 0 calc(var(--lh-audit-vertical-padding) / 2);
+  line-height: var(--audit-explanation-line-height);
 }
 
 .lh-audit--fail .lh-audit-explanation {
@@ -971,8 +985,8 @@
 .lh-warnings {
   --item-margin: calc(var(--body-line-height) / 6);
   color: var(--color-average);
-  margin: var(--lh-audit-vpadding) 0;
-  padding: calc(var(--lh-audit-vpadding) / 2) var(--lh-audit-vpadding);
+  margin: var(--lh-audit-vertical-padding) 0;
+  padding: calc(var(--lh-audit-vertical-padding) / 2) var(--lh-audit-vertical-padding);
 }
 .lh-warnings span {
   font-weight: bold;
@@ -981,11 +995,11 @@
 .lh-warnings--toplevel {
   --item-margin: calc(var(--header-line-height) / 4);
   color: var(--secondary-text-color);
-  margin: var(--section-padding);
-  padding: var(--section-padding);
+  margin: var(--category-padding);
+  padding: var(--category-padding);
 }
 .lh-warnings ul {
-  padding-left: calc(var(--section-padding) * 2);
+  padding-left: calc(var(--category-padding) * 2);
   margin: 0;
 }
 .lh-warnings li {
@@ -1061,7 +1075,7 @@
 .lh-gauge__wrapper--plugin .lh-gauge__svg-wrapper::before {
   width: var(--plugin-badge-size);
   height: var(--plugin-badge-size);
-  background-color: var(--plugin-badge-bg);
+  background-color: var(--plugin-badge-background-color);
   background-image: var(--plugin-icon-url);
   background-repeat: no-repeat;
   background-size: var(--plugin-icon-size);
@@ -1097,7 +1111,7 @@
 
 .lh-category .lh-gauge__percentage {
   --gauge-circle-size: var(--gauge-circle-size-big);
-  --score-number-font-size: var(--score-number-font-size-big);
+  --score-gauge-percentage-font-size: var(--score-gauge-percentage-font-size-big);
 }
 
 .lh-gauge__wrapper {
@@ -1117,8 +1131,8 @@
 }
 
 .lh-gauge__label {
-  font-size: var(--score-title-font-size);
-  line-height: var(--score-title-line-height);
+  font-size: var(--score-gauge-label-font-size);
+  line-height: var(--score-gauge-label-line-height);
   margin-top: 10px;
   text-align: center;
   color: var(--body-text-color);
@@ -1126,8 +1140,8 @@
 
 /* TODO(#8185) use more BEM (.lh-gauge__label--big) instead of relying on descendant selector */
 .lh-category .lh-gauge__label {
-  --score-title-font-size: var(--score-title-font-size-big);
-  --score-title-line-height: var(--score-title-line-height-big);
+  --score-gauge-label-font-size: var(--score-gauge-label-font-size-big);
+  --score-gauge-label-line-height: var(--score-gauge-label-line-height-big);
   margin-top: 14px;
 }
 
@@ -1136,7 +1150,7 @@
 .lh-scores-header .lh-gauge--pwa__wrapper,
 .lh-sticky-header .lh-gauge__wrapper,
 .lh-sticky-header .lh-gauge--pwa__wrapper {
-  width: var(--score-container-width);
+  width: var(--score-gauge-wrapper-width);
 }
 
 .lh-scores-header .lh-gauge--pwa__wrapper {
@@ -1193,7 +1207,7 @@
 }
 
 .lh-category {
-  padding: var(--section-padding);
+  padding: var(--category-padding);
   max-width: var(--report-width);
   margin: 0 auto;
 }
@@ -1217,9 +1231,9 @@
 }
 
 .lh-category-header {
-  font-size: var(--header-font-size);
+  font-size: var(--category-header-font-size);
   min-height: var(--gauge-circle-size);
-  margin-bottom: var(--lh-section-vpadding);
+  margin-bottom: var(--lh-section-vertical-padding);
 }
 
 .lh-category-header .lh-score__gauge {
@@ -1229,7 +1243,7 @@
 }
 
 .lh-category-header .lh-audit__title {
-  font-size: var(--header-font-size);
+  font-size: var(--category-header-font-size);
   line-height: var(--header-line-height);
 }
 
@@ -1297,7 +1311,7 @@
 }
 
 .lh-table tbody tr:nth-child(odd) {
-  background-color: var(--lh-table-higlight-bg);
+  background-color: var(--lh-table-higlight-background-color);
 }
 
 .lh-table th,
@@ -1386,7 +1400,7 @@
   transform: translateY(var(--body-line-height));
 }
 .lh-chevron__line {
- stroke: var(--display-value-gray);
+ stroke: var(--chevron-line-stroke);
  stroke-width: var(--chevron-size);
  stroke-linecap: square;
  transform-origin: 50%;
