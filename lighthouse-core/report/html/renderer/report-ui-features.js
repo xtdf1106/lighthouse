@@ -80,6 +80,14 @@ class ReportUIFeatures {
   initFeatures(report) {
     this.json = report;
 
+    // TODO(i18n): Modifying Util singleton is not the best way to i18n this.
+    // Related TODO: https://github.com/GoogleChrome/lighthouse/pull/5713/files#r204948699
+    // Update util UIStrings, just like in report-renderer, we need to do it again b/c they have been reset.
+    const originalUIStrings = JSON.parse(JSON.stringify(Util.UIStrings));
+    if (report.i18n && report.i18n.rendererFormattedStrings) {
+      Util.updateAllUIStrings(report.i18n.rendererFormattedStrings);
+    }
+
     this._setupMediaQueryListeners();
     this._setupToolsButton();
     this._setupThirdPartyFilter();
@@ -139,6 +147,9 @@ class ReportUIFeatures {
         this._dom.find('.lh-metrics-toggle__input', this._document));
       toggleInputEl.checked = true;
     }
+
+    // Reset Util UIStrings.
+    Util.updateAllUIStrings(originalUIStrings);
   }
 
   /**
@@ -211,6 +222,24 @@ class ReportUIFeatures {
 
     const dropdown = this._dom.find('.lh-tools__dropdown', this._document);
     dropdown.addEventListener('click', this.onToolAction);
+
+    // i18n the dropdown text
+    this._dom.find('#lh-dropdown_print_summary', dropdown).textContent =
+      Util.UIStrings.dropdownPrintSummary;
+    this._dom.find('#lh-dropdown_print_expanded', dropdown).textContent =
+      Util.UIStrings.dropdownPrintExpanded;
+    this._dom.find('#lh-dropdown_json', dropdown).textContent =
+      Util.UIStrings.dropdownCopyJSON;
+    this._dom.find('#lh-dropdown_save_html', dropdown).textContent =
+      Util.UIStrings.dropdownSaveHTML;
+    this._dom.find('#lh-dropdown_save_json', dropdown).textContent =
+      Util.UIStrings.dropdownSaveJSON;
+    this._dom.find('#lh-dropdown_open_viewer', dropdown).textContent =
+      Util.UIStrings.dropdownViewer;
+    this._dom.find('#lh-dropdown_save_gist', dropdown).textContent =
+      Util.UIStrings.dropdownSaveGist;
+    this._dom.find('#lh-dropdown_dark_theme', dropdown).textContent =
+      Util.UIStrings.dropdownDarkTheme;
   }
 
   _setupThirdPartyFilter() {

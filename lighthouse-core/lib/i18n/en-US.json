@@ -1399,6 +1399,38 @@
     "message": "Maximum critical path latency:",
     "description": "Label of value shown in the summary of critical request chains. Refers to the total amount of time (milliseconds) of the longest critical path chain/sequence of network requests. Example value: 2310 ms"
   },
+  "lighthouse-core/report/html/renderer/util.js | dropdownCopyJSON": {
+    "message": "Copy JSON",
+    "description": "Option in a dropdown menu that copies the Lighthouse JSON object to the system clipboard."
+  },
+  "lighthouse-core/report/html/renderer/util.js | dropdownDarkTheme": {
+    "message": "Toggle Dark Theme",
+    "description": "Option in a dropdown menu that toggles the themeing of the report between Light(default) and Dark themes."
+  },
+  "lighthouse-core/report/html/renderer/util.js | dropdownPrintExpanded": {
+    "message": "Print Expanded",
+    "description": "Option in a dropdown menu that opens a full Lighthouse report in a print dialog."
+  },
+  "lighthouse-core/report/html/renderer/util.js | dropdownPrintSummary": {
+    "message": "Print Summary",
+    "description": "Option in a dropdown menu that opens a small, summary report in a print dialog."
+  },
+  "lighthouse-core/report/html/renderer/util.js | dropdownSaveGist": {
+    "message": "Save as Gist",
+    "description": "Option in a dropdown menu that saves the current report as a new Github Gist."
+  },
+  "lighthouse-core/report/html/renderer/util.js | dropdownSaveHTML": {
+    "message": "Save as HTML",
+    "description": "Option in a dropdown menu that saves the Lighthouse report HTML locally to the system as a '.html' file."
+  },
+  "lighthouse-core/report/html/renderer/util.js | dropdownSaveJSON": {
+    "message": "Save as JSON",
+    "description": "Option in a dropdown menu that save the Lighthouse JSON object to the local system as a '.json' file."
+  },
+  "lighthouse-core/report/html/renderer/util.js | dropdownViewer": {
+    "message": "Open in Viewer",
+    "description": "Option in a dropdown menu that opens the current report in the Lighthouse Viewer Application."
+  },
   "lighthouse-core/report/html/renderer/util.js | errorLabel": {
     "message": "Error!",
     "description": "A label, shown next to an audit title or metric title, indicating that there was an error computing it. The user can hover on the label to reveal a tooltip with the extended error message. Translation should be short (< 20 characters)."
@@ -1406,6 +1438,10 @@
   "lighthouse-core/report/html/renderer/util.js | errorMissingAuditInfo": {
     "message": "Report error: no audit information",
     "description": "An error string displayed next to a particular audit when it has errored, but not provided any specific error message."
+  },
+  "lighthouse-core/report/html/renderer/util.js | footerIssue": {
+    "message": "File an issue",
+    "description": "Label for button to create an issue against the Lighthouse Github project."
   },
   "lighthouse-core/report/html/renderer/util.js | labDataTitle": {
     "message": "Lab Data",
@@ -1435,6 +1471,58 @@
     "message": "Passed audits",
     "description": "Section heading shown above a list of audits that are passing. 'Passed' here refers to a passing grade. This section is collapsed by default, as the user should be focusing on the failed audits instead. Users can click this heading to reveal the list."
   },
+  "lighthouse-core/report/html/renderer/util.js | runtimeDesktopEmulation": {
+    "message": "Emulated Desktop",
+    "description": "Descriptive explanation for emulation setting when emulating a generic desktop form factor, as opposed to a mobile-device like form factor."
+  },
+  "lighthouse-core/report/html/renderer/util.js | runtimeMobileEmulation": {
+    "message": "Emulated Nexus 5X",
+    "description": "Descriptive explanation for emulation setting when emulating a Nexus 5X mobile device."
+  },
+  "lighthouse-core/report/html/renderer/util.js | runtimeNoEmulation": {
+    "message": "No emulation",
+    "description": "Descriptive explanation for emulation setting when no device emulation is set."
+  },
+  "lighthouse-core/report/html/renderer/util.js | runtimeSettingsBenchmark": {
+    "message": "CPU/Memory Power",
+    "description": "Label for a row in a table that shows the estimated CPU power of the machine running Lighthouse. Example row values: 532, 1492, 783."
+  },
+  "lighthouse-core/report/html/renderer/util.js | runtimeSettingsCPUThrottling": {
+    "message": "CPU throttling",
+    "description": "Label for a row in a table that describes the CPU throttling conditions that were used during a Lighthouse run, if any."
+  },
+  "lighthouse-core/report/html/renderer/util.js | runtimeSettingsDevice": {
+    "message": "Device",
+    "description": "Label for a row in a table that describes the kind of physical device that was emulated for the Lighthouse run.  Example values for row elements: 'No Emulation', 'Emulated Desktop', etc."
+  },
+  "lighthouse-core/report/html/renderer/util.js | runtimeSettingsFetchTime": {
+    "message": "Fetch Time",
+    "description": "Label for a row in a table that shows the time that a Lighthouse run was conducted."
+  },
+  "lighthouse-core/report/html/renderer/util.js | runtimeSettingsNetworkThrottling": {
+    "message": "Network throttling",
+    "description": "Label for a row in a table that describes the network throttling conditions that were used during a Lighthouse run, if any."
+  },
+  "lighthouse-core/report/html/renderer/util.js | runtimeSettingsTitle": {
+    "message": "Runtime Settings",
+    "description": "Title of the Runtime settings table in a Lighthouse report.  Runtime settings are the environment configurations that a specific report used at auditing time."
+  },
+  "lighthouse-core/report/html/renderer/util.js | runtimeSettingsUA": {
+    "message": "User agent (host)",
+    "description": "Label for a row in a table that shows the User Agent that was detected on the Host machine of the Lighthouse run."
+  },
+  "lighthouse-core/report/html/renderer/util.js | runtimeSettingsUANet": {
+    "message": "User agent (network)",
+    "description": "Label for a row in a table that shows the User Agent that was used to send out all network requests during the Lighthouse run."
+  },
+  "lighthouse-core/report/html/renderer/util.js | runtimeSettingsUrl": {
+    "message": "URL",
+    "description": "Label for a row in a table that shows the URL that was audited during a Lighthouse run."
+  },
+  "lighthouse-core/report/html/renderer/util.js | runtimeUnknown": {
+    "message": "Unknown",
+    "description": "Descriptive explanation for a runtime setting that is set to an unknown value."
+  },
   "lighthouse-core/report/html/renderer/util.js | snippetCollapseButtonLabel": {
     "message": "Collapse snippet",
     "description": "Label for button that only shows a few lines of the snippet when clicked"
@@ -1446,6 +1534,10 @@
   "lighthouse-core/report/html/renderer/util.js | thirdPartyResourcesLabel": {
     "message": "Show 3rd-party resources",
     "description": "This label is for a checkbox above a table of items loaded by a web page. The checkbox is used to show or hide third-party (or \"3rd-party\") resources in the table, where \"third-party resources\" refers to items loaded by a web page from URLs that aren't controlled by the owner of the web page."
+  },
+  "lighthouse-core/report/html/renderer/util.js | throttlingProvided": {
+    "message": "Provided by environment",
+    "description": "Descriptive explanation for environment throttling that was provided by the runtime environment instead of provided by Lighthouse throttling."
   },
   "lighthouse-core/report/html/renderer/util.js | toplevelWarningsMessage": {
     "message": "There were issues affecting this run of Lighthouse:",

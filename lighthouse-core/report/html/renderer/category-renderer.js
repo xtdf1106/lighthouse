@@ -346,7 +346,7 @@ class CategoryRenderer {
 
     const scoreOutOf100 = Math.round(numericScore * 100);
     const percentageEl = this.dom.find('.lh-gauge__percentage', tmpl);
-    percentageEl.textContent = scoreOutOf100.toString();
+    percentageEl.textContent = scoreOutOf100.toLocaleString('de');
     if (category.score === null) {
       percentageEl.textContent = '?';
       percentageEl.title = Util.UIStrings.errorLabel;
