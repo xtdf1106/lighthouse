@@ -418,15 +418,15 @@ class Util {
 
     return [
       {
-        name: this.UIStrings.runtimeSettingsDevice,
+        name: Util.UIStrings.runtimeSettingsDevice,
         description: emulationDesc.deviceEmulation,
       },
       {
-        name: this.UIStrings.runtimeSettingsNetworkThrottling,
+        name: Util.UIStrings.runtimeSettingsNetworkThrottling,
         description: emulationDesc.networkThrottling,
       },
       {
-        name: this.UIStrings.runtimeSettingsCPUThrottling,
+        name: Util.UIStrings.runtimeSettingsCPUThrottling,
         description: emulationDesc.cpuThrottling,
       },
     ];
@@ -444,8 +444,8 @@ class Util {
 
     switch (settings.throttlingMethod) {
       case 'provided':
-        cpuThrottling = this.UIStrings.throttlingProvided;
-        networkThrottling = this.UIStrings.throttlingProvided;
+        cpuThrottling = Util.UIStrings.throttlingProvided;
+        networkThrottling = Util.UIStrings.throttlingProvided;
         break;
       case 'devtools': {
         const {cpuSlowdownMultiplier, requestLatencyMs} = throttling;
@@ -464,15 +464,15 @@ class Util {
         break;
       }
       default:
-        cpuThrottling = this.UIStrings.runtimeUnknown;
-        networkThrottling = this.UIStrings.runtimeUnknown;
+        cpuThrottling = Util.UIStrings.runtimeUnknown;
+        networkThrottling = Util.UIStrings.runtimeUnknown;
     }
 
-    let deviceEmulation = this.UIStrings.runtimeNoEmulation;
+    let deviceEmulation = Util.UIStrings.runtimeNoEmulation;
     if (settings.emulatedFormFactor === 'mobile') {
-      deviceEmulation = this.UIStrings.runtimeMobileEmulation;
+      deviceEmulation = Util.UIStrings.runtimeMobileEmulation;
     } else if (settings.emulatedFormFactor === 'desktop') {
-      deviceEmulation = this.UIStrings.runtimeDesktopEmulation;
+      deviceEmulation = Util.UIStrings.runtimeDesktopEmulation;
     }
 
     return {
