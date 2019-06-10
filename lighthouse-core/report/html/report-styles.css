@@ -66,7 +66,7 @@
   --lh-audit-group-padding-vertical: 8px;
   --lh-section-padding-vertical: 12px;
   --chevron-size: 12px;
-  --inner-audit-left-padding: calc(var(--score-icon-size) + var(--score-icon-margin-left) + var(--score-icon-margin-right)); /* TODO: rename */
+  --audit-description-padding-left: calc(var(--score-icon-size) + var(--score-icon-margin-left) + var(--score-icon-margin-right));
 
   /* Palette using Material Design Colors
    * https://www.materialui.co/colors */
@@ -338,7 +338,7 @@
 
 .lh-audit__description, .lh-audit__stackpack {
   --inner-audit-padding-right: var(--stackpack-padding-horizontal);
-  padding-left: var(--inner-audit-left-padding);
+  padding-left: var(--audit-description-padding-left);
   padding-right: var(--inner-audit-padding-right);
   padding-top: 8px;
   padding-bottom: 8px;
@@ -348,7 +348,7 @@
   font-size: var(--body-font-size);
   margin-top: var(--default-padding);
   margin-bottom: var(--default-padding);
-  margin-left: var(--inner-audit-left-padding);
+  margin-left: var(--audit-description-padding-left);
   /* whatever the .lh-details side margins are */
   width: 100%;
 }
@@ -1302,7 +1302,7 @@
   --image-preview-size: 24px;
   border-collapse: collapse;
   /* Can't assign padding to table, so shorten the width instead. */
-  width: calc(100% - var(--inner-audit-left-padding));
+  width: calc(100% - var(--audit-description-padding-left));
 }
 
 .lh-table thead th {
