@@ -78,7 +78,7 @@
   --color-black-800: #424242;
   --color-black-900: #212121;
   --color-black: #000000;
-  --color-blue: #2962FF; /* A700. */
+  --color-blue-A700: #2962FF;
   --color-green-700: #018642;
   --color-green: #0CCE6B; /* TODO: this is not a MD color */
   --color-orange-700: #D04900;
@@ -644,7 +644,7 @@
 }
 .lh-metrics-toggle__input:not(:checked) + label .lh-metrics-toggle__icon--less,
 .lh-metrics-toggle__input:checked + label .lh-metrics-toggle__icon--more {
-  background-color: var(--color-blue);
+  background-color: var(--color-blue-A700);
   --metric-toggle-lines-fill: var(--color-white);
 }
 .lh-metrics-toggle__lines {
