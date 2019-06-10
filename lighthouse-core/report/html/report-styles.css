@@ -45,12 +45,13 @@
   --audit-explanation-line-height: 16px;
   --default-padding: 12px;
   --footer-padding-vertical: 16px;
-  --audit-item-gap: 5px; /* TODO rename. */
+  --audit-margin-horizontal: 5px;
   --stackpack-padding-horizontal: 10px;
   --secondary-text-color: var(--color-black-800);
   --informative-color: var(--color-blue-900);
-  --medium-75-gray: #757575; /* TODO rename / switch to MD */
-  --medium-50-gray: hsl(210, 17%, 98%); /* TODO rename / switch to MD */
+  --color-gray-600: #757575;
+  --color-gray-50: #FAFAFA;
+  --snippet-background-color: var(--color-gray-50);
   --report-secondary-border-color: #ebebeb;
   --chevron-line-stroke: hsl(216, 5%, 39%);
   --report-width: calc(60 * var(--body-font-size));
@@ -58,7 +59,7 @@
   --report-header-height: 161px;
   --lh-score-icon-background-size: 24px;
   --lh-tools-icon-size: var(--lh-score-icon-background-size);
-  --lh-tools-icon-color: var(--medium-75-gray);
+  --lh-tools-icon-color: var(--color-gray-600);
   --lh-table-higlight-background-color: hsla(0, 0%, 75%, 0.1);
   --lh-sparkline-height: 5px;
   --lh-audit-padding-vertical: 8px;
@@ -183,8 +184,8 @@
 
   --informative-color: var(--color-blue-200);
 
-  --medium-50-gray: #757575;
-  --medium-75-gray: var(--color-white);
+  --color-gray-50: #757575;
+  --color-gray-600: var(--color-white);
 
   --color-hover: rgba(0, 0, 0, 0.2);
 
@@ -476,7 +477,7 @@
 .lh-audit__display-text,
 .lh-load-opportunity__sparkline,
 .lh-chevron-container {
-  margin: 0 var(--audit-item-gap);
+  margin: 0 var(--audit-margin-horizontal);
 }
 .lh-chevron-container {
   margin-right: 0;
@@ -489,7 +490,7 @@
 /* Prepend display text with em dash separator. But not in Opportunities. */
 .lh-audit__display-text:not(:empty):before {
   content: '—';
-  margin-right: var(--audit-item-gap);
+  margin-right: var(--audit-margin-horizontal);
 }
 .lh-audit-group.lh-audit-group--load-opportunities .lh-audit__display-text:not(:empty):before {
   display: none;
@@ -590,7 +591,7 @@
 }
 
 .lh-metrics__disclaimer {
-  color: var(--medium-75-gray);
+  color: var(--color-gray-600);
   margin: var(--lh-section-padding-vertical) 0;
 }
 
@@ -721,7 +722,7 @@
 }
 
 .lh-load-opportunity__header .lh-load-opportunity__col {
-  color: var(--medium-75-gray);
+  color: var(--color-gray-600);
   display: unset;
   line-height: calc(2.3 * var(--body-font-size));
 }
@@ -935,7 +936,7 @@
 }
 .lh-audit-group__header span.lh-audit-group__description::before {
   content: '—';
-  margin: 0px var(--audit-item-gap);
+  margin: 0px var(--audit-margin-horizontal);
 }
 
 .lh-clump > .lh-audit-group__header,
