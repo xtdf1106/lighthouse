@@ -27,10 +27,10 @@
   across multiple components, either create more variables or just drop the "{component}-"
   part of the name. Append any modifiers at the end (ex: 'big', 'dark').
 
-  For colors: --color-{type}-{intensity}
+  For colors: --color-{hue}-{intensity}
 
   {intensity} is the Material Design tag - 700, A700, etc. Omit "-{intensity}" if there is only one
-  color of that type.
+  color of that hue.
 */
 .lh-vars {
   --text-font-family: Roboto, Helvetica, Arial, sans-serif;
