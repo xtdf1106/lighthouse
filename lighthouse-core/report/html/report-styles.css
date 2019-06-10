@@ -27,9 +27,10 @@
   across multiple components, either create more variables or just drop the "{component}-"
   part of the name. Append any modifiers at the end (ex: 'big', 'dark').
 
-  For colors: --color-{type}-{hue}
+  For colors: --color-{type}-{intensity}
 
-  Omit "-{hue}" if there is only one color of that type.
+  {intensity} is the Material Design tag - 700, A700, etc. Omit "-{intensity}" if there is only one
+  color of that type.
 */
 .lh-vars {
   --text-font-family: Roboto, Helvetica, Arial, sans-serif;
@@ -43,9 +44,9 @@
   --header-line-height: 24px;
   --audit-explanation-line-height: 16px;
   --default-padding: 12px;
-  --footer-vertical-padding: 16px;
+  --footer-padding-vertical: 16px;
   --audit-item-gap: 5px; /* TODO rename. */
-  --stackpack-horizontal-padding: 10px;
+  --stackpack-padding-horizontal: 10px;
   --secondary-text-color: var(--color-black-800);
   --informative-color: var(--color-blue-900);
   --medium-75-gray: #757575; /* TODO rename / switch to MD */
@@ -60,9 +61,9 @@
   --lh-tools-icon-color: var(--medium-75-gray);
   --lh-table-higlight-background-color: hsla(0, 0%, 75%, 0.1);
   --lh-sparkline-height: 5px;
-  --lh-audit-vertical-padding: 8px;
-  --lh-audit-group-vertical-padding: 8px;
-  --lh-section-vertical-padding: 12px;
+  --lh-audit-padding-vertical: 8px;
+  --lh-audit-group-padding-vertical: 8px;
+  --lh-section-padding-vertical: 12px;
   --chevron-size: 12px;
   --inner-audit-left-padding: calc(var(--score-icon-size) + var(--score-icon-margin-left) + var(--score-icon-margin-right)); /* TODO: rename */
 
@@ -233,7 +234,7 @@
   --audit-explanation-line-height: 14px;
   --default-padding: 12px;
   --category-padding: 12px;
-  --footer-vertical-padding: 8px;
+  --footer-padding-vertical: 8px;
 
   --gauge-circle-size-big: 72px;
   --gauge-circle-size: 64px;
@@ -253,9 +254,9 @@
   --score-gauge-label-line-height-big: 26px;
   --score-gauge-label-line-height: 20px;
 
-  --lh-audit-vertical-padding: 4px;
-  --lh-audit-group-vertical-padding: 12px;
-  --lh-section-vertical-padding: 8px;
+  --lh-audit-padding-vertical: 4px;
+  --lh-audit-group-padding-vertical: 12px;
+  --lh-section-padding-vertical: 8px;
 }
 
 .lh-devtools.lh-root {
@@ -335,9 +336,9 @@
 }
 
 .lh-audit__description, .lh-audit__stackpack {
-  --inner-audit-right-padding: var(--stackpack-horizontal-padding);
+  --inner-audit-padding-right: var(--stackpack-padding-horizontal);
   padding-left: var(--inner-audit-left-padding);
-  padding-right: var(--inner-audit-right-padding);
+  padding-right: var(--inner-audit-padding-right);
   padding-top: 8px;
   padding-bottom: 8px;
 }
@@ -499,7 +500,7 @@
   display: flex;
   align-items: center;
   font-weight: 500;
-  padding: var(--lh-audit-vertical-padding) 0;
+  padding: var(--lh-audit-padding-vertical) 0;
 }
 
 .lh-audit--load-opportunity .lh-audit__header {
@@ -590,7 +591,7 @@
 
 .lh-metrics__disclaimer {
   color: var(--medium-75-gray);
-  margin: var(--lh-section-vertical-padding) 0;
+  margin: var(--lh-section-padding-vertical) 0;
 }
 
 .lh-metric__description {
@@ -910,7 +911,7 @@
 
 .lh-audit-group__header {
   font-size: var(--body-font-size);
-  margin: 0 0 var(--lh-audit-group-vertical-padding);
+  margin: 0 0 var(--lh-audit-group-padding-vertical);
   /* When the header takes 100% width, the chevron becomes small. */
   max-width: calc(100% - var(--chevron-size));
 }
@@ -944,11 +945,11 @@
 .lh-audit-group--pwa-fast-reliable .lh-audit-group__header,
 .lh-audit-group--pwa-installable .lh-audit-group__header,
 .lh-audit-group--pwa-optimized .lh-audit-group__header {
-  margin-top: var(--lh-audit-group-vertical-padding);
+  margin-top: var(--lh-audit-group-padding-vertical);
 }
 
 .lh-audit-explanation {
-  margin: var(--lh-audit-vertical-padding) 0 calc(var(--lh-audit-vertical-padding) / 2);
+  margin: var(--lh-audit-padding-vertical) 0 calc(var(--lh-audit-padding-vertical) / 2);
   line-height: var(--audit-explanation-line-height);
 }
 
@@ -985,8 +986,8 @@
 .lh-warnings {
   --item-margin: calc(var(--body-line-height) / 6);
   color: var(--color-average);
-  margin: var(--lh-audit-vertical-padding) 0;
-  padding: calc(var(--lh-audit-vertical-padding) / 2) var(--lh-audit-vertical-padding);
+  margin: var(--lh-audit-padding-vertical) 0;
+  padding: calc(var(--lh-audit-padding-vertical) / 2) var(--lh-audit-padding-vertical);
 }
 .lh-warnings span {
   font-weight: bold;
@@ -1233,7 +1234,7 @@
 .lh-category-header {
   font-size: var(--category-header-font-size);
   min-height: var(--gauge-circle-size);
-  margin-bottom: var(--lh-section-vertical-padding);
+  margin-bottom: var(--lh-section-padding-vertical);
 }
 
 .lh-category-header .lh-score__gauge {
