@@ -359,6 +359,30 @@ message I18n {
 
     // This label is for a filter checkbox above a table of items
     string third_party_resources_label = 20;
+
+    string runtime_desktop_emulation = 21;
+    string runtime_mobile_emulation = 22;
+    string runtime_no_emulation = 23;
+    string runtime_settings_benchmark = 24;
+    string runtime_settings_CPU_throttling = 25;
+    string runtime_settings_device = 26;
+    string runtime_settings_fetch_time = 27;
+    string runtime_settings_network_throttling = 28;
+    string runtime_settings_title = 29;
+    string runtime_settings_UA = 30;
+    string runtime_settings_UA_net = 31;
+    string runtime_settings_Url = 32;
+    string runtime_unknown = 33;
+    string dropdown_copy_JSON = 34;
+    string dropdown_dark_theme = 35;
+    string dropdown_print_expanded = 36;
+    string dropdown_print_summary = 37;
+    string dropdown_save_gist = 38;
+    string dropdown_save_HTML = 39;
+    string dropdown_save_JSON = 40;
+    string dropdown_viewer = 41;
+    string footer_issue = 42;
+    string throttling_provided = 43;
   }
 
   // The message holding all formatted strings

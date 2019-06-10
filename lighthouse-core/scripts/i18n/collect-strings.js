@@ -28,6 +28,7 @@ const ignoredPathComponents = [
   '/test/',
   '-test.js',
   '-renderer.js',
+  '-ui-features.js',
 ];
 
 // @ts-ignore - @types/esprima lacks all of these
