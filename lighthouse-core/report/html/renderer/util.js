@@ -607,7 +607,7 @@ Util.UIStrings = {
   dropdownCopyJSON: 'Copy JSON',
   /** Option in a dropdown menu that saves the Lighthouse report HTML locally to the system as a '.html' file. */
   dropdownSaveHTML: 'Save as HTML',
-  /** Option in a dropdown menu that save the Lighthouse JSON object to the local system as a '.json' file. */
+  /** Option in a dropdown menu that saves the Lighthouse JSON object to the local system as a '.json' file. */
   dropdownSaveJSON: 'Save as JSON',
   /** Option in a dropdown menu that opens the current report in the Lighthouse Viewer Application. */
   dropdownViewer: 'Open in Viewer',
@@ -620,15 +620,15 @@ Util.UIStrings = {
   runtimeSettingsTitle: 'Runtime Settings',
   /** Label for a row in a table that shows the URL that was audited during a Lighthouse run. */
   runtimeSettingsUrl: 'URL',
-  /** Label for a row in a table that shows the time that a Lighthouse run was conducted. */
+  /** Label for a row in a table that shows the time at which a Lighthouse run was conducted; formatted as a timestamp, e.g. Jan 1, 1970 12:00 AM UTC. */
   runtimeSettingsFetchTime: 'Fetch Time',
-  /** Label for a row in a table that describes the kind of physical device that was emulated for the Lighthouse run.  Example values for row elements: 'No Emulation', 'Emulated Desktop', etc. */
+  /** Label for a row in a table that describes the kind of device that was emulated for the Lighthouse run.  Example values for row elements: 'No Emulation', 'Emulated Desktop', etc. */
   runtimeSettingsDevice: 'Device',
   /** Label for a row in a table that describes the network throttling conditions that were used during a Lighthouse run, if any. */
   runtimeSettingsNetworkThrottling: 'Network throttling',
   /** Label for a row in a table that describes the CPU throttling conditions that were used during a Lighthouse run, if any.*/
   runtimeSettingsCPUThrottling: 'CPU throttling',
-  /** Label for a row in a table that shows the User Agent that was detected on the Host machine of the Lighthouse run. */
+  /** Label for a row in a table that shows the User Agent that was detected on the Host machine that ran Lighthouse. */
   runtimeSettingsUA: 'User agent (host)',
   /** Label for a row in a table that shows the User Agent that was used to send out all network requests during the Lighthouse run. */
   runtimeSettingsUANet: 'User agent (network)',

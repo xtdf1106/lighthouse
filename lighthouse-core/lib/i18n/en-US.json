@@ -1425,7 +1425,7 @@
   },
   "lighthouse-core/report/html/renderer/util.js | dropdownSaveJSON": {
     "message": "Save as JSON",
-    "description": "Option in a dropdown menu that save the Lighthouse JSON object to the local system as a '.json' file."
+    "description": "Option in a dropdown menu that saves the Lighthouse JSON object to the local system as a '.json' file."
   },
   "lighthouse-core/report/html/renderer/util.js | dropdownViewer": {
     "message": "Open in Viewer",
@@ -1493,11 +1493,11 @@
   },
   "lighthouse-core/report/html/renderer/util.js | runtimeSettingsDevice": {
     "message": "Device",
-    "description": "Label for a row in a table that describes the kind of physical device that was emulated for the Lighthouse run.  Example values for row elements: 'No Emulation', 'Emulated Desktop', etc."
+    "description": "Label for a row in a table that describes the kind of device that was emulated for the Lighthouse run.  Example values for row elements: 'No Emulation', 'Emulated Desktop', etc."
   },
   "lighthouse-core/report/html/renderer/util.js | runtimeSettingsFetchTime": {
     "message": "Fetch Time",
-    "description": "Label for a row in a table that shows the time that a Lighthouse run was conducted."
+    "description": "Label for a row in a table that shows the time at which a Lighthouse run was conducted; formatted as a timestamp, e.g. Jan 1, 1970 12:00 AM UTC."
   },
   "lighthouse-core/report/html/renderer/util.js | runtimeSettingsNetworkThrottling": {
     "message": "Network throttling",
@@ -1509,7 +1509,7 @@
   },
   "lighthouse-core/report/html/renderer/util.js | runtimeSettingsUA": {
     "message": "User agent (host)",
-    "description": "Label for a row in a table that shows the User Agent that was detected on the Host machine of the Lighthouse run."
+    "description": "Label for a row in a table that shows the User Agent that was detected on the Host machine that ran Lighthouse."
   },
   "lighthouse-core/report/html/renderer/util.js | runtimeSettingsUANet": {
     "message": "User agent (network)",
