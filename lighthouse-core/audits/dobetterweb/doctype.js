@@ -9,9 +9,9 @@ const Audit = require('../audit.js');
 const i18n = require('../../lib/i18n/i18n.js');
 
 const UIStrings = {
-  /** Title of a Lighthouse audit that provides detail on the doctype of a site. This descriptive title is shown to users when the site's doctype is set to HTML. */
+  /** Title of a Lighthouse audit that provides detail on the doctype of a page. This descriptive title is shown to users when the pages's doctype is set to HTML. */
   title: 'Page has the HTML doctype',
-  /** Title of a Lighthouse audit that provides detail on the doctype of a site. This descriptive title is shown to users when the site's doctype is not set to HTML. */
+  /** Title of a Lighthouse audit that provides detail on the doctype of a page. This descriptive title is shown to users when the page's doctype is not set to HTML. */
   failureTitle: 'Page lacks the HTML doctype, thus triggering quirks-mode',
   /** Description of a Lighthouse audit that tells the user why they should define an HTML doctype. This is displayed after a user expands the section to see more. No character length limits. 'Learn More' becomes link text to additional documentation. */
   description: 'Specifying a doctype prevents the browser ' +

@@ -16,9 +16,9 @@ const URL = require('../lib/url-shim.js');
 const i18n = require('../lib/i18n/i18n.js');
 
 const UIStrings = {
-  /** Title of a Lighthouse audit that provides detail on the aspect ratios of all images on a site. This descriptive title is shown to users when all images use correct aspect ratios. */
+  /** Title of a Lighthouse audit that provides detail on the aspect ratios of all images on a page. This descriptive title is shown to users when all images use correct aspect ratios. */
   title: 'Displays images with correct aspect ratio',
-  /** Title of a Lighthouse audit that provides detail on the aspect ratios of all images on a site. This descriptive title is shown to users when not all images use correct aspect ratios. */
+  /** Title of a Lighthouse audit that provides detail on the aspect ratios of all images on a page. This descriptive title is shown to users when not all images use correct aspect ratios. */
   failureTitle: 'Displays images with incorrect aspect ratio',
   /** Description of a Lighthouse audit that tells the user why they should maintain the correct aspect ratios for all images. This is displayed after a user expands the section to see more. No character length limits. 'Learn More' becomes link text to additional documentation. */
   description: 'Image display dimensions should match natural aspect ratio. ' +

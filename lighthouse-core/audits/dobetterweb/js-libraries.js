@@ -14,7 +14,7 @@ const Audit = require('../audit.js');
 const i18n = require('../../lib/i18n/i18n.js');
 
 const UIStrings = {
-  /** Title of a Lighthouse audit that provides detail on the Javascript libraries that are used on a site. */
+  /** Title of a Lighthouse audit that provides detail on the Javascript libraries that are used on a page. */
   title: 'Detected JavaScript libraries',
   /** Description of a Lighthouse audit that tells the user what this audit is detecting. This is displayed after a user expands the section to see more. No character length limits. */
   description: 'All front-end JavaScript libraries detected on the page.',

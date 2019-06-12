@@ -19,10 +19,10 @@ const snykDatabase = require('../../../third-party/snyk/snapshot.json');
 const i18n = require('../../lib/i18n/i18n.js');
 
 const UIStrings = {
-  /** Title of a Lighthouse audit that provides detail on Javascript libraries the site uses. This descriptive title is shown to users when all Javascript libraries are free of known security vulnerabilities. */
+  /** Title of a Lighthouse audit that provides detail on Javascript libraries the page uses. This descriptive title is shown to users when all Javascript libraries are free of known security vulnerabilities. */
   title: 'Avoids front-end JavaScript libraries' +
     ' with known security vulnerabilities',
-  /** Title of a Lighthouse audit that provides detail on Javascript libraries the site uses. This descriptive title is shown to users when some detected Javascript libraries have known security vulnerabilities. */
+  /** Title of a Lighthouse audit that provides detail on Javascript libraries the page uses. This descriptive title is shown to users when some detected Javascript libraries have known security vulnerabilities. */
   failureTitle: 'Includes front-end JavaScript libraries' +
     ' with known security vulnerabilities',
   /** Description of a Lighthouse audit that tells the user why they should be concerned about the third party Javascript libraries that they use. This is displayed after a user expands the section to see more. No character length limits. 'Learn More' becomes link text to additional documentation. */
