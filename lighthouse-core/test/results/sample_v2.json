@@ -1471,7 +1471,7 @@
     "third-party-summary": {
       "id": "third-party-summary",
       "title": "Third-Party Usage",
-      "description": "Third-party code can significantly impact load performance. Limit the number of redundant third-party providers and only load third-party code after your page has primarily finished loading. [Learn more](https://developers.google.com/web/fundamentals/performance/optimizing-content-efficiency/loading-third-party-javascript/).",
+      "description": "Third-party code can significantly impact load performance. Limit the number of redundant third-party providers and try to load third-party code after your page has primarily finished loading. [Learn more](https://developers.google.com/web/fundamentals/performance/optimizing-content-efficiency/loading-third-party-javascript/).",
       "score": null,
       "scoreDisplayMode": "informative",
       "displayValue": "1 Third-Party Found",
@@ -1481,7 +1481,7 @@
           {
             "key": "entity",
             "itemType": "link",
-            "text": "URL"
+            "text": "Third-Party"
           },
           {
             "key": "transferSize",
@@ -5272,7 +5272,6 @@
         "audits[bootup-time].details.headings[0].text",
         "audits[network-rtt].details.headings[0].text",
         "audits[network-server-latency].details.headings[0].text",
-        "audits[third-party-summary].details.headings[0].text",
         "audits[uses-long-cache-ttl].details.headings[0].text",
         "audits[total-byte-weight].details.headings[0].text",
         "audits[render-blocking-resources].details.headings[0].label",
@@ -5421,6 +5420,9 @@
           },
           "path": "audits[third-party-summary].displayValue"
         }
+      ],
+      "lighthouse-core/audits/third-party-summary.js | columnThirdParty": [
+        "audits[third-party-summary].details.headings[0].text"
       ],
       "lighthouse-core/lib/i18n/i18n.js | columnSize": [
         "audits[third-party-summary].details.headings[1].text",

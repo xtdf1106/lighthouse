@@ -2559,13 +2559,13 @@
             "title": "Does not set an address-bar theme color"
         },
         "third-party-summary": {
-            "description": "Third-party code can significantly impact load performance. Limit the number of redundant third-party providers and only load third-party code after your page has primarily finished loading. [Learn more](https://developers.google.com/web/fundamentals/performance/optimizing-content-efficiency/loading-third-party-javascript/).",
+            "description": "Third-party code can significantly impact load performance. Limit the number of redundant third-party providers and try to load third-party code after your page has primarily finished loading. [Learn more](https://developers.google.com/web/fundamentals/performance/optimizing-content-efficiency/loading-third-party-javascript/).",
             "details": {
                 "headings": [
                     {
                         "itemType": "link",
                         "key": "entity",
-                        "text": "URL"
+                        "text": "Third-Party"
                     },
                     {
                         "granularity": 1.0,
