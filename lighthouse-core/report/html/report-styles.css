@@ -36,10 +36,10 @@
   --text-font-family: Roboto, Helvetica, Arial, sans-serif;
   --monospace-font-family: 'Roboto Mono', 'Menlo', 'dejavu sans mono', 'Consolas', 'Lucida Console', monospace;
   --report-background-color: #fff;
-  --report-text-color: var(--color-black-900);
+  --report-text-color: var(--color-gray-900);
   --report-font-size: 16px;
   --report-line-height: 24px;
-  --snippet-color: hsl(206, 6%, 25%);
+  --snippet-color: var(--color-gray-800);
   --category-header-font-size: 20px;
   --header-line-height: 24px;
   --audit-explanation-line-height: 16px;
@@ -47,10 +47,8 @@
   --footer-padding-vertical: 16px;
   --audit-margin-horizontal: 5px;
   --stackpack-padding-horizontal: 10px;
-  --secondary-text-color: var(--color-black-800);
+  --secondary-text-color: var(--color-gray-800);
   --informative-color: var(--color-blue-900);
-  --color-gray-600: #757575;
-  --color-gray-50: #FAFAFA;
   --snippet-background-color: var(--color-gray-50);
   --report-secondary-border-color: #ebebeb;
   --chevron-line-stroke: hsl(216, 5%, 39%);
@@ -70,14 +68,15 @@
 
   /* Palette using Material Design Colors
    * https://www.materialui.co/colors */
-  --color-black-100: #F5F5F5;
-  --color-black-200: #E0E0E0;
-  --color-black-400: #BDBDBD;
-  --color-black-500: #9E9E9E;
-  --color-black-600: #757575;
-  --color-black-800: #424242;
-  --color-black-900: #212121;
-  --color-black: #000000;
+  --color-gray-50: #FAFAFA;
+  --color-gray-100: #F5F5F5;
+  --color-gray-200: #E0E0E0;
+  --color-gray-400: #BDBDBD;
+  --color-gray-500: #9E9E9E;
+  --color-gray-600: #757575;
+  --color-gray-800: #424242;
+  --color-gray-900: #212121;
+  --color-gray: #000000;
   --color-blue-A700: #2962FF;
   --color-green-700: #018642;
   --color-green: #0CCE6B; /* TODO: this is not a MD color */
@@ -92,7 +91,7 @@
   --color-teal-600: #00897B;
 
   --audit-group-margin-bottom: 40px;
-  --env-item-background-color: var(--color-black-100);
+  --env-item-background-color: var(--color-gray-100);
   --env-name-min-width: 220px;
   --env-item-padding: 10px 0px;
   --env-item-font-size: 28px;
@@ -123,11 +122,11 @@
   --scorescale-height: 6px;
   --scorescale-width: 18px;
   --category-padding: 40px;
-  --topbar-background-color: var(--color-black-100);
+  --topbar-background-color: var(--color-gray-100);
   --topbar-height: 32px;
   --topbar-logo-size: 24px;
   --topbar-padding: 0 8px;
-  --metrics-toggle-background-color: var(--color-black-200);
+  --metrics-toggle-background-color: var(--color-gray-200);
 
   --color-average-secondary: var(--color-orange-700);
   --color-average: var(--color-orange);
@@ -168,18 +167,18 @@
     --color-teal-600: var(--color-cyan-500);
     --color-orange-700: var(--color-orange);
 
-    --color-black-200: var(--color-black-800);
-    --color-black-400: var(--color-black-600);
-    --color-black-600: var(--color-black-500);
+    --color-gray-200: var(--color-gray-800);
+    --color-gray-400: var(--color-gray-600);
+    --color-gray-600: var(--color-gray-500);
 
-    --topbar-background-color: var(--color-black);
-    --plugin-badge-background-color: var(--color-black-800);
-    --env-item-background-color: var(--color-black);
-    --report-secondary-border-color: var(--color-black-200);
+    --topbar-background-color: var(--color-gray);
+    --plugin-badge-background-color: var(--color-gray-800);
+    --env-item-background-color: var(--color-gray);
+    --report-secondary-border-color: var(--color-gray-200);
 
-    --report-background-color: var(--color-black-900);
-    --report-text-color: var(--color-black-100);
-    --secondary-text-color: var(--color-black-400);
+    --report-background-color: var(--color-gray-900);
+    --report-text-color: var(--color-gray-100);
+    --secondary-text-color: var(--color-gray-400);
 
     --plugin-icon-url: var(--plugin-icon-url-dark);
 
@@ -442,12 +441,12 @@
 
 .lh-audit--manual .lh-audit__display-text,
 .lh-audit--notapplicable .lh-audit__display-text {
-  color: var(--color-black-600);
+  color: var(--color-gray-600);
 }
 .lh-audit--manual .lh-audit__score-icon,
 .lh-audit--notapplicable .lh-audit__score-icon {
   border-radius: 100%;
-  background: var(--color-black-400);
+  background: var(--color-gray-400);
 }
 
 .lh-audit--error .lh-audit__score-icon {
@@ -455,13 +454,13 @@
 }
 
 .lh-audit--informative .lh-audit__display-text {
-  color: var(--color-black-600);
+  color: var(--color-gray-600);
 }
 
 .lh-audit--informative .lh-audit__score-icon {
   border: none;
   border-radius: 100%;
-  background: var(--color-black-400);
+  background: var(--color-gray-400);
 }
 
 .lh-audit__description,
@@ -905,7 +904,7 @@
 }
 
 .lh-audit-group__itemcount {
-  color: var(--color-black-600);
+  color: var(--color-gray-600);
   font-weight: bold;
 }
 .lh-audit-group__header .lh-chevron {
@@ -929,12 +928,12 @@
 
 .lh-audit-group__header span.lh-audit-group__itemcount {
   font-weight: bold;
-  color: var(--color-black-600);
+  color: var(--color-gray-600);
 }
 
 .lh-audit-group__header span.lh-audit-group__description {
   font-weight: 500;
-  color: var(--color-black-600);
+  color: var(--color-gray-600);
 }
 .lh-audit-group__header span.lh-audit-group__description::before {
   content: '—';
@@ -1165,7 +1164,7 @@
 .lh-scorescale {
   display: inline-flex;
   margin: 12px auto 0 auto;
-  border: 1px solid var(--color-black-200);
+  border: 1px solid var(--color-gray-200);
   border-radius: 20px;
   padding: 8px 8px;
 }
@@ -1217,11 +1216,11 @@
 }
 
 .lh-category-wrapper {
-  border-bottom: 1px solid var(--color-black-200);
+  border-bottom: 1px solid var(--color-gray-200);
 }
 
 .lh-category-wrapper:first-of-type {
-  border-top: 1px solid var(--color-black-200);
+  border-top: 1px solid var(--color-gray-200);
 }
 
 /* section hash link jump should preserve fixed header
@@ -1309,7 +1308,7 @@
 
 .lh-table thead th {
   font-weight: normal;
-  color: var(--color-black-600);
+  color: var(--color-gray-600);
   /* See text-wrapping comment on .lh-container. */
   word-break: normal;
 }
