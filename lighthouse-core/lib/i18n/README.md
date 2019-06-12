@@ -30,10 +30,8 @@ It is the [Chrome Standard](https://developer.chrome.com/extensions/i18n-message
         "content": "A string to be placed within the message.",
         "example": "Translator-aimed example of the placeholder string."
       },
-      ...
     }
-  },
-  ...
+  }
 }
 ```
 
@@ -74,12 +72,12 @@ Complex example:
     ```Javascript
     /** (Message Description goes here) Description of a Lighthouse audit that tells the user *why* they should minify (remove whitespace) the page's CSS code. This is displayed after a user expands the section to see more. No character length limits. 'Learn More' becomes link text to additional documentation. */
     description: {
-      message: 'Minifying CSS files can reduce network payload sizes. {link_start}Learn More!!!{link_end}. This audit took {milliseconds} ms.',
+      message: 'Minifying CSS files can reduce network payload sizes. {LINK_START}Learn More!!!{LINK_START}. This audit took {MILLISECONDS} ms.',
       placeholders: {
-        link_start: '[->',
-        link_end: '](https://developers.google.com/web/tools/lighthouse/audits/minify-css)',
+        LINK_START: '[',
+        LINK_START: '](https://developers.google.com/web/tools/lighthouse/audits/minify-css)',
         /** 520 (Placeholder examples go here) */
-        milliseconds: '{timeInMs, number, milliseconds}',
+        MILLISECONDS: '{timeInMs, number, milliseconds}',
       },
     },
     ```
@@ -87,36 +85,53 @@ Complex example:
 2. string when exported to locale.json file (en-US)
     ```json
     "lighthouse-core/audits/byte-efficiency/unminified-css.js | description": {
-      "message": "Minifying CSS files can reduce network payload sizes. $link_start$Learn More!!!$link_end$. This audit took $milliseconds$ ms.",
+      "message": "Minifying CSS files can reduce network payload sizes. $LINK_START$Learn More!!!$LINK_START$. This audit took $MILLISECONDS$ ms.",
       "description": "(Message Description goes here) Description of a Lighthouse audit that tells the user *why* they should minify (remove whitespace) the page's CSS code. This is displayed after a user expands the section to see more. No character length limits. 'Learn More' becomes link text to additional documentation.",
       "placeholders": {
-        "link_start": {
-          "content": "[->"
+        "LINK_START": {
+          "content": "["
         },
-        "link_end": {
+        "LINK_START": {
           "content": "](https://developers.google.com/web/tools/lighthouse/audits/minify-css)"
         },
-        "milliseconds": {
+        "MILLISECONDS": {
           "content": "{timeInMs, number, milliseconds}",
           "example": "520 (Placeholder examples go here)"
         }
       }
     },
     ```
+    1. string when exported back from translators locale.json file (everything but en-US)
+        ```json
+        "lighthouse-core/audits/byte-efficiency/unminified-css.js | description": {
+          "message": "La réduction des fichiers CSS peut réduire la taille des charges utiles de réseau. $LINK_START$En savoir plus$LINK_START$. Cet audit a pris $MILLISECONDS ms",
+          "placeholders": {
+            "LINK_START": {
+              "content": "["
+            },
+            "LINK_START": {
+              "content": "](https://developers.google.com/web/tools/lighthouse/audits/minify-css)"
+            },
+            "MILLISECONDS": {
+              "content": "{timeInMs, number, milliseconds}",
+            }
+          }
+        },
+        ```
 
 3. string when read by i18n.js (initially)
     ```Javascript
-    message = "Minifying CSS files can reduce network payload sizes. $link_start$Learn More!!!$link_end$. This audit took $milliseconds$ ms."
+    message = "Minifying CSS files can reduce network payload sizes. $LINK_START$Learn More!!!$LINK_END$. This audit took $MILLISECONDS$ ms."
     sent_values = {timeInMs: 10}
     ```
 
 4. string when placeholders replaced (with the static content)
     ```Javascript
-    message = "Minifying CSS files can reduce network payload sizes. [->Learn More!!!](https://developers.google.com/web/tools/lighthouse/audits/minify-css). This audit took {timeInMs, number, milliseconds} ms."
+    message = "Minifying CSS files can reduce network payload sizes. [Learn More!!!](https://developers.google.com/web/tools/lighthouse/audits/minify-css). This audit took {timeInMs, number, milliseconds} ms."
     sent_values = {timeInMs: 10}
     ```
 
 5. string when ICU syntax has been replaced (with the sent_values)
     ```Javascript
-    message = "Minifying CSS files can reduce network payload sizes. [->Learn More!!!](https://developers.google.com/web/tools/lighthouse/audits/minify-css). This audit took 10 ms."
+    message = "Minifying CSS files can reduce network payload sizes. [Learn More!!!](https://developers.google.com/web/tools/lighthouse/audits/minify-css). This audit took 10 ms."
     ```
