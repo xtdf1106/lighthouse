@@ -17,9 +17,9 @@ const NetworkRecords = require('../../computed/network-records.js');
 const i18n = require('../../lib/i18n/i18n.js');
 
 const UIStrings = {
-  /** Title of a Lighthouse audit that provides detail on whether a webpage uses HTTP/2 for resources it requests over the network. This descriptive title is shown to users when the page uses HTTP/2 for its requests. */
+  /** Title of a Lighthouse audit that provides detail on whether the webpage uses HTTP/2 for resources it requests over the network. This descriptive title is shown to users when the page uses HTTP/2 for its requests. */
   title: 'Uses HTTP/2 for its own resources',
-  /** Title of a Lighthouse audit that provides detail on whether a webpage uses HTTP/2 for resources it requests over the network. This descriptive title is shown to users when the page does not use HTTP/2 for its requests. */
+  /** Title of a Lighthouse audit that provides detail on whether the webpage uses HTTP/2 for resources it requests over the network. This descriptive title is shown to users when the page does not use HTTP/2 for its requests. */
   failureTitle: 'Does not use HTTP/2 for all of its resources',
   /** Description of a Lighthouse audit that tells the user why they should use HTTP/2. This is displayed after a user expands the section to see more. No character length limits. 'Learn More' becomes link text to additional documentation. */
   description: 'HTTP/2 offers many benefits over HTTP/1.1, including binary headers, ' +

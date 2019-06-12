@@ -10,9 +10,9 @@ const Audit = require('../audit.js');
 const i18n = require('../../lib/i18n/i18n.js');
 
 const UIStrings = {
-  /** Title of a Lighthouse audit that provides detail on the cross-origin links that a page contains, and whether they can be considered safe. This descriptive title is shown to users when all links are safe. */
+  /** Title of a Lighthouse audit that provides detail on the cross-origin links that the page contains, and whether they can be considered safe. This descriptive title is shown to users when all links are safe. */
   title: 'Links to cross-origin destinations are safe',
-  /** Title of a Lighthouse audit that provides detail on the cross-origin links that a page contains, and whether they can be considered safe. This descriptive title is shown to users when not all links can be considered safe. */
+  /** Title of a Lighthouse audit that provides detail on the cross-origin links that the page contains, and whether they can be considered safe. This descriptive title is shown to users when not all links can be considered safe. */
   failureTitle: 'Links to cross-origin destinations are unsafe',
   /** Description of a Lighthouse audit that tells the user why and how they should secure cross-origin links. This is displayed after a user expands the section to see more. No character length limits. 'Learn More' becomes link text to additional documentation. */
   description: 'Add `rel="noopener"` or `rel="noreferrer"` to any external links to improve ' +
