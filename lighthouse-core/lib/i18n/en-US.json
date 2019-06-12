@@ -1529,11 +1529,11 @@
   },
   "lighthouse-core/lib/i18n/i18n.js | columnCacheTTL": {
     "message": "Cache TTL",
-    "description": "Label for the TTL column in data tables, entries will be the time to live value of the cache header on a web resource"
+    "description": "Label for a column in a data table; entries will be the time to live value of the cache header on a web resource."
   },
   "lighthouse-core/lib/i18n/i18n.js | columnLocation": {
     "message": "Location",
-    "description": "Label for the location column in data tables, entries will be the location of a specific entity, the entity may be a file in a directory, or a place in the world, it is generic"
+    "description": "Label for a column in a data table; entries will be the location of a specific line of code in a file, in the format \"line: 102\"."
   },
   "lighthouse-core/lib/i18n/i18n.js | columnRequests": {
     "message": "Requests",
@@ -1545,11 +1545,11 @@
   },
   "lighthouse-core/lib/i18n/i18n.js | columnSize": {
     "message": "Size",
-    "description": "Label for the size column in data tables, entries will be the size of a web resource in kilobytes"
+    "description": "Label for a column in a data table; entries will be the size of a web resource in kilobytes."
   },
   "lighthouse-core/lib/i18n/i18n.js | columnTimeSpent": {
     "message": "Time Spent",
-    "description": "Label for the time spent column in data tables, entries will be the number of milliseconds spent during a particular activity"
+    "description": "Label for a column in a data table; entries will be the number of milliseconds spent during a particular activity."
   },
   "lighthouse-core/lib/i18n/i18n.js | columnTransferSize": {
     "message": "Transfer Size",
@@ -1557,15 +1557,15 @@
   },
   "lighthouse-core/lib/i18n/i18n.js | columnURL": {
     "message": "URL",
-    "description": "Label for the URL column in data tables, entries will be the URL of a web resource"
+    "description": "Label for a column in a data table; entries will be the URL of a web resource"
   },
   "lighthouse-core/lib/i18n/i18n.js | columnWastedBytes": {
     "message": "Potential Savings",
-    "description": "Label for the wasted bytes column in data tables, entries will be the number of kilobytes the user could reduce their page by if they implemented the suggestions"
+    "description": "Label for a column in a data table; entries will be the number of kilobytes the user could reduce their page by if they implemented the suggestions."
   },
   "lighthouse-core/lib/i18n/i18n.js | columnWastedMs": {
     "message": "Potential Savings",
-    "description": "Label for the wasted bytes column in data tables, entries will be the number of milliseconds the user could reduce page load by if they implemented the suggestions"
+    "description": "Label for a column in a data table; entries will be the number of milliseconds the user could reduce page load by if they implemented the suggestions."
   },
   "lighthouse-core/lib/i18n/i18n.js | displayValueByteSavings": {
     "message": "Potential savings of {wastedBytes, number, bytes} KB",
