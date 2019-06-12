@@ -21,12 +21,12 @@ const UIStrings = {
       'in on the communications between your app and your users, and is a prerequisite for ' +
       'HTTP/2 and many new web platform APIs. ' +
       '[Learn more](https://developers.google.com/web/tools/lighthouse/audits/https).',
-  /** [ICU Syntax] Label for the audit identifying the number of insecure requests found. */
+  /** [ICU Syntax] Label identifying the number of insecure network requests found by an audit of a web page. */
   displayValue: `{itemCount, plural,
     =1 {1 insecure request found}
     other {# insecure requests found}
     }`,
-  /** Table column header for the URL's of non-HTTPS requests. */
+  /** Label for a column in a data table; entries in the column will be the URLs of insecure (non-HTTPS) network requests. */
   columnInsecureURL: 'Insecure URL',
 };
 

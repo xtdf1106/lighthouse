@@ -36,9 +36,9 @@ const UIStrings = {
     }`,
   /** Table column header for the version of the Javascript library found. */
   columnVersion: 'Library Version',
-  /** Table column header for the count of vulnerabilities found. */
+  /** Table column header for the count of vulnerabilities found within a JavaSscript library. */
   columnVuln: 'Vulnerability Count',
-  /** Table column header for the severity of the vulnerabilities found in the detected Javascript libraries. */
+  /** Table column header for the severity of the vulnerabilities found within a Javascript library. */
   columnSeverity: 'Highest Severity',
 };
 

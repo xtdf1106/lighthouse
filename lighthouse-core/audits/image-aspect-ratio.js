@@ -25,9 +25,9 @@ const UIStrings = {
     '[Learn more](https://developers.google.com/web/tools/lighthouse/audits/aspect-ratio).',
   /** Warning that the sizing information cannot be collected for an image. */
   warningCompute: 'Invalid image sizing information {url}',
-  /** Table column header for the displayed aspect ratio of an image. */
+  /**  Label for a column in a data table; entries in the column will be the numeric aspect ratio of an image as displayed in a web page. */
   columnDisplayed: 'Aspect Ratio (Displayed)',
-  /** Table column header for the actual aspect ratio of an image. */
+  /**  Label for a column in a data table; entries in the column will be the numeric aspect ratio of the raw (actual) image. */
   columnActual: 'Aspect Ratio (Actual)',
 };
 

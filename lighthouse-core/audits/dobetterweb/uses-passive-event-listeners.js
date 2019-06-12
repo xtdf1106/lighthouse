@@ -15,11 +15,11 @@ const ViolationAudit = require('../violation-audit.js');
 const i18n = require('../../lib/i18n/i18n.js');
 
 const UIStrings = {
-  /** Title of a Lighthouse audit that provides detail on the site's use of passive listeners used to improve the scrolling performance of the site. This descriptive title is shown to users when the site does use passive listeners. */
+  /** Title of a Lighthouse audit that provides detail on the site's use of passive event listeners used to improve the scrolling performance of the site. This descriptive title is shown to users when the site does use passive listeners. */
   title: 'Uses passive listeners to improve scrolling performance',
-  /** Title of a Lighthouse audit that provides detail on the site's use of passive listeners used to improve the scrolling performance of the site. This descriptive title is shown to users when the site does not use passive listeners. */
+  /** Title of a Lighthouse audit that provides detail on the site's use of passive event listeners used to improve the scrolling performance of the site. This descriptive title is shown to users when the site does not use passive listeners. */
   failureTitle: 'Does not use passive listeners to improve scrolling performance',
-  /** Description of a Lighthouse audit that tells the user why they should use passive listeners on the site. This is displayed after a user expands the section to see more. No character length limits. 'Learn More' becomes link text to additional documentation. */
+  /** Description of a Lighthouse audit that tells the user why they should use passive event listeners on the site. This is displayed after a user expands the section to see more. No character length limits. 'Learn More' becomes link text to additional documentation. */
   description: 'Consider marking your touch and wheel event listeners as `passive` ' +
       'to improve your page\'s scroll performance. ' +
       '[Learn more](https://developers.google.com/web/tools/lighthouse/audits/passive-event-listeners).',

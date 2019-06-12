@@ -17,19 +17,19 @@ const NetworkRecords = require('../../computed/network-records.js');
 const i18n = require('../../lib/i18n/i18n.js');
 
 const UIStrings = {
-  /** Title of a Lighthouse audit that provides detail on whether the site uses HTTP/2 for its requested resources. This descriptive title is shown to users when the site uses HTTP/2 for its requests. */
+  /** Title of a Lighthouse audit that provides detail on whether a website uses HTTP/2 for resources it requests over the network. This descriptive title is shown to users when the site uses HTTP/2 for its requests. */
   title: 'Uses HTTP/2 for its own resources',
-  /** Title of a Lighthouse audit that provides detail on whether the site uses HTTP/2 for its requested resources. This descriptive title is shown to users when the site does not use HTTP/2 for its requests. */
+  /** Title of a Lighthouse audit that provides detail on whether a website uses HTTP/2 for resources it requests over the network. This descriptive title is shown to users when the site does not use HTTP/2 for its requests. */
   failureTitle: 'Does not use HTTP/2 for all of its resources',
   /** Description of a Lighthouse audit that tells the user why they should use HTTP/2. This is displayed after a user expands the section to see more. No character length limits. 'Learn More' becomes link text to additional documentation. */
   description: 'HTTP/2 offers many benefits over HTTP/1.1, including binary headers, ' +
       'multiplexing, and server push. [Learn more](https://developers.google.com/web/tools/lighthouse/audits/http2).',
-  /** [ICU Syntax] Label for the audit identifying the number of requests that were not served with HTTP/2. */
+  /** [ICU Syntax] Label identifying the number of network requests that were not served with HTTP/2. */
   displayValue: `{itemCount, plural,
     =1 {1 request not served via HTTP/2}
     other {# requests not served via HTTP/2}
     }`,
-  /** Table column header for the HTTP Protocol used in a request. */
+  /**  Label for a column in a data table; entries in the column will be the HTTP Protocol used to make a network request. */
   columnProtocol: 'Protocol',
 };
 

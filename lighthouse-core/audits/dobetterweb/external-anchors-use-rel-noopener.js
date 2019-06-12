@@ -18,10 +18,10 @@ const UIStrings = {
   description: 'Add `rel="noopener"` or `rel="noreferrer"` to any external links to improve ' +
     'performance and prevent security vulnerabilities. ' +
     '[Learn more](https://developers.google.com/web/tools/lighthouse/audits/noopener).',
-  /** Warning that some links' destinations cannot be determined and therefor neither can their safety. */
+  /** Warning that some links' destinations cannot be determined and therefore the audit cannot evaluate the link's safety. */
   warning: 'Unable to determine the destination for anchor ({anchorHTML}). ' +
     'If not used as a hyperlink, consider removing target=_blank.',
-  /** Table column header for the target of a URL. */
+  /** Table column header for the target attribute of the link. Each entry is either an empty string or a string like `_blank`. */
   columnTarget: 'Target',
   /** Table column header for the `rel=` value from the link. */
   columnRel: 'Rel',
