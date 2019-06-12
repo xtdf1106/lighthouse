@@ -100,8 +100,45 @@ function collectAllStringsInDir(dir, strings = {}) {
 /**
  * @param {Record<string, ICUMessageDefn>} strings
  */
-function writeEnStringsToLocaleFormat(strings) {
-  const fullPath = path.join(LH_ROOT, `lighthouse-core/lib/i18n/en-US.json`);
+function createPsuedoLocaleStrings(strings) {
+  /** @type {Record<string, ICUMessageDefn>} */
+  const psuedoLocalizedStrings = {};
+  for (const [key, defn] of Object.entries(strings)) {
+    const message = defn.message;
+    const psuedoLocalizedString = [];
+    let braceCount = 0;
+    let useHatForAccentMark = true;
+    for (let i = 0; i < message.length; i++) {
+      const char = message.substr(i, 1);
+      psuedoLocalizedString.push(char);
+      // Don't touch the characters inside braces
+      if (char === '{') {
+        braceCount++;
+      } else if (char === '}') {
+        braceCount--;
+      // Hack to ignore the nested {plural{ICU}braces}.
+      // ex: "{itemCount, plural, =1 {1 l̂ín̂ḱ f̂óûńd̂} other {# ĺîńk̂ś f̂óûńd̂}}"
+      // ex: "{itemCount, plural, =1 {1 l̂ín̂ḱ {nested_replacement} f̂óûńd̂} other {# ĺîńk̂ś {nested_replacement} f̂óûńd̂}}"
+      } else if (braceCount % 2 === 0) {
+        if (/[a-z]/i.test(char)) {
+          psuedoLocalizedString.push(useHatForAccentMark ? `\u0302` : `\u0301`);
+          useHatForAccentMark = !useHatForAccentMark;
+        }
+      }
+    }
+
+    psuedoLocalizedStrings[key] = {message: psuedoLocalizedString.join('')};
+  }
+
+  return psuedoLocalizedStrings;
+}
+
+/**
+ * @param {string} locale
+ * @param {Record<string, ICUMessageDefn>} strings
+ */
+function writeStringsToLocaleFormat(locale, strings) {
+  const fullPath = path.join(LH_ROOT, `lighthouse-core/lib/i18n/${locale}.json`);
   /** @type {Record<string, ICUMessageDefn>} */
   const output = {};
   const sortedEntries = Object.entries(strings).sort(([keyA], [keyB]) => keyA.localeCompare(keyB));
@@ -113,10 +150,12 @@ function writeEnStringsToLocaleFormat(strings) {
 }
 
 const strings = collectAllStringsInDir(path.join(LH_ROOT, 'lighthouse-core'));
+const psuedoLocalizedStrings = createPsuedoLocaleStrings(strings);
 console.log('Collected from LH core!');
 
 collectAllStringsInDir(path.join(LH_ROOT, 'stack-packs/packs'), strings);
 console.log('Collected from Stack Packs!');
 
-writeEnStringsToLocaleFormat(strings);
+writeStringsToLocaleFormat('en-US', strings);
+writeStringsToLocaleFormat('locales/en-XA-local', psuedoLocalizedStrings);
 console.log('Written to disk!');
