@@ -134,31 +134,24 @@ class DetailsRenderer {
    * @return {Element}
    */
   _renderLink(details) {
+    const allowedProtocols = ['https:', 'http:'];
+    let url;
     try {
-      const allowedProtocols = ['https:', 'http:'];
-      const url = new URL(details.url);
-      if (!allowedProtocols.includes(url.protocol)) {
-        // Fall back to just the link text if protocol not allowed.
-        return this._renderText(details.text);
-      }
+      url = new URL(details.url);
+    } catch (_) {}
 
-      const a = this._dom.createElement('a');
-      a.rel = 'noopener';
-      a.target = '_blank';
-      a.textContent = details.text;
-      a.href = url.href;
-
-      return a;
-    } catch (err) {
-      if (err.message.startsWith(`Failed to construct 'URL'`) ||
-          err.message.includes('Invalid URL')) {
-        // Fall back to text if URL was invalid.
-        console.warn(`Link details URL "${details.url}" was invalid.`); // eslint-disable-line no-console
-        return this._renderText(details.text);
-      }
-
-      throw err;
+    if (!url || !allowedProtocols.includes(url.protocol)) {
+      // Fall back to just the link text if invalid or protocol not allowed.
+      return this._renderText(details.text);
     }
+
+    const a = this._dom.createElement('a');
+    a.rel = 'noopener';
+    a.target = '_blank';
+    a.textContent = details.text;
+    a.href = url.href;
+
+    return a;
   }
 
   /**

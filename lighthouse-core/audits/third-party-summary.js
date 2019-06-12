@@ -18,8 +18,10 @@ const UIStrings = {
   title: 'Third-Party Usage',
   /** Description of a Lighthouse audit that identifies the code on the page that the user doesn't control. This is displayed after a user expands the section to see more. No character length limits. 'Learn More' becomes link text to additional documentation. */
   description: 'Third-party code can significantly impact load performance. ' +
-    'Limit the number of redundant third-party providers and only load third-party code after ' +
+    'Limit the number of redundant third-party providers and try to load third-party code after ' +
     'your page has primarily finished loading. [Learn more](https://developers.google.com/web/fundamentals/performance/optimizing-content-efficiency/loading-third-party-javascript/).',
+  /** Label for a table column that displays the name of a third-party provider that potentially links to their website. */
+  columnThirdParty: 'Third-Party',
   /** Label for a table column that displays how much time each row spent executing on the main thread, entries will be the number of milliseconds spent. */
   columnMainThreadTime: 'Main Thread Time',
   /** Summary text for the result of a Lighthouse audit that identifies the code on the page that the user doesn't control. This text summarizes the number of distinct entities that were found on the page. */
@@ -139,7 +141,7 @@ class ThirdPartySummary extends Audit {
 
     /** @type {LH.Audit.Details.Table['headings']} */
     const headings = [
-      {key: 'entity', itemType: 'link', text: str_(i18n.UIStrings.columnURL)},
+      {key: 'entity', itemType: 'link', text: str_(UIStrings.columnThirdParty)},
       {key: 'transferSize', granularity: 1, itemType: 'bytes',
         text: str_(i18n.UIStrings.columnSize)},
       {key: 'mainThreadTime', granularity: 1, itemType: 'ms',
