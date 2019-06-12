@@ -51,7 +51,7 @@
   --informative-color: var(--color-blue-900);
   --snippet-background-color: var(--color-gray-50);
   --report-secondary-border-color: #ebebeb;
-  --chevron-line-stroke: hsl(216, 5%, 39%);
+  --chevron-line-stroke: var(--color-gray-600);
   --report-width: calc(60 * var(--report-font-size));
   --report-min-width: 400px;
   --report-header-height: 161px;
