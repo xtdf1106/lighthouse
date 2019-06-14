@@ -107,17 +107,17 @@
   --pwa-icon-margin: 0 6px 0 -2px;
   --pwa-icon-size: var(--topbar-logo-size);
   --score-container-padding: 8px;
-  --score-gauge-wrapper-width: 148px;
-  --score-gauge-percentage-font-size-big: 38px;
-  --score-gauge-percentage-font-size: 28px;
+  --gauge-wrapper-width: 148px;
+  --gauge-percentage-font-size-big: 38px;
+  --gauge-percentage-font-size: 28px;
   --score-icon-margin-left: 4px;
   --score-icon-margin-right: 12px;
   --score-icon-margin: 0 var(--score-icon-margin-right) 0 var(--score-icon-margin-left);
   --score-icon-size: 12px;
-  --score-gauge-label-font-size-big: 28px;
-  --score-gauge-label-font-size: 20px;
-  --score-gauge-label-line-height-big: 36px;
-  --score-gauge-label-line-height: 26px;
+  --gauge-label-font-size-big: 28px;
+  --gauge-label-font-size: 20px;
+  --gauge-label-line-height-big: 36px;
+  --gauge-label-line-height: 26px;
   --scorescale-height: 6px;
   --scorescale-width: 18px;
   --category-padding: 40px;
@@ -204,15 +204,15 @@
     --header-padding: 16px 0 16px 0;
     --plugin-icon-size: 75%;
     --pwa-icon-margin: 0 7px 0 -3px;
-    --score-gauge-wrapper-width: 112px;
-    --score-gauge-percentage-font-size-big: 34px;
-    --score-gauge-percentage-font-size: 26px;
+    --gauge-wrapper-width: 112px;
+    --gauge-percentage-font-size-big: 34px;
+    --gauge-percentage-font-size: 26px;
     --score-icon-margin-left: 2px;
     --score-icon-size: 10px;
-    --score-gauge-label-font-size-big: 22px;
-    --score-gauge-label-font-size: 14px;
-    --score-gauge-label-line-height-big: 26px;
-    --score-gauge-label-line-height: 20px;
+    --gauge-label-font-size-big: 22px;
+    --gauge-label-font-size: 14px;
+    --gauge-label-line-height-big: 26px;
+    --gauge-label-line-height: 20px;
     --category-padding: 24px;
     --topbar-height: 28px;
     --topbar-logo-size: 20px;
@@ -244,15 +244,15 @@
   --header-padding: 16px 0 16px 0;
   --plugin-icon-size: 75%;
   --pwa-icon-margin: 0 7px 0 -3px;
-  --score-gauge-wrapper-width: 97px;
-  --score-gauge-percentage-font-size-big: 34px;
-  --score-gauge-percentage-font-size: 26px;
+  --gauge-wrapper-width: 97px;
+  --gauge-percentage-font-size-big: 34px;
+  --gauge-percentage-font-size: 26px;
   --score-icon-margin-left: 2px;
   --score-icon-size: 10px;
-  --score-gauge-label-font-size-big: 22px;
-  --score-gauge-label-font-size: 14px;
-  --score-gauge-label-line-height-big: 26px;
-  --score-gauge-label-line-height: 20px;
+  --gauge-label-font-size-big: 22px;
+  --gauge-label-font-size: 14px;
+  --gauge-label-line-height-big: 26px;
+  --gauge-label-line-height: 20px;
 
   --audit-padding-vertical: 4px;
   --audit-group-padding-vertical: 12px;
@@ -1112,7 +1112,7 @@
 
 .lh-category .lh-gauge__percentage {
   --gauge-circle-size: var(--gauge-circle-size-big);
-  --score-gauge-percentage-font-size: var(--score-gauge-percentage-font-size-big);
+  --gauge-percentage-font-size: var(--gauge-percentage-font-size-big);
 }
 
 .lh-gauge__wrapper {
@@ -1132,8 +1132,8 @@
 }
 
 .lh-gauge__label {
-  font-size: var(--score-gauge-label-font-size);
-  line-height: var(--score-gauge-label-line-height);
+  font-size: var(--gauge-label-font-size);
+  line-height: var(--gauge-label-line-height);
   margin-top: 10px;
   text-align: center;
   color: var(--report-text-color);
@@ -1141,8 +1141,8 @@
 
 /* TODO(#8185) use more BEM (.lh-gauge__label--big) instead of relying on descendant selector */
 .lh-category .lh-gauge__label {
-  --score-gauge-label-font-size: var(--score-gauge-label-font-size-big);
-  --score-gauge-label-line-height: var(--score-gauge-label-line-height-big);
+  --gauge-label-font-size: var(--gauge-label-font-size-big);
+  --gauge-label-line-height: var(--gauge-label-line-height-big);
   margin-top: 14px;
 }
 
@@ -1151,7 +1151,7 @@
 .lh-scores-header .lh-gauge--pwa__wrapper,
 .lh-sticky-header .lh-gauge__wrapper,
 .lh-sticky-header .lh-gauge--pwa__wrapper {
-  width: var(--score-gauge-wrapper-width);
+  width: var(--gauge-wrapper-width);
 }
 
 .lh-scores-header .lh-gauge--pwa__wrapper {
