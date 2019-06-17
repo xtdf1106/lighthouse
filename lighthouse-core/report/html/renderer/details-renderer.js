@@ -170,6 +170,7 @@ class DetailsRenderer {
     element.textContent = text;
     element.href = href;
     element.target = '_blank';
+    element.rel = 'noopener';
     return element;
   }
 
