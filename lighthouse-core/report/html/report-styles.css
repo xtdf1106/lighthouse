@@ -1372,6 +1372,11 @@
   object-fit: contain;
 }
 
+a.lh-anchor {
+  color: inherit;
+  text-decoration: none;
+}
+
 /* Chevron
    https://codepen.io/paulirish/pen/LmzEmK
  */

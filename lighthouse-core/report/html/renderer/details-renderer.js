@@ -113,7 +113,7 @@ class DetailsRenderer {
     }
 
     const element = this._dom.createElement('div', 'lh-text__url');
-    element.appendChild(this._renderText(displayedPath));
+    element.appendChild(this._renderAnchor(displayedPath, url));
 
     if (displayedHost) {
       const hostElem = this._renderText(displayedHost);
@@ -157,6 +157,19 @@ class DetailsRenderer {
   _renderText(text) {
     const element = this._dom.createElement('div', 'lh-text');
     element.textContent = text;
+    return element;
+  }
+
+  /**
+   * @param {string} text
+   * @param {string} href
+   * @return {Element}
+   */
+  _renderAnchor(text, href) {
+    const element = this._dom.createElement('a', 'lh-anchor');
+    element.textContent = text;
+    element.href = href;
+    element.target = '_blank';
     return element;
   }
 
