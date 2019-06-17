@@ -113,7 +113,7 @@ class DetailsRenderer {
     }
 
     const element = this._dom.createElement('div', 'lh-text__url');
-    element.appendChild(this._renderAnchor(displayedPath, url));
+    element.appendChild(this._renderLink(displayedPath, new URL(url)));
 
     if (displayedHost) {
       const hostElem = this._renderText(displayedHost);
@@ -130,21 +130,21 @@ class DetailsRenderer {
   }
 
   /**
-   * @param {LH.Audit.Details.LinkValue} details
+   * @param {string} text
+   * @param {URL} url
    * @return {Element}
    */
-  _renderLink(details) {
+  _renderLink(text, url) {
     const allowedProtocols = ['https:', 'http:'];
-    const url = new URL(details.url);
     if (!allowedProtocols.includes(url.protocol)) {
       // Fall back to just the link text if protocol not allowed.
-      return this._renderText(details.text);
+      return this._renderText(text);
     }
 
-    const a = this._dom.createElement('a');
+    const a = this._dom.createElement('a', 'lh-anchor');
     a.rel = 'noopener';
     a.target = '_blank';
-    a.textContent = details.text;
+    a.textContent = text;
     a.href = url.href;
 
     return a;
@@ -157,20 +157,6 @@ class DetailsRenderer {
   _renderText(text) {
     const element = this._dom.createElement('div', 'lh-text');
     element.textContent = text;
-    return element;
-  }
-
-  /**
-   * @param {string} text
-   * @param {string} href
-   * @return {Element}
-   */
-  _renderAnchor(text, href) {
-    const element = this._dom.createElement('a', 'lh-anchor');
-    element.textContent = text;
-    element.href = href;
-    element.target = '_blank';
-    element.rel = 'noopener';
     return element;
   }
 
@@ -219,7 +205,7 @@ class DetailsRenderer {
           return this._renderCode(value.value);
         }
         case 'link': {
-          return this._renderLink(value);
+          return this._renderLink(value.text, new URL(value.url));
         }
         case 'node': {
           return this.renderNode(value);
