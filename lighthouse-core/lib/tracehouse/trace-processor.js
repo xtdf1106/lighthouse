@@ -66,10 +66,68 @@ class TraceProcessor {
   }
 
   /**
+   * This method sorts a group of trace events that have the same timestamp. We want to...
+   *
+   * 1. Put E events first, we finish off our existing events before we start new ones.
+   * 2. Order B/X events by their duration, we want parents to start before child events.
+   * 3. If we don't have any of this to go on, just use the position in the original array (stable sort).
+   *
+   * @param {number[]} tsGroupIndices
+   * @param {number[]} timestampSortedIndices
+   * @param {number} indexOfTsGroupIndicesStart
+   * @param {LH.TraceEvent[]} traceEvents
+   * @return {number[]}
+   */
+  static _sortTimestampEventGroup(
+    tsGroupIndices,
+    timestampSortedIndices,
+    indexOfTsGroupIndicesStart,
+    traceEvents
+  ) {
+    const eEventIndices = tsGroupIndices.filter(index => traceEvents[index].ph === 'E');
+    const bxEventIndices = tsGroupIndices.filter(index => traceEvents[index].ph === 'X' ||
+      traceEvents[index].ph === 'B');
+    const otherEventIndices = tsGroupIndices.filter(index => !eEventIndices.includes(index) &&
+      !bxEventIndices.includes(index));
+
+    const effectiveDuration = new Map();
+    for (const index of bxEventIndices) {
+      const event = traceEvents[index];
+      if (event.ph === 'X') {
+        effectiveDuration.set(index, event.dur);
+      } else {
+        // Find the first 'E' event that matches our name.
+        const startIndex = indexOfTsGroupIndicesStart + tsGroupIndices.length;
+        for (let j = startIndex; j < timestampSortedIndices.length; j++) {
+          const potentialEndEvent = traceEvents[timestampSortedIndices[j]];
+          if (potentialEndEvent.ph === 'E' && potentialEndEvent.name === event.name) {
+            effectiveDuration.set(index, potentialEndEvent.ts - event.ts);
+            break;
+          }
+        }
+
+        if (!effectiveDuration.has(index)) {
+          effectiveDuration.set(index, Number.MAX_SAFE_INTEGER);
+        }
+      }
+    }
+
+    bxEventIndices.sort((indexA, indexB) => (effectiveDuration.get(indexB) -
+      effectiveDuration.get(indexA) || (indexA - indexB)));
+
+    otherEventIndices.sort((indexA, indexB) => indexA - indexB);
+
+    return [...eEventIndices, ...bxEventIndices, ...otherEventIndices];
+  }
+
+  /**
+   * Sorts and filters trace events by timestamp and respecting the nesting structure inherent to
+   * parent/child event relationships.
+   *
    * @param {LH.TraceEvent[]} traceEvents
    * @param {(e: LH.TraceEvent) => boolean} filter
    */
-  static _filteredStableSort(traceEvents, filter) {
+  static filteredTraceSort(traceEvents, filter) {
     // create an array of the indices that we want to keep
     const indices = [];
     for (let srcIndex = 0; srcIndex < traceEvents.length; srcIndex++) {
@@ -78,11 +136,30 @@ class TraceProcessor {
       }
     }
 
-    // sort by ts, if there's no ts difference sort by index
-    indices.sort((indexA, indexB) => {
-      const result = traceEvents[indexA].ts - traceEvents[indexB].ts;
-      return result ? result : indexA - indexB;
-    });
+    // Sort by ascending timestamp first.
+    indices.sort((indexA, indexB) => traceEvents[indexA].ts - traceEvents[indexB].ts);
+
+    // Now we find groups with equal timestamps and order them by their nesting structure.
+    for (let i = 0; i < indices.length - 1; i++) {
+      const ts = traceEvents[indices[i]].ts;
+      const tsGroupIndices = [indices[i]];
+      for (let j = i + 1; j < indices.length; j++) {
+        if (traceEvents[indices[j]].ts !== ts) break;
+        tsGroupIndices.push(indices[j]);
+      }
+
+      // We didn't find any other events with the same timestamp, just keep going.
+      if (tsGroupIndices.length === 1) continue;
+
+      // Sort the group by other criteria and replace our index array with it.
+      const finalIndexOrder = TraceProcessor._sortTimestampEventGroup(
+        tsGroupIndices,
+        indices,
+        i,
+        traceEvents,
+      )
+      indices.splice(i, finalIndexOrder.length, ...finalIndexOrder);
+    }
 
     // create a new array using the target indices from previous sort step
     const sorted = [];
@@ -356,7 +433,7 @@ class TraceProcessor {
   static computeTraceOfTab(trace) {
     // Parse the trace for our key events and sort them by timestamp. Note: sort
     // *must* be stable to keep events correctly nested.
-    const keyEvents = this._filteredStableSort(trace.traceEvents, e => {
+    const keyEvents = this.filteredTraceSort(trace.traceEvents, e => {
       return e.cat.includes('blink.user_timing') ||
           e.cat.includes('loading') ||
           e.cat.includes('devtools.timeline') ||
@@ -411,7 +488,7 @@ class TraceProcessor {
     // subset all trace events to just our tab's process (incl threads other than main)
     // stable-sort events to keep them correctly nested.
     const processEvents = TraceProcessor
-      ._filteredStableSort(trace.traceEvents, e => e.pid === mainFrameIds.pid);
+      .filteredTraceSort(trace.traceEvents, e => e.pid === mainFrameIds.pid);
 
     const mainThreadEvents = processEvents
       .filter(e => e.tid === mainFrameIds.tid);
