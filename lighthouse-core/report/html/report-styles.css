@@ -1372,7 +1372,8 @@
   object-fit: contain;
 }
 
-a.lh-link {
+.lh-text__url > a,
+.lh-crc .crc-node__tree-value > a {
   color: inherit;
   text-decoration: none;
 }

@@ -141,7 +141,7 @@ class DetailsRenderer {
       return this._renderText(text);
     }
 
-    const a = this._dom.createElement('a', 'lh-link');
+    const a = this._dom.createElement('a');
     a.rel = 'noopener';
     a.target = '_blank';
     a.textContent = text;
