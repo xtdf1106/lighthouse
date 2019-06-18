@@ -113,7 +113,7 @@ class DetailsRenderer {
     }
 
     const element = this._dom.createElement('div', 'lh-text__url');
-    element.appendChild(this._renderLink(displayedPath, new URL(url)));
+    element.appendChild(this._renderLink({text: displayedPath, url}));
 
     if (displayedHost) {
       const hostElem = this._renderText(displayedHost);
@@ -130,21 +130,21 @@ class DetailsRenderer {
   }
 
   /**
-   * @param {string} text
-   * @param {URL} url
+   * @param {Omit<LH.Audit.Details.LinkValue, "type">} details
    * @return {Element}
    */
-  _renderLink(text, url) {
+  _renderLink(details) {
     const allowedProtocols = ['https:', 'http:'];
+    const url = new URL(details.url);
     if (!allowedProtocols.includes(url.protocol)) {
       // Fall back to just the link text if protocol not allowed.
-      return this._renderText(text);
+      return this._renderText(details.text);
     }
 
     const a = this._dom.createElement('a');
     a.rel = 'noopener';
     a.target = '_blank';
-    a.textContent = text;
+    a.textContent = details.text;
     a.href = url.href;
 
     return a;
@@ -205,7 +205,7 @@ class DetailsRenderer {
           return this._renderCode(value.value);
         }
         case 'link': {
-          return this._renderLink(value.text, new URL(value.url));
+          return this._renderLink(value);
         }
         case 'node': {
           return this.renderNode(value);
