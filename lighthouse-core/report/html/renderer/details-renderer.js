@@ -130,7 +130,7 @@ class DetailsRenderer {
   }
 
   /**
-   * @param {Omit<LH.Audit.Details.LinkValue, "type">} details
+   * @param {{text: string, url: string}} details
    * @return {Element}
    */
   _renderLink(details) {
