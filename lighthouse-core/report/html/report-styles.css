@@ -1286,7 +1286,7 @@
 }
 
 .lh-table {
-  --image-preview-size: 24px;
+  --image-preview-size: 48px;
   border-collapse: collapse;
   /* Can't assign padding to table, so shorten the width instead. */
   width: calc(100% - var(--inner-audit-left-padding));
@@ -1333,8 +1333,11 @@
 }
 
 
-.lh-table-column--thumbnail {
-  width: calc(var(--image-preview-size) * 2);
+
+.lh-table .lh-table-column--thumbnail {
+  width: var(--image-preview-size);
+  position: relative;
+  padding: 0;
 }
 
 .lh-table-column--url {
@@ -1367,9 +1370,13 @@
 }
 
 .lh-thumbnail {
-  height: var(--image-preview-size);
-  width: var(--image-preview-size);
-  object-fit: contain;
+  background-size: cover;
+  background-repeat: no-repeat;
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
 }
 
 /* Chevron

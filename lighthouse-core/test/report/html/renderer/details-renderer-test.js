@@ -86,7 +86,7 @@ describe('DetailsRenderer', () => {
       });
 
       assert.equal(el.localName, 'table', 'did not render table');
-      assert.ok(el.querySelector('img'), 'did not render recursive items');
+      assert.ok(el.querySelector('div.lh-thumbnail'), 'did not render recursive items');
       assert.equal(el.querySelectorAll('th').length, 3, 'did not render header items');
       assert.equal(el.querySelectorAll('td').length, 6, 'did not render table cells');
       assert.equal(el.querySelectorAll('.lh-table-column--text').length, 6, '--text not set');
@@ -297,11 +297,10 @@ describe('DetailsRenderer', () => {
       };
 
       const el = renderer.render(details);
-      const thumbnailEl = el.querySelector('img');
-      assert.ok(thumbnailEl.classList.contains('lh-thumbnail'));
-      assert.strictEqual(thumbnailEl.src, 'http://example.com/my-image.jpg');
+      const thumbnailEl = el.querySelector('div.lh-thumbnail');
+      assert.ok(thumbnailEl);
+      assert.strictEqual(thumbnailEl.style.backgroundImage, 'url(http://example.com/my-image.jpg)');
       assert.strictEqual(thumbnailEl.title, 'http://example.com/my-image.jpg');
-      assert.strictEqual(thumbnailEl.alt, '');
     });
 
     it('renders link values', () => {

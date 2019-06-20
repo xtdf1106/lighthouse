@@ -176,11 +176,10 @@ class DetailsRenderer {
    * @return {Element}
    */
   _renderThumbnail(details) {
-    const element = this._dom.createElement('img', 'lh-thumbnail');
+    const element = this._dom.createElement('div', 'lh-thumbnail');
     const strValue = details;
-    element.src = strValue;
+    element.style.backgroundImage = `url("${strValue}")`;
     element.title = strValue;
-    element.alt = '';
     return element;
   }
 
