@@ -72,11 +72,11 @@ module.exports = [
       audits: {
         'resource-summary': {
           score: null,
-          displayValue: '11 requests • 164 KB',
+          displayValue: '12 requests • 211 KB',
           details: {
             items: [
-              {resourceType: 'total', requestCount: 11, size: '168000±1000'},
-              {resourceType: 'font', requestCount: 2, size: '80000±1000'},
+              {resourceType: 'total', requestCount: 12, size: '215000±1000'},
+              {resourceType: 'font', requestCount: 3, size: '128000±1000'},
               {resourceType: 'script', requestCount: 3, size: '55000±1000'},
               {resourceType: 'image', requestCount: 2, size: '28000±1000'},
               {resourceType: 'document', requestCount: 1, size: '2100±100'},
@@ -94,18 +94,18 @@ module.exports = [
             items: [
               {
                 resourceType: 'total',
-                countOverBudget: '3 requests',
-                sizeOverBudget: '65000±1000',
+                countOverBudget: '4 requests',
+                sizeOverBudget: '113000±1000',
+              },
+              {
+                resourceType: 'font',
+                countOverBudget: '1 request',
+                sizeOverBudget: '52000±1000',
               },
               {
                 resourceType: 'script',
                 countOverBudget: '2 requests',
                 sizeOverBudget: '25000±1000',
-              },
-              {
-                resourceType: 'font',
-                countOverBudget: undefined,
-                sizeOverBudget: '4000±500',
               },
               {
                 resourceType: 'document',
