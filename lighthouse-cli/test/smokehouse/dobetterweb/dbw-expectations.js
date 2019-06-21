@@ -16,6 +16,9 @@ module.exports = [
       }, {
         id: 'wordpress',
       }],
+      TagsBlockingFirstPaint: {
+        length: 7,
+      },
     },
     lhr: {
       requestedUrl: 'http://localhost:10200/dobetterweb/dbw_tester.html',
