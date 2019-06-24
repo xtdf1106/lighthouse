@@ -13,6 +13,7 @@ const jsdom = require('jsdom');
 const URL = require('../../../../lib/url-shim.js');
 const Util = require('../../../../report/html/renderer/util.js');
 const DOM = require('../../../../report/html/renderer/dom.js');
+const DetailsRenderer = require('../../../../report/html/renderer/details-renderer.js');
 const CriticalRequestChainRenderer =
     require('../../../../report/html/renderer/crc-details-renderer.js');
 
@@ -75,12 +76,14 @@ const DETAILS = {
 
 describe('DetailsRenderer', () => {
   let dom;
+  let detailsRenderer;
 
   beforeAll(() => {
     global.URL = URL;
     global.Util = Util;
     const {document} = new jsdom.JSDOM(TEMPLATE_FILE).window;
     dom = new DOM(document);
+    detailsRenderer = new DetailsRenderer(dom);
   });
 
   afterAll(() => {
@@ -89,7 +92,7 @@ describe('DetailsRenderer', () => {
   });
 
   it('renders tree structure', () => {
-    const el = CriticalRequestChainRenderer.render(dom, dom.document(), DETAILS);
+    const el = CriticalRequestChainRenderer.render(dom, dom.document(), DETAILS, detailsRenderer);
     const chains = el.querySelectorAll('.crc-node');
 
     // Main request

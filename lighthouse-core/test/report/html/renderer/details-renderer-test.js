@@ -386,6 +386,9 @@ describe('DetailsRenderer', () => {
       assert.equal(urlEl.title, urlText);
       assert.equal(urlEl.dataset.url, urlText);
       assert.equal(urlEl.firstChild.nodeName, 'A');
+      assert.equal(urlEl.firstChild.href, urlText);
+      assert.equal(urlEl.firstChild.rel, 'noopener');
+      assert.equal(urlEl.firstChild.target, '_blank');
       assert.equal(urlEl.textContent, displayUrlText);
     });
 

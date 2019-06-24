@@ -147,15 +147,15 @@ class CriticalRequestChainRenderer {
    * @param {CRCSegment} segment
    * @param {Element} elem Parent element.
    * @param {LH.Audit.Details.CriticalRequestChain} details
-   * @param {DetailsRenderer} detRenderer
+   * @param {DetailsRenderer} detailsRenderer
    */
-  static buildTree(dom, tmpl, segment, elem, details, detRenderer) {
-    elem.appendChild(CriticalRequestChainRenderer.createChainNode(dom, tmpl, segment, detRenderer));
+  static buildTree(dom, tmpl, segment, elem, details, detailsRenderer) {
+    elem.appendChild(CRCRenderer.createChainNode(dom, tmpl, segment, detailsRenderer));
     if (segment.node.children) {
       for (const key of Object.keys(segment.node.children)) {
-        const childSegment = CriticalRequestChainRenderer.createSegment(segment.node.children, key,
+        const childSegment = CRCRenderer.createSegment(segment.node.children, key,
           segment.startTime, segment.transferSize, segment.treeMarkers, segment.isLastChild);
-        CriticalRequestChainRenderer.buildTree(dom, tmpl, childSegment, elem, details, detRenderer);
+        CRCRenderer.buildTree(dom, tmpl, childSegment, elem, details, detailsRenderer);
       }
     }
   }
@@ -164,10 +164,10 @@ class CriticalRequestChainRenderer {
    * @param {DOM} dom
    * @param {ParentNode} templateContext
    * @param {LH.Audit.Details.CriticalRequestChain} details
-   * @param {DetailsRenderer} detRenderer
+   * @param {DetailsRenderer} detailsRenderer
    * @return {Element}
    */
-  static render(dom, templateContext, details, detRenderer) {
+  static render(dom, templateContext, details, detailsRenderer) {
     const tmpl = dom.cloneTemplate('#tmpl-lh-crc', templateContext);
     const containerEl = dom.find('.lh-crc', tmpl);
 
@@ -179,16 +179,18 @@ class CriticalRequestChainRenderer {
         Util.formatMilliseconds(details.longestChain.duration);
 
     // Construct visual tree.
-    const root = CriticalRequestChainRenderer.initTree(details.chains);
+    const root = CRCRenderer.initTree(details.chains);
     for (const key of Object.keys(root.tree)) {
-      const segment = CriticalRequestChainRenderer.createSegment(root.tree, key,
-          root.startTime, root.transferSize);
-      CriticalRequestChainRenderer.buildTree(dom, tmpl, segment, containerEl, details, detRenderer);
+      const segment = CRCRenderer.createSegment(root.tree, key, root.startTime, root.transferSize);
+      CRCRenderer.buildTree(dom, tmpl, segment, containerEl, details, detailsRenderer);
     }
 
     return dom.find('.lh-crc-container', tmpl);
   }
 }
+
+// Alias b/c the name is really long.
+const CRCRenderer = CriticalRequestChainRenderer;
 
 // Allow Node require()'ing.
 if (typeof module !== 'undefined' && module.exports) {
