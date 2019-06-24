@@ -993,8 +993,9 @@
 .lh-warnings--toplevel {
   --item-margin: calc(var(--header-line-height) / 4);
   color: var(--report-text-color-secondary);
-  margin: var(--category-padding);
-  padding: var(--category-padding);
+  margin-left: auto;
+  margin-right: auto;
+  width: 50%;
 }
 .lh-warnings ul {
   padding-left: calc(var(--category-padding) * 2);
