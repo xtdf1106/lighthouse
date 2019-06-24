@@ -35,6 +35,7 @@
 .lh-vars {
   /* Palette using Material Design Colors
    * https://www.materialui.co/colors */
+  --color-amber: #FFF8E1; /* 50 */
   --color-blue-200: #90CAF9;
   --color-blue-900: #0D47A1;
   --color-blue-A700: #2962FF;
@@ -996,6 +997,7 @@
   margin-left: auto;
   margin-right: auto;
   width: 50%;
+  background-color: var(--color-amber);
 }
 .lh-warnings ul {
   padding-left: calc(var(--category-padding) * 2);
