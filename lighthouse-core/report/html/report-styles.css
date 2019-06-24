@@ -999,6 +999,12 @@
   width: 50%;
   background-color: var(--color-amber);
 }
+@media screen and (max-width: 964px) {
+  .lh-warnings--toplevel {
+    width: 100%;
+  }
+}
+
 .lh-warnings ul {
   padding-left: calc(var(--category-padding) * 2);
   margin: 0;
