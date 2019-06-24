@@ -97,7 +97,6 @@
   --header-line-height: 24px;
   --highlighter-background-color: var(--report-text-color);
   --icon-square-size: calc(var(--score-icon-size) * 0.88);
-  --metric-description-padding: 0 0 2px calc(var(--score-icon-margin-left) + var(--score-icon-size) + var(--score-icon-margin-right));
   --metric-toggle-lines-fill: #7F7F7F;
   --metrics-toggle-background-color: var(--color-gray-200);
   --plugin-badge-background-color: var(--color-white);
@@ -570,10 +569,9 @@
 }
 
 .lh-metric__innerwrap {
-  display: flex;
+  display: grid;
+  grid-template-columns: 1fr 80% 20%;
   align-items: center;
-  flex-wrap: wrap;
-  justify-content: space-between;
   padding: 10px 0;
 }
 
@@ -593,8 +591,9 @@
 
 .lh-metric__description {
   display: none;
+  grid-column-start: 1;
+  grid-column-end: 3;
   color: var(--report-text-color-secondary);
-  padding: var(--metric-description-padding);
 }
 
 .lh-metric__value {
