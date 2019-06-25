@@ -265,7 +265,7 @@
 }
 @media print {
   .lh-devtools .lh-container {
-    height: inherit;
+    overflow: unset;
   }
 }
 .lh-devtools .lh-sticky-header {
