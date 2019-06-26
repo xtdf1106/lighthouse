@@ -20,10 +20,9 @@ class GeolocationOnStart extends ViolationAudit {
   static get meta() {
     return {
       id: 'geolocation-on-start',
-      title: 'Avoids requesting the geolocation permission on page load',
-      failureTitle: 'Requests the geolocation permission on page load',
-      description: 'Users are mistrustful of or confused by sites that request their ' +
-          'location without context. Consider tying the request to user gestures instead. ' +
+      title: '避免在页面加载时请求地理位置权限',
+      failureTitle: '在页面加载时请求地理位置权限',
+      description: '页面在加载时自动请求用户位置会使用户不信任页面或感到困惑,应将此请求交给用户主动触发. ' +
           '[Learn more](https://developers.google.com/web/tools/lighthouse/audits/geolocation-on-load).',
       requiredArtifacts: ['ConsoleMessages'],
     };

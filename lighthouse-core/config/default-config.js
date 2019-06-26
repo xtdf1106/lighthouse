@@ -87,7 +87,7 @@ const UIStrings = {
   seoMobileGroupDescription: 'Make sure your pages are mobile friendly so users don’t have to pinch or zoom ' +
   'in order to read the content pages. [Learn more](https://developers.google.com/search/mobile-sites/).',
   /* Title of the navigation section within the Search Engine Optimization (SEO) category. Within this section are audits with descriptive titles that highlight ways to make a website content more easily understood by search engine crawler bots. */
-  seoContentGroupTitle: 'Content Best Practices',
+  seoContentGroupTitle: 'Best Practices',
   /* Description of the navigation section within the Search Engine Optimization (SEO) category. Within this section are audits with descriptive titles that highlight ways to make a website content more easily understood by search engine crawler bots. */
   seoContentGroupDescription: 'Format your HTML in a way that enables crawlers to better understand your app’s content.',
   /* Title of the navigation section within the Search Engine Optimization (SEO) category. Within this section are audits with descriptive titles that highlight ways to make a website accessible to search engine crawlers. */
@@ -461,7 +461,7 @@ const defaultConfig = {
       ],
     },
     'best-practices': {
-      title: 'Best Practices',
+      title:  str_(UIStrings.seoContentGroupTitle),
       auditRefs: [
         {id: 'appcache-manifest', weight: 1},
         {id: 'is-on-https', weight: 1},

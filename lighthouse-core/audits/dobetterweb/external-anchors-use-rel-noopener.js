@@ -15,10 +15,9 @@ class ExternalAnchorsUseRelNoopenerAudit extends Audit {
   static get meta() {
     return {
       id: 'external-anchors-use-rel-noopener',
-      title: 'Links to cross-origin destinations are safe',
-      failureTitle: 'Links to cross-origin destinations are unsafe',
-      description: 'Add `rel="noopener"` or `rel="noreferrer"` to any external links to improve ' +
-          'performance and prevent security vulnerabilities. ' +
+      title: '跨域链接是安全的',
+      failureTitle: '跨域链接是不安全的',
+      description: '将`rel =“noopener”`或`rel =“noreferrer”添加到任何外部链接以提高性能并防止安全漏洞. ' +
           '[Learn more](https://developers.google.com/web/tools/lighthouse/audits/noopener).',
       requiredArtifacts: ['URL', 'AnchorElements'],
     };

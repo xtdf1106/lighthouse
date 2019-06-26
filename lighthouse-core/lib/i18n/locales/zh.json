@@ -563,6 +563,18 @@
   "lighthouse-core/audits/redirects.js | title": {
     "message": "避免多次网页重定向"
   },
+  "lighthouse-core/audits/resource-summary.js | description": {
+    "message": "要设置页面资源的数量和大小的预算，请添加budget.json文件. [了解详情](https://developers.google.com/web/tools/lighthouse/audits/budgets).",
+    "description": "Description of a Lighthouse audit that tells the user that they can setup a budgets for the quantity and size of page resources. No character length limits. 'Learn More' becomes link text to additional documentation."
+  },
+  "lighthouse-core/audits/resource-summary.js | displayValue": {
+    "message": "{requestCount, plural, =1 {1 request} other {# requests}} • { byteCount, number, bytes } KB",
+    "description": "[ICU Syntax] Label for an audit identifying the number of requests and kilobytes used to load the page."
+  },
+  "lighthouse-core/audits/resource-summary.js | title": {
+    "message": "保持请求数量较少且传输大小较小",
+    "description": "Imperative title of a Lighthouse audit that tells the user to minimize the size and quantity of resources used to load the page."
+  },
   "lighthouse-core/audits/seo/canonical.js | description": {
     "message": "规范链接用于建议应在搜索结果中显示哪个网址。[了解详情](https://developers.google.com/web/tools/lighthouse/audits/canonical)。"
   },
@@ -879,7 +891,7 @@
     "message": "请确保您的 HTML 格式正确，以便抓取工具更好地了解您的应用的内容。"
   },
   "lighthouse-core/config/default-config.js | seoContentGroupTitle": {
-    "message": "内容最佳做法"
+    "message": "最佳实践"
   },
   "lighthouse-core/config/default-config.js | seoCrawlingGroupDescription": {
     "message": "若想让您的应用显示在搜索结果中，您需要先授权抓取工具访问该应用。"

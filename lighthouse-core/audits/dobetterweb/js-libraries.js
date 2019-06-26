@@ -19,8 +19,8 @@ class JsLibrariesAudit extends Audit {
   static get meta() {
     return {
       id: 'js-libraries',
-      title: 'Detected JavaScript libraries',
-      description: 'All front-end JavaScript libraries detected on the page.',
+      title: '检测到JavaScript库',
+      description: '在页面上检测到所有前端JavaScript库.',
       requiredArtifacts: ['Stacks'],
     };
   }

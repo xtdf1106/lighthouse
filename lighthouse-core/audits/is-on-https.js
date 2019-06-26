@@ -20,13 +20,9 @@ class HTTPS extends Audit {
   static get meta() {
     return {
       id: 'is-on-https',
-      title: 'Uses HTTPS',
-      failureTitle: 'Does not use HTTPS',
-      description: 'All sites should be protected with HTTPS, even ones that don\'t handle ' +
-          'sensitive data. HTTPS prevents intruders from tampering with or passively listening ' +
-          'in on the communications between your app and your users, and is a prerequisite for ' +
-          'HTTP/2 and many new web platform APIs. ' +
-          '[Learn more](https://developers.google.com/web/tools/lighthouse/audits/https).',
+      title: '使用HTTPS',
+      failureTitle: '没有使用HTTPS',
+      description: '所有站点都应该使用HTTPS保护，即使是那些不处理敏感数据的站点也是如此。 HTTPS可防止入侵者篡改或被动地监听您的应用与用户之间的通信，这是HTTP / 2和许多新的Web平台API的先决条件[Learn more](https://developers.google.com/web/tools/lighthouse/audits/https).',
       requiredArtifacts: ['devtoolsLogs'],
     };
   }
@@ -64,7 +60,7 @@ class HTTPS extends Audit {
 
       /** @type {LH.Audit.Details.Table['headings']} */
       const headings = [
-        {key: 'url', itemType: 'url', text: 'Insecure URL'},
+        {key: 'url', itemType: 'url', text: '不安全的URL'},
       ];
 
       return {

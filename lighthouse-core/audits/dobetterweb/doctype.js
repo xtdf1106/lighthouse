@@ -14,9 +14,9 @@ class Doctype extends Audit {
   static get meta() {
     return {
       id: 'doctype',
-      title: 'Page has the HTML doctype',
-      failureTitle: 'Page is missing the HTML doctype',
-      description: 'Specifying a doctype prevents the browser from switching to quirks-mode.' +
+      title: '页面具有HTML文档类型',
+      failureTitle: '页面缺少HTML文档类型',
+      description: '指定doctype会阻止浏览器切换到怪异模式' +
                 'Read more on the ' +
                 '[MDN Web Docs page](https://developer.mozilla.org/en-US/docs/Glossary/Doctype)',
       requiredArtifacts: ['Doctype'],

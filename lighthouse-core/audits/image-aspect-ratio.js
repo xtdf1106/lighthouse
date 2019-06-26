@@ -25,9 +25,9 @@ class ImageAspectRatio extends Audit {
   static get meta() {
     return {
       id: 'image-aspect-ratio',
-      title: 'Displays images with correct aspect ratio',
-      failureTitle: 'Displays images with incorrect aspect ratio',
-      description: 'Image display dimensions should match natural aspect ratio. ' +
+      title: '显示具有正确宽高比的图像',
+      failureTitle: '显示宽高比不正确的图像',
+      description: '图像显示尺寸应与自然纵横比相匹配。 ' +
         '[Learn more](https://developers.google.com/web/tools/lighthouse/audits/aspect-ratio).',
       requiredArtifacts: ['ImageElements'],
     };
@@ -100,8 +100,8 @@ class ImageAspectRatio extends Audit {
     const headings = [
       {key: 'url', itemType: 'thumbnail', text: ''},
       {key: 'url', itemType: 'url', text: 'URL'},
-      {key: 'displayedAspectRatio', itemType: 'text', text: 'Aspect Ratio (Displayed)'},
-      {key: 'actualAspectRatio', itemType: 'text', text: 'Aspect Ratio (Actual)'},
+      {key: 'displayedAspectRatio', itemType: 'text', text: '宽高比 (显示)'},
+      {key: 'actualAspectRatio', itemType: 'text', text: '宽高比 (实际)'},
     ];
 
     return {
